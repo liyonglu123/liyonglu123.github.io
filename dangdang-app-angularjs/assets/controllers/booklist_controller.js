@@ -4,7 +4,7 @@ app.controller('bookListController',['$scope','commonService','$routeParmas',fun
 console.dir($routeParmas);
   c_service.getData('ertong',function(res){
     console.log('获取数据成功');
-    console.dir(res);
+    console.dir(res.data);
     $scope.bookData = res.data;
   });
 }]);

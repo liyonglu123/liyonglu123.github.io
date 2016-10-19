@@ -1,7 +1,7 @@
-app.controller('bookListController',['$scope','commonService','$routeParmas',function($scope,c_service,$routeParmas){
+app.controller('bookListController',['$scope','commonService','$routeParams',function($scope,c_service,$routeParams){
   // 获取数据
   $scope.bookData =[];
-console.dir($routeParmas);
+console.dir($routeParams);
   c_service.getData($routeParmas.id,function(res){
     console.log('获取数据成功');
     console.dir(res.data);

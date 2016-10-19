@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>图书列表的具体展示</title>
-</head>
-
-<body>
     <div class="weui-panel__bd">
-      <div ng-view></div>
+      <!-- <div ng-view></div> -->
         <a ng-repeat="item in bookData" ng-href="{{item.link}}" class="weui-media-box weui-media-box_appmsg">
             <div class="weui-media-box__hd">
                 <img class="weui-media-box__thumb" ng-src="{{item.img}}" alt="">
@@ -24,7 +14,3 @@
             </div>
         </a>
     </div>
-
-</body>
-
-</html>

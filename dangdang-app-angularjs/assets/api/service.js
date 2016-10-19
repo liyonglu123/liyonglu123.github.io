@@ -8,7 +8,7 @@ app.factory('commonService',['$http',function($http){
       method:"get"
     })
     .then(function(res){
-      console.log('获取数据成功');
+      // console.log('获取数据成功');
       callBack(res);
     },function(err){
       callBack(err);

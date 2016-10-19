@@ -1,22 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>当当网热搜榜</title>
-  <link rel="stylesheet" href="assets/lib/weui/weui.css">
-</head>
-<body>
-  <div ng-app="app" ng-controller="mainController">
-    <div ng-view>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>当当网热搜榜</title>
+    <link rel="stylesheet" href="assets/lib/weui/weui.css">
+    <style>
+        html,
+        body,
+        .container {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="app">
+        <div class="page_db">
+            <div ng-view>
+            </div>
+            <div class="weui-tabbar" ng-controller="mainController">
+                <a href="#/" ng-click="linkTo(0)" class="weui-tabbar__item {{selectedIndex==0?'weui-bar__item_on':''}}">
+                    <img src="./assets/images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                    <p class="weui-tabbar__label">首页</p>
+                </a>
+                <a href="#/blog" ng-click="linkTo(1)" class="weui-tabbar__item {{selectedIndex==1?'weui-bar__item_on':''}}">
+                    <img src="./assets/images/icon_nav_cell.png" alt="" class="weui-tabbar__icon">
+                    <p class="weui-tabbar__label">我的blog</p>
+                </a>
+                <a href="#/book" ng-click="linkTo(2)" class="weui-tabbar__item {{selectedIndex==2?'weui-bar__item_on':''}}">
+                    <img src="./assets/images/icon_nav_tab.png" alt="" class="weui-tabbar__icon">
+                    <p class="weui-tabbar__label">当当热销</p>
+                </a>
+                <a href="#/about_me" ng-click="linkTo(3)" class="weui-tabbar__item {{selectedIndex==3?'weui-bar__item_on':''}}">
+                    <img src="./assets/images/icon_nav_toast.png" alt="" class="weui-tabbar__icon">
+                    <p class="weui-tabbar__label">联系我</p>
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
-   <script src="assets/lib/angular.js"></script>
-   <script src="assets/lib/angular-route.js"></script>
-   <script src="assets/app.js"></script>
-   <script src="assets/api/service.js"></script>
-   <script src="assets/controllers/main_controller.js"></script>
+    <script src="assets/lib/angular.min.js"></script>
+    <script src="assets/lib/angular-route.min.js"></script>
+    <script src="assets/app.js"></script>
+    <script src="assets/api/service.js"></script>
+    <script src="assets/controllers/main_controller.js"></script>
+    <script src="assets/controllers/book_controller.js"></script>
 </body>
+
 </html>

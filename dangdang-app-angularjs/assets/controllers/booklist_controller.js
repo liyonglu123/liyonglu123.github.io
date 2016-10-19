@@ -5,6 +5,6 @@ console.dir($routeParmas);
   c_service.getData('ertong',function(res){
     console.log('获取数据成功');
     console.dir(res);
-    $scope.bookData = res.data.data;
+    $scope.bookData = res.data;
   });
 }]);

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)file:///Users/mac/Desktop/1019/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>指令和函数</title>
+  <style>
+  .div-container{
+    width: 200px;
+    height: 150px;
+    margin: 15px;
+  }
+  .div-red{
+    background-color: red;
+
+  }
+  .div-blue{
+    background-color: blue;
+
+  }
+  p{
+    color: #fff;
+    font-size: 30px;
+  }
+  </style>
+</head>
+<body>
+  <!-- <div ng-app=''>
+    <p>名字：<input type="text" ng-model='name'></p>
+    <h1>hellow{{name}}</h1>
+  </div> -->
+ <!-- <div ng-app='' ng-init='firstName='json''>
+   <p>姓名：<span ng-bind='firstName'></span></p>
+ </div> -->
+<!-- ng-app作用域的问题 -->
+  <div ng-app="app" ng-init="txtIsShow=true;" ng-controller="mainController" class="ng-scope">
+    <div class="main">
+       显示<input type="checkbox" ng-model="txtIsShow" class="ng-pristine ng-untouched ng-valid ng-not-empty">
+       <!-- ng-if 如果是 false 的时候会直接删除节点
+             ng-show /ng-hide设置元素的可见或者隐藏 -->
+      <div class="div-container div-red" ng-show="txtIsShow">
+         <p>这个是红色的div</p>
+      </div>
+      <!-- ngIf: txtIsShow --><div class="div-container div-blue ng-scope" ng-if="txtIsShow">
+         <p>这个是蓝色的div</p>
+      </div><!-- end ngIf: txtIsShow -->
+      <input type="text" ng-keyup="keyUpHandle()" ng-model="txtInput" class="ng-valid ng-dirty ng-empty ng-valid-parse ng-touched">
+      <!-- <button ng-click="changeShow()">tap</button> -->
+    </div>
+  </div>
+<script src="./指令和函数_files/angular.js"></script>
+<script src="./指令和函数_files/index.js"></script>
+
+
+</body></html>

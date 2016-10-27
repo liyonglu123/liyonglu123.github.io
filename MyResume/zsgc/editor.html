@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>编辑页面</title>
+  <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <form role="form">
+    <div class="form-group">
+      <label for="exampleInputEmail1">姓名</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">年龄</label>
+      <input type="number" class="form-control" id="age" name="age" placeholder="请输入年龄">
+    </div>
+    <!--
+当input的type为radio的时候
+如果要实现多个radio只能选择一个 那么只需要设置name一样就可以
+name相同的radio属于同一个分组
+   -->
+    <div class="form-group">
+      <label for="exampleInputFile">性别</label>
+      <label>
+      <input type="radio" name="gender" checked="checked" value="男">
+      男
+    </label>
+    <label>
+      <input type="radio" name="gender" value="女">
+      女
+    </label>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">爱好</label>
+      <textarea  class="form-control" name="hobby" rows="8" cols="40"></textarea>
+    </div>
+    <a onclick="doSbmit(event)" class="btn btn-default">提交</a>
+  </form>
+</div>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/sub.js"></script>
+</body>
+</html>

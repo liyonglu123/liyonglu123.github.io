@@ -1,17 +1,20 @@
 <style lang="less">
 .container {
-  height: 100%;
+  // height: 100%;
+  width: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  // align-items: center;
+  // justify-content: space-between;
   box-sizing: border-box;
 }
-</style>
+</style>  
 
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
+import Promise from 'promise-polyfill'; 
 
 export default class extends wepy.app {
   config = {
@@ -52,7 +55,8 @@ export default class extends wepy.app {
 
   constructor () {
     super()
-    this.use('requestfix')
+    // this.use('requestfix')  不支持promise以及 async和await
+    this.use('promisify'); // 支持promise以及 async和await
   }
 
   onLaunch() {

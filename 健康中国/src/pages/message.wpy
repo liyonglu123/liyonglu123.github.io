@@ -1,18 +1,68 @@
 <style lang="less">
+.swiper {
+  height: 480rpx;
+}
+.slide-image {
+  width: 100%;
+  height: 100%;
+}
 </style>
 <template>
-     <view class="message">
-    <text>咨讯</text>
+    <view class="container">
+    <swiper class="swiper" indicator-dots="" autoplay="true" interval="2000" duration="2000">
+      <block wx:for="{{imgUrls}}">
+         <swiper-item>
+           <image src="{{item}}" class="slide-image" mode="aspectFill"/>
+          </swiper-item>
+      </block>
+    </swiper>
+    <!-- <text>咨\t讯</text>
+    <text>{{msg}}</text>
+    <button @tap="changeNum" size="mini" type="primary">点击改变数值</button> -->
   </view>
 </template>
 
 <script>
   import wepy from 'wepy'
+  import api from '../service/api'
+  const ERR_OK = 200
   export default class Message extends wepy.page {
     config = {
-      'navigationBarTitleText': '咨讯',
-    'navigationBarTextStyle': 'white',
-    'navigationBarBackgroundColor': '#ff7700'
-    }
+      'navigationBarTitleText': '健康中国',
+      'navigationBarTextStyle': 'white',
+      'navigationBarBackgroundColor': '#ff7700'
+    };
+    data = {
+      imgUrls: [
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+    ], 
+      // msg: '666',
+      // name: '这是异步获取的数据'
+    };
+    methods = {
+      // changeNum (){
+      //   // this.msg++;
+      // }
+    };
+    async onLoad(){
+      try {
+         let datalist = [];
+         this.msg = '777';
+         datalist = await api.getDataList();
+         if(datalist.data.status_code == ERR_OK){
+           console.log(datalist.data.data);
+        let data = datalist.data.data;
+        this.name = data[0].name;
+         }
+        this.$apply();  // 异步获取数据的时候需要添加的  如果你在AngularJS上下文之外的任何地方修改了model，
+                       // 那么你就需要通过手动调用$apply()来通知AngularJS。这就像告诉AngularJS，
+                      // 你修改了一些models，希望AngularJS帮你触发watchers来做出正确的响应。
+      } catch (error) {
+        console.log(error);
+      }
+     
+       }
   }
 </script>

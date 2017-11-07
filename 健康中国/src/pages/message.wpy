@@ -1,0 +1,18 @@
+<style lang="less">
+</style>
+<template>
+     <view class="message">
+    <text>咨讯</text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class Message extends wepy.page {
+    config = {
+      'navigationBarTitleText': '咨讯',
+    'navigationBarTextStyle': 'white',
+    'navigationBarBackgroundColor': '#ff7700'
+    }
+  }
+</script>

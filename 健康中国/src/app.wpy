@@ -19,7 +19,8 @@ import Promise from 'promise-polyfill';
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/message',
+      'pages/message/message',
+      'pages/message/messageDetail',
       'pages/science',
       'pages/toolCase',
     ],

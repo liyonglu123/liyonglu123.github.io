@@ -1,0 +1,85 @@
+<style lang="less">
+.messageDetail{
+    padding: 15rpx 15rpx;
+    .title {
+    font-weight: bold;
+    font-size: 60rpx;
+    }
+    .date{
+        margin-top: 15rpx;
+    }
+    .pic{
+        width: 100%;
+        height: 480rpx;
+        margin: 30rpx 0; 
+        image{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .content{
+        font-size: 40rpx;
+        letter-spacing:3rpx;
+    }
+
+}
+
+</style>
+<template>
+  <view class="messageDetail">
+    <!-- <text>文章详情</text> -->
+    <view class="title">
+        调查显示：{{messageDetail.title}}
+    </view>
+    <view class="date">
+        <text>{{messageDetail.hospital_logo}} </text>
+        <text>{{messageDetail.hospital_name}} </text>
+        <text>{{messageDetail.publish_date}} </text>
+         
+    </view>
+    <view class="pic">
+        <!-- <image src="{{image}}" ></image> -->
+        <image src="{{messageDetail.img}}"></image>
+    </view>
+    <view class="content">
+        {{messageDetail.content}}
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class MessageDetail extends wepy.page {
+    config = {
+      'navigationBarTitleText': '文章详情页',
+       'navigationBarTextStyle': 'white',
+    'navigationBarBackgroundColor': '#ff7700'
+    };
+    data = {
+        // image: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        messageDetail: {
+    
+        }
+    };
+    // 
+    // async getImageUrl(url){
+    //     //  异步改变数据的url 图片
+    //     //  console.log(that);
+    //     await setTimeout(function() {
+    //       this.image = url;
+    //     }, 1000);
+    //     // this.$apply();
+        
+    // };
+    onLoad(params){
+        // debugger
+       
+       
+        // console.log(JSON.parse(params.dataObj));
+        this.messageDetail = JSON.parse(params.dataObj);
+        // that.$apply();
+        // console.log(this.messageDetail.img);
+        // this.getImageUrl(this.messageDetail.img);
+    }
+  }
+</script>

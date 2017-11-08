@@ -21,7 +21,7 @@
     <!-- <text>more</text> -->
     <view class="recommend-list">
         <block wx:for="{{moreRecommendList}}" wx:key="key">
-           <view class="recommend-item">
+           <view class="recommend-item" @tap="goScienceDetail('{{item}}')">
              <text class="title">{{item.title}}</text>
              <text class="reader-count">{{item.reader_count}}</text>
           </view>
@@ -42,8 +42,18 @@
         moreRecommendList: []
     }
     onLoad(params){
-        debugger
-        this.moreRecommendList = JSON.parse(params.dataList)
+        // debugger
+        this.moreRecommendList = JSON.parse(params.dataList);
+        console.log(this.moreRecommendList);
+    }
+    methods = {
+      //  去详情页面
+      goScienceDetail(item){
+        // debugger
+        wepy.navigateTo({
+          url: 'scienceDetail?dataObj='+JSON.stringify(item) 
+        })
+      },
     }
   }
 </script>

@@ -21,10 +21,10 @@ export default class extends wepy.app {
     pages: [
       'pages/science/science',
       'pages/message/message',
-      
       'pages/toolCase',
       'pages/message/messageDetail',
-      'pages/science/scienceMore'
+      'pages/science/scienceMore',
+      'pages/science/scienceDetail'
     ],
     window: {
       backgroundTextStyle: 'light',

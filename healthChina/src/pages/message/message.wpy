@@ -1,0 +1,222 @@
+<style lang="less">
+.swiper {
+  height: 400rpx;
+}
+.slide-image {
+  width: 100%;
+  height: 100%;
+}
+.swiper-item {
+  position: relative;
+  .notice{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100rpx;
+    background: rgba(0,199,289,0.3);
+    .title{
+      display: inline-block;
+      vertical-align: middle;
+      margin-top: 15rpx;
+      padding: 10rpx;
+      // 超出的部分省略
+      width: 75%;
+      // height: 100rpx;
+    text-align: left;
+    text-overflow:ellipsis; 
+    overflow:hidden; 
+    white-space: nowrap;
+    }
+    .num{
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right:30rpx;
+      top: 10rpx;
+      height: 80rpx;
+      width: 100rpx;
+      border-radius: 20rpx;
+      background: blue;
+    }
+  }
+}
+//  下面的列表
+.content-list{
+  padding: 30rpx;
+}
+.content-item{
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid gray;
+  .left{
+    flex: 0 0 75%;
+    width: 75%;
+    padding: 10rpx 0rpx 20rpx 0rpx;
+  }
+  .noSmallImg{
+    flex: 0 0 100%;
+    width: 100%;
+    padding: 10rpx 0rpx 20rpx 0rpx;
+  }
+  .right {
+    flex: 1;
+    width: 120rpx;
+    height: 120rpx;
+    text-align: right;
+  }
+}
+</style>
+<template>
+    <view class="container">
+    <swiper class="swiper" indicator-dots="" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}" wx:key="key">
+         <swiper-item class="swiper-item" @tap="goDetail('{{item}}')">
+           <image src="{{item.img}}" class="slide-image" mode="aspectFill"/>
+           <view class="notice">
+             <text class="title">{{item.title}}</text>
+             <text class="num">{{item.index}}/{{imgUrls.length}}</text>
+           </view>
+          </swiper-item>
+      </block>
+    </swiper>
+    <!-- <text>咨\t讯</text>
+    <text>{{msg}}</text>
+    <button @tap="changeNum" size="mini" type="primary">点击改变数值</button> -->
+    <view class="content-list">
+      <block wx:for="{{imgUrls}}" wx:key="key">
+        <view bindtap="" class="content-item" @tap="goDetail('{{item}}')">
+          <view bindtap="" class="left {{item.smallImg? '' : 'noSmallImg'}}">
+            <view bindtap="" class="title">
+              <text>{{item.title}}</text>
+            </view>
+            <view bindtap="" class="notice">
+              <text>{{item.hospital_logo}}</text>
+              <text>{{item.hospital_name}}</text>
+              <text>{{item.active_logo}}</text>
+              <text>{{item.support_count}}点赞</text>
+            </view>
+          </view>
+          <view bindtap="" class="right" wx:if="{{item.smallImg}}">
+              <image src="{{item.smallImg}}" style="width: 120rpx; height: 120rpx"></image>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import api from '../../service/api'
+  const ERR_OK = 200
+  export default class Message extends wepy.page {
+    config = {
+      'navigationBarTitleText': '健康中国',
+      'navigationBarTextStyle': 'white',
+      'navigationBarBackgroundColor': '#ff7700'
+    };
+    data = {
+      autoplay: true,
+      interval: 2000,
+      duration: 1000,
+      //  mock 的数据结构
+      imgUrls: [
+         {
+            index:"1",
+            smallImg: "http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg", // 这里可能会有不同大小的图片哦！
+            img:"http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg", // 这里可能会有不同大小的图片哦！
+            title: "这是文章标题1",
+            content: "文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容" ,
+            publish_date: "2017-11-07 16:04",
+            hospital_logo: "logo",
+            hospital_name: "广东卫生信息",
+            active_logo: "活动logo",
+            support_count: "666"
+        },
+        {
+            index:"2",
+            smallImg: "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg", // 这里可能会有不同大小的图片哦！
+
+            img:"http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg", // 这里可能会有不同大小的图片哦！
+            title: "这是文章标题2",
+            content: "文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容" ,
+            publish_date: "2017-11-07 16:04",
+            hospital_logo: "logo",
+            hospital_name: "北京卫生信息",
+            active_logo: "活动logo",
+            support_count: "888"
+        },
+        {
+            index:"3",
+            img: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg', // 这里可能会有不同大小的图片哦！
+            title: "这是文章标题3这是文章标题3这是文章标题3",
+            content: "文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容" ,
+            publish_date: "2017-11-07 16:04",
+            hospital_logo: "logo",
+            hospital_name: "石家庄卫生信息",
+            active_logo: "活动logo",
+            support_count: "999"
+        },
+        {
+            index:"4",
+            smallImg: "http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg", // 这里可能会有不同大小的图片哦！
+
+            img:"http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg", // 这里可能会有不同大小的图片哦！
+            title: "这是文章标题4",
+            content: "文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容" ,
+            publish_date: "2017-11-07 16:04",
+            hospital_logo: "logo",
+            hospital_name: "上海卫生信息",
+            active_logo: "活动logo",
+            support_count: "111"
+        },
+         {
+            index:"5",
+            img: 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg', // 这里可能会有不同大小的图片哦！
+            title: "这是文章标题5",
+            content: "文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容文章的内容" ,
+            publish_date: "2017-11-07 16:04",
+            hospital_logo: "logo",
+            hospital_name: "广西卫生信息",
+            active_logo: "活动logo",
+            support_count: "333"
+        },
+    ], 
+      // msg: '666',
+      // name: '这是异步获取的数据'
+    };
+    methods = {
+      // changeNum (){
+      //   // this.msg++;
+      // }
+      goDetail(item){
+        // debugger
+        // console.log(item);
+        wepy.navigateTo({
+          url: 'messageDetail?dataObj='+JSON.stringify(item) 
+        })
+
+      }
+    };
+    async onLoad(){
+      try {
+         let datalist = [];
+         this.msg = '777';
+         datalist = await api.getDataList();
+         if(datalist.data.status_code == ERR_OK){
+           console.log(datalist.data.data);
+        let data = datalist.data.data;
+        this.name = data[0].name;
+         }
+        this.$apply();  // 异步获取数据的时候需要添加的  如果你在AngularJS上下文之外的任何地方修改了model，
+                       // 那么你就需要通过手动调用$apply()来通知AngularJS。这就像告诉AngularJS，
+                      // 你修改了一些models，希望AngularJS帮你触发watchers来做出正确的响应。
+      } catch (error) {
+        console.log(error);
+      }
+     
+       }
+  }
+</script>

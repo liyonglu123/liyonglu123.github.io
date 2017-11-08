@@ -1,0 +1,144 @@
+<style lang="less">
+.messageDetail{
+    padding: 15rpx 15rpx;
+    .title {
+    font-weight: bold;
+    font-size: 60rpx;
+    }
+    .date{
+        margin-top: 15rpx;
+    }
+    .pic{
+        width: 100%;
+        height: 480rpx;
+        margin: 30rpx 0; 
+        image{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .content{
+        font-size: 40rpx;
+        letter-spacing:3rpx;
+    }
+    .support{
+        position: absolute;
+        right: 100rpx;
+        bottom: 150rpx;
+        .text{
+            color: red;
+        }
+    }
+    .active{
+        .text{
+            color: blue;
+        }
+    }
+
+}
+
+</style>
+<template>
+  <view class="messageDetail">
+    <!-- <text>文章详情</text> -->
+    <view class="title">
+        调查显示：{{messageDetail.title}}
+    </view>
+    <view class="date">
+        <text>{{messageDetail.hospital_logo}} </text>
+        <text>{{messageDetail.hospital_name}} </text>
+        <text>{{messageDetail.publish_date}} </text>
+         
+    </view>
+    <view class="pic">
+        <!-- <image src="{{image}}" ></image> -->
+        <image src="{{messageDetail.img}}"></image>
+    </view>
+    <view class="content">
+        {{messageDetail.content}}
+    </view>
+     <view class="support {{isSupport?'active':''}}"  @tap="takeSupport"> 
+        <!-- <button size="mini" type="primary">点赞</button> -->
+        <view class="text">
+            点赞
+        </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import { USER_SUPPORT_INFO } from '../../utils/constant'
+  export default class MessageDetail extends wepy.page {
+    config = {
+      'navigationBarTitleText': '文章详情页',
+       'navigationBarTextStyle': 'white',
+    'navigationBarBackgroundColor': '#ff7700'
+    };
+    data = {
+        // image: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+        isSupport: false, // 是否点赞
+        messageDetail: {
+    
+        }
+    };
+//   
+    onLoad(params){
+        // this.isSupport = false;
+        this.messageDetail = JSON.parse(params.dataObj);
+        // 首先查看用户的本地的数据
+        this.addUserBrower();
+    };
+    //  取消点赞 目前是自己模拟的状态
+    // async cancelSupport(){
+    // }
+    cancelSupport(){
+        // debugger
+          let addSupport = wepy.getStorageSync('USER_SUPPORT_INFO') || {};
+          let supportInfo = addSupport.supportInfo;
+          supportInfo && (this.isSupport = false);
+          
+    }
+    //  点赞
+    // async goSupport(){
+
+    // }
+    goSupport(){
+        // debugger
+        let addSupport = wepy.getStorageSync('USER_SUPPORT_INFO') || {};
+          let supportInfo = addSupport.supportInfo;
+        //   此处会有异步的请求
+         supportInfo && (this.isSupport = true);
+    }
+    //  添加用户的信息
+    addUserBrower(){
+        // debugger
+        // 此处可能需要发送请求 获取是不是得到了点赞
+        let addSupport = wepy.getStorageSync('USER_SUPPORT_INFO') || {};
+        if(!addSupport.supportInfo) {
+            addSupport = {
+            supportInfo: "flag"
+            }
+            wepy.setStorageSync('USER_SUPPORT_INFO', addSupport);
+        }else{
+            this.isSupport = true;
+        }
+        
+    }
+    methods = {
+        
+        // 点赞的功能发送请求和本地数据的存储
+        takeSupport(){
+            // debugger
+            if(this.isSupport == true){
+                this.cancelSupport();
+                console.log('取消赞');
+            }else{
+                this.goSupport();
+                console.log('赞');
+            }
+        }
+    }
+
+  }
+</script>

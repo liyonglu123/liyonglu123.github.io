@@ -80,6 +80,13 @@
         // that.$apply();
         // console.log(this.messageDetail.img);
         // this.getImageUrl(this.messageDetail.img);
+    };
+    onHide(){
+        debugger
+        wepy.navigateBack({
+            delta: 1
+        })
     }
+
   }
 </script>

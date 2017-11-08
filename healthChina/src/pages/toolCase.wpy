@@ -1,0 +1,18 @@
+<style lang="less">
+</style>
+<template>
+   <view class="toolCase">
+    <text>工具箱</text>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class ToolCase extends wepy.page {
+    config = {
+      'navigationBarTitleText': '工具箱',
+       'navigationBarTextStyle': 'white',
+    'navigationBarBackgroundColor': '#ff7700'
+    }
+  }
+</script>

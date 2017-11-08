@@ -50,6 +50,7 @@
         <text>{{messageDetail.hospital_name}} </text>
          
     </view>
+    <music></music>
     <view class="pic">
         <!-- <image src="{{image}}" ></image> -->
         <image src="{{messageDetail.img}}"></image>
@@ -69,12 +70,16 @@
 <script>
   import wepy from 'wepy'
   import { USER_SUPPORT_INFO } from '../../utils/constant'
+  import Music from '../../components/music'
   export default class MessageDetail extends wepy.page {
     config = {
       'navigationBarTitleText': '图文',
        'navigationBarTextStyle': 'white',
     'navigationBarBackgroundColor': '#ff7700'
     };
+    components ={
+       music :Music
+    }
     data = {
         // image: 'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
         isSupport: false, // 是否点赞

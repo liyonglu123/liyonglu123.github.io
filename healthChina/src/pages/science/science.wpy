@@ -1,0 +1,130 @@
+<style lang="less">
+.search-container{
+  width: 100%;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid red;
+}
+.recommend-content{
+  padding: 20rpx 35rpx;
+  .recommend-header{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.recommend-list{
+  margin-top: 20rpx;
+  .recommend-item{
+    padding: 30rpx 0;
+    border-bottom: 1rpx solid red;
+    text{
+      display: block;
+    }
+    .reader-count{
+      margin-top: 10rpx;
+    }
+  }
+}
+
+</style>
+<template>
+  <view class="container">
+    <view class="search-container">
+      <search @searchValue.user="doSearch"></search>
+    </view>
+    <view class="recommend-content">
+      <view class="recommend-header">
+        <text class="name">推荐内容</text>
+        <text class="more" @tap="getMoreRecommendList('{{recommendMoreList}}')">更多\t > </text>
+      </view>
+      <view class="recommend-list">
+        <block wx:for="{{getRecommendList}}" wx:key="key">
+           <view class="recommend-item">
+             <text class="title">{{item.title}}</text>
+             <text class="reader-count">{{item.reader_count}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="more-container" wx:else>
+    <view class="recommend-list">
+        <block wx:for="{{recommendMoreList}}" wx:key="key">
+           <view class="recommend-item">
+             <text class="title">{{item.title}}</text>
+             <text class="reader-count">{{item.reader_count}}</text>
+          </view>
+        </block>
+      </view>
+  </view> -->
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import Searchs from '../../components/search'
+  export default class Science extends wepy.page {
+    config = {
+      'navigationBarTitleText': '科普',
+       'navigationBarTextStyle': 'white',
+    'navigationBarBackgroundColor': '#ff7700'
+    };
+    //  模拟的数据
+    data = {
+      moreFlag: true,
+      recommendList: [],
+      recommendMoreList: [
+        {
+          title: '你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼',
+          reader_count: '123'
+        },
+        {
+          title: '英雄联盟英雄联盟英雄联盟英雄联盟',
+          reader_count: '222'
+        },
+        {
+          title: '守望先锋守望先锋守望先锋守望先锋守望先锋守望先锋',
+          reader_count: '333'
+        },
+        {
+          title: '梦三国梦三国梦三国梦三国梦三国梦三国梦三国',
+          reader_count: '666'
+        },
+        {
+          title: '穿越火线穿越火线穿越火线穿越火线穿越火线',
+          reader_count: '555'
+        },
+        {
+          title: '魔兽世界魔兽世界魔兽世界魔兽世界魔兽世界',
+          reader_count: '888'
+        },
+        {
+          title: '梦幻西游梦幻西游梦幻西游梦幻西游梦幻西游梦幻西游',
+          reader_count: '9898'
+        },
+        {
+          title: '地下城勇士地下城勇士',
+          reader_count: '7878'
+        }
+
+      ]
+    };
+    computed ={
+      getRecommendList (){
+        // debugger
+        this.recommendList = this.recommendMoreList.slice(0, 4); 
+        return this.recommendList
+       
+      } 
+    };
+    methods = {
+      getMoreRecommendList (dataList){
+        // debugger
+        wepy.navigateTo({
+          url: 'scienceMore?dataList='+JSON.stringify(dataList) 
+        })
+      }
+    }
+    components ={
+     search: Searchs,
+    }
+  }
+</script>

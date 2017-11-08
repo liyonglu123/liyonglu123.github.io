@@ -1,0 +1,49 @@
+<style lang="less">
+.container{
+    padding: 20rpx 35rpx;
+}
+.recommend-list{
+  margin-top: 20rpx;
+  .recommend-item{
+    padding: 30rpx 0;
+    border-bottom: 1rpx solid red;
+    text{
+      display: block;
+    }
+    .reader-count{
+      margin-top: 10rpx;
+    }
+  }
+}
+</style>
+<template>
+   <view class="container">
+    <!-- <text>more</text> -->
+    <view class="recommend-list">
+        <block wx:for="{{moreRecommendList}}" wx:key="key">
+           <view class="recommend-item">
+             <text class="title">{{item.title}}</text>
+             <text class="reader-count">{{item.reader_count}}</text>
+          </view>
+    </block>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  export default class ScienceMore extends wepy.page {
+    config = {
+      'navigationBarTitleText': '科普',
+       'navigationBarTextStyle': 'white',
+    'navigationBarBackgroundColor': '#ff7700'
+    };
+    data = {
+        moreRecommendList: []
+    }
+    onLoad(params){
+        debugger
+        this.moreRecommendList = JSON.parse(params.dataList)
+    }
+  }
+</script>

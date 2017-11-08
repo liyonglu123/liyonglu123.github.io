@@ -19,10 +19,12 @@ import Promise from 'promise-polyfill';
 export default class extends wepy.app {
   config = {
     pages: [
+      'pages/science/science',
       'pages/message/message',
-      'pages/science',
+      
       'pages/toolCase',
-      'pages/message/messageDetail'
+      'pages/message/messageDetail',
+      'pages/science/scienceMore'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -31,14 +33,15 @@ export default class extends wepy.app {
       navigationBarTextStyle: 'black'
     },
     tabBar: {
-    "list": [{
-      "pagePath": "pages/message/message",
-      "text": "咨讯",
+    "list": [
+      {
+      "pagePath": "pages/science/science",
+      "text": "科普",
       "iconPath": "images/raw.png",
       "selectedIconPath": "images/selected.png"
-    }, {
-      "pagePath": "pages/science",
-      "text": "科普",
+    },{
+      "pagePath": "pages/message/message",
+      "text": "咨讯",
       "iconPath": "images/raw.png",
       "selectedIconPath": "images/selected.png"
     },{

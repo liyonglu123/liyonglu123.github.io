@@ -3,9 +3,9 @@
     padding: 20rpx 35rpx;
 }
 .recommend-list{
-  margin-top: 20rpx;
+//   margin-top: 20rpx;
   .recommend-item{
-    padding: 30rpx 0;
+    padding: 30rpx 0;   
     border-bottom: 1rpx solid red;
     text{
       display: block;

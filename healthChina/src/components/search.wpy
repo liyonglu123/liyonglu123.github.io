@@ -6,8 +6,9 @@
         <input type="text" name="search_input" bindinput="searchInput" class="search_input" focus="true" value="{{search_input_value}}" confirm-type="search" placeholder="请输入您要搜索的内容" />
         <i wx:if="{{search_input_value!=''}}" @tap="delText" class="iconfont icon-del"></i>
       </view>
-      <button class="btn btn_cancel" @tap="goBack()" wx:if="{{search_input_value!=''}}">取消</button>
-      <!-- <button class="btn btn_search" @tap="search()" wx:else>搜索</button> -->
+      <!-- <button class="btn btn_cancel" @tap="goBack()" wx:if="{{search_input_value!=''}}">取消</button> -->
+      <button class="btn btn_cancel" @tap="goBack()" wx:if="{{search_input_value==''}}">取消</button>
+      <button class="btn btn_search" @tap="search()" wx:else>搜索</button>
     </view>
   </view>
 </template>

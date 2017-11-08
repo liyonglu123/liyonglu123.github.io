@@ -24,6 +24,10 @@
     }
   }
 }
+//  search 页面的布局
+.recommend-search-header{
+  border-bottom: 1rpx solid red;
+}
 
 </style>
 <template>
@@ -31,13 +35,27 @@
     <view class="search-container">
       <search @searchValue.user="doSearch"></search>
     </view>
-    <view class="recommend-content">
-      <view class="recommend-header">
+    <view class="recommend-content" wx:if="{{searchList.length==0}}">
+      <view class="recommend-header" >
         <text class="name">推荐内容</text>
         <text class="more" @tap="getMoreRecommendList('{{recommendMoreList}}')">更多\t > </text>
       </view>
       <view class="recommend-list">
         <block wx:for="{{getRecommendList}}" wx:key="key">
+           <view class="recommend-item">
+             <text class="title">{{item.title}}</text>
+             <text class="reader-count">{{item.reader_count}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="recommend-content" wx:if="{{searchList.length>0}}">
+       <view class="recommend-search-header" >
+        <text class="name">搜索"{{keyword}}"</text>
+      </view>
+         <!--  这里只是对有数据的进行了判断 -->
+      <view class="recommend-list">  
+        <block wx:for="{{searchList}}" wx:key="key">
            <view class="recommend-item">
              <text class="title">{{item.title}}</text>
              <text class="reader-count">{{item.reader_count}}</text>
@@ -70,38 +88,40 @@
     //  模拟的数据
     data = {
       moreFlag: true,
+      searchList: [], // 搜索的数据
+      keyword: '',//搜索的关键字
       recommendList: [],
       recommendMoreList: [
         {
-          title: '你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼',
+          title: '你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼abc',
           reader_count: '123'
         },
         {
-          title: '英雄联盟英雄联盟英雄联盟英雄联盟',
+          title: '英雄联盟英雄联盟英雄联盟英雄联盟abcd',
           reader_count: '222'
         },
         {
-          title: '守望先锋守望先锋守望先锋守望先锋守望先锋守望先锋',
+          title: '守望先锋守望先锋守望先锋守望先锋守望先锋守望先锋eee',
           reader_count: '333'
         },
         {
-          title: '梦三国梦三国梦三国梦三国梦三国梦三国梦三国',
+          title: '梦三国梦三国梦三国梦三国梦三国梦三国梦三国EEE',
           reader_count: '666'
         },
         {
-          title: '穿越火线穿越火线穿越火线穿越火线穿越火线',
+          title: '穿越火线穿越火线穿越火线穿越火线穿越火线666',
           reader_count: '555'
         },
         {
-          title: '魔兽世界魔兽世界魔兽世界魔兽世界魔兽世界',
+          title: '魔兽世界魔兽世界魔兽世界魔兽世界魔兽世界===',
           reader_count: '888'
         },
         {
-          title: '梦幻西游梦幻西游梦幻西游梦幻西游梦幻西游梦幻西游',
+          title: '梦幻西游梦幻西游梦幻西游梦幻西游梦幻西游梦幻西游AAA',
           reader_count: '9898'
         },
         {
-          title: '地下城勇士地下城勇士',
+          title: '地下城勇士地下城勇士你',
           reader_count: '7878'
         }
 
@@ -115,12 +135,37 @@
        
       } 
     };
+    containKeyWord (val){
+        let that = this;
+        // debugger
+        this.recommendMoreList.forEach(function (item) {
+          // debugger
+          // 判断title中是否含有关键字
+          if((item.title.indexOf(val.toUpperCase()) >= 0) || (item.title.indexOf(val.toLowerCase()) >= 0)){
+          //  debugger
+           that.searchList.push(item);
+          }
+          // console.log(that.searchList);
+        })
+        console.log(that.searchList);
+      };
     methods = {
+      //  获取的数据
       getMoreRecommendList (dataList){
         // debugger
         wepy.navigateTo({
           url: 'scienceMore?dataList='+JSON.stringify(dataList) 
         })
+      },
+      //  搜索文章
+      doSearch(val){ 
+      // debugger
+      this.searchList = [];
+      this.keyword = val;
+      console.log(this)
+      //  此处模拟搜索数据是否存在
+      this.containKeyWord(val);
+      // this.doSearchArticle(val); // 异步的获取数据请求 
       }
     }
     components ={

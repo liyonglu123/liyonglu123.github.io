@@ -7,6 +7,19 @@
     //     height: 20rpx;
     //     background: red;
     // }
+    .free-panel{
+        width:100%;
+        .free-music-progress{
+            width:100%;
+        
+            audio{
+                 width:100%; 
+            }
+            .wx-audio-default{
+                width: 100% !important;  // 修改默认的样式
+            }
+        }
+    }
 }
 </style>
 <template>

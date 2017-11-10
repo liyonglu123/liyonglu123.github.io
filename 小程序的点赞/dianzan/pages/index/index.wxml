@@ -1,0 +1,22 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <!-- 是支持表达式的呢 记住了 -->
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="article">
+    <block wx:for="{{dataList}}" wx:key="index">
+      <!-- 这里需要注意的是需要使用data-xx 来进行值的传递 -->
+      <view class="article-item" bindtap="goDetail" data-item="{{item}}">
+          <text>{{item.id}} -- {{item.title}}</text>
+      </view> 
+    </block>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto">{{motto}}</text>
+  </view>
+</view>

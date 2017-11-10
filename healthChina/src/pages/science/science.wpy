@@ -37,7 +37,7 @@
     </view>
     <view class="recommend-content" wx:if="{{searchList.length==0}}">
       <view class="recommend-header" >
-        <text class="name">推荐内容</text>
+        <text class="name red">推荐内容</text>
         <text class="more" @tap="getMoreRecommendList('{{recommendMoreList}}')">更多\t > </text>
       </view>
       <view class="recommend-list">

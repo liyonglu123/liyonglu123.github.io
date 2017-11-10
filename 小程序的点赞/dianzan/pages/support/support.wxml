@@ -1,0 +1,5 @@
+<view class="container">
+    <text>{{itemId}}</text>
+    <image wx:if="{{support}}" src="../../images/like.png" mode="{{}}" bindtap="toSupport"></image>
+    <image wx:else src="../../images/dislike.png" mode="{{}}" bindtap="toSupport"></image>
+</view>

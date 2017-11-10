@@ -1,0 +1,119 @@
+// <style lang="less">
+// .music{
+//     display: flex;
+//     height: 240rpx;
+//     padding: 0 30rpx;
+//     border: 1rpx solid blue;
+//     align-items: center;
+//     .music-left{
+//         flex: 0 0 180rpx;
+//         width: 180rpx;
+//         height: 180rpx;
+//         background: red;
+//     }
+//     .music-right{
+//         flex: 1;
+//         margin-left: 20rpx;
+//         .music-title{
+
+//         }
+//         .music-progress{
+//             margin-top: 15rpx;
+//             .music-time{
+//                 display: flex;
+//                 justify-content: space-between;
+//             }
+//         }
+//     }
+// }
+// </style>
+// <template>
+//    <view class="music">
+//     <!-- <text>使用后台自定义的播放器</text> -->
+//     <view class="music-left">
+//         <!--  播放的按钮 -->
+//         <view class="play btn" @tap="audioPlay" hidden="{{isplaying}}">play</view>
+//         <view class="pause btn" @tap="audioPause" hidden="{{!isplaying}}">stop</view>
+//     </view>
+//     <view class="music-right">
+//         <view class="music-title">
+//             <text>最美的太阳</text>
+//         </view>
+//         <view class="music-progress">
+//             <slider min="0" max="100" step="1" value="0" how-values bindchange="sliderChange"/>
+//             <view class="music-time">
+//                 <text class="music-playtime">00:00</text>
+//                 <text class="music-duration">时长:\t 06:54</text>
+//             </view>
+//         </view>
+//     </view>
+//   </view>
+// </template>
+
+// <script>
+//   import wepy from 'wepy'
+//   export default class customMusic extends wepy.component {
+//       data = {
+//           isplaying: false,
+//       };
+//       methods ={
+//            //    歌曲的播放和暂停d
+//         audioPlay: function () {
+//     //音乐信息
+
+//         wepy.getBackgroundAudioPlayerState({
+//         success: function (res) {
+//             debugger
+//         var status = res.status
+//         var dataUrl = res.dataUrl
+//         var currentPosition = res.currentPosition
+//         var duration = res.duration
+//         var downloadPercent = res.downloadPercent
+//         wepy.playBackgroundAudio({
+//           dataUrl: dataUrl
+//         })
+//         wepy.seekBackgroundAudio({
+//           position: currentPosition
+//         })
+
+//       }
+//     })
+//     // this.setData({
+//     //   isplaying: true
+//     // })
+//     this.isplaying =  true
+//   },
+//   audioPause: function () {
+//     wepy.pauseBackgroundAudio()
+//     // this.setData({
+//     //   isplaying: false
+//     // })
+//     this.isplaying =  false
+//   },
+//   //滑动 歌曲快进
+// sliderToseek(e, cb) {
+//   wepy.getBackgroundAudioPlayerState({
+//     success: function (res) {
+//       var dataUrl = res.dataUrl
+//       var duration = res.duration
+//       let val = e.detail.value
+//       let cal = val * duration / 100
+//       cb && cb(dataUrl, cal);
+//     }
+//   })
+// },
+// //    点击和滑动控制进度
+//   sliderChange: function (e) {
+//     sliderToseek(e, function (dataUrl, cal) {
+//       wepy.playBackgroundAudio({
+//         dataUrl: dataUrl
+//       })
+//       wepy.seekBackgroundAudio({
+//         position: cal
+//       })
+//     })
+
+//   },
+//       }
+//   }
+// </script>

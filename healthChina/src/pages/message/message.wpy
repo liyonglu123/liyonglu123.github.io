@@ -114,7 +114,7 @@
   export default class Message extends wepy.page {
     config = {
       'navigationBarTitleText': '健康中国',
-      'navigationBarTextStyle': 'white',
+      'navigationBarTextStyle': ' ',
       'navigationBarBackgroundColor': '#ff7700'
     };
     data = {

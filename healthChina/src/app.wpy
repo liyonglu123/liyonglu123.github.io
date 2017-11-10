@@ -1,4 +1,5 @@
 <style lang="less">
+@import './utils/style.less';
 .container {
   // height: 100%;
   width: 100%;
@@ -19,8 +20,9 @@ import Promise from 'promise-polyfill';
 export default class extends wepy.app {
   config = {
     pages: [
+       'pages/message/message',
       'pages/science/science',
-      'pages/message/message',
+
       'pages/toolCase',
       'pages/message/messageDetail',
       'pages/science/scienceMore',
@@ -35,13 +37,14 @@ export default class extends wepy.app {
     tabBar: {
     "list": [
       {
-      "pagePath": "pages/science/science",
-      "text": "科普",
-      "iconPath": "images/raw.png",
-      "selectedIconPath": "images/selected.png"
-    },{
       "pagePath": "pages/message/message",
       "text": "咨讯",
+      "iconPath": "images/raw.png",
+      "selectedIconPath": "images/selected.png"
+    },
+      {
+      "pagePath": "pages/science/science",
+      "text": "科普",
       "iconPath": "images/raw.png",
       "selectedIconPath": "images/selected.png"
     },{

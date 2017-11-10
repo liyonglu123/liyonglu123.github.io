@@ -16,6 +16,7 @@
       </view> 
     </block>
   </view>
+  <button type="default" size="default" plain="false"  bindtap="goSearch" formType="submit" hover-class="button-hover">button</button>
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>

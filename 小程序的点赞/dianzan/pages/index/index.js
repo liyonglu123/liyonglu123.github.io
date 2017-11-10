@@ -70,5 +70,20 @@ Page({
     wx.navigateTo({
       url: '../support/support?id='+ openId
     })
+  },
+  //  去搜索页面： 
+  goSearch(){
+    wx.navigateTo({
+      url: '../search/index',
+      success: function(res){
+        // success
+      },
+      fail: function() {
+        // fail
+      },
+      complete: function() {
+        // complete
+      }
+    })
   }
 })

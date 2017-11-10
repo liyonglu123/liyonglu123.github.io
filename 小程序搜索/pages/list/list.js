@@ -91,7 +91,7 @@ Page({
         
     },
     // 下拉刷新数据 下拉动态效果不明显有待改善
-    onPullDownRefresh: function() {
+    PullDownRefresh: function() {
         // 页面相关事件处理函数--监听用户下拉动作
         var that = this;
         // 刷新的准备工作，想将页数设置为一，然后清空文章列表信息，定位在距顶部为0的地方

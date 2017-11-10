@@ -1,5 +1,7 @@
 {
   "pages":[
+    "pages/list/list",
+    "pages/user/user",
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -8,5 +10,16 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/list/list",
+      "text": "文章列表"
+    },
+    {
+      "pagePath": "pages/user/user",
+      "text": "个人中心"
+    }]
   }
+
 }

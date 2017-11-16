@@ -1,0 +1,5 @@
+<view class="detail">
+   <text>{{id}}</text>
+   <text>{{title}}</text>
+   <text>{{time}}</text>
+</view>

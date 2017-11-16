@@ -19,24 +19,3 @@
 .usermotto {
   margin-top: 200px;
 }
-.article{
-  
-}
-text{
-  display: block;
-}
-.scroll-view-item{
-  height: 200rpx;
-}
-#red {
-  background: red;
-}
-#yellow {
-  background: yellow;
-}
-#blue {
-  background: blue;
-}
-#green {
-  background: green;
-}

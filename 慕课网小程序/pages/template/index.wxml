@@ -1,0 +1,10 @@
+<!-- 模板文件的使用 不能传递对象吗？只能进行拼接吗？ -->
+<template name="artList">
+        <navigator url="../detail/detail?id={{id}}&title={{title}}&time={{time}}"> 
+        <view class="item" bindtap="goDetail">
+            <image src="{{src}}" mode="{{}}" style="width: 120rpx;height: 120rpx;"></image>
+            <text>{{title}}</text>  
+            <text>{{time}}</text>  
+        </view>
+        </navigator>
+</template>

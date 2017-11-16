@@ -1,0 +1,13 @@
+.item{
+    height: 180rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: red;
+    font-size: 34rpx;
+    text-align: center;
+    border-bottom: 1rpx solid blue;
+}
+text{
+
+}

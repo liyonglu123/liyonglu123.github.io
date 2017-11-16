@@ -1,0 +1,23 @@
+<!-- 模板的使用 模板也可以支持 表达式的使用 比如数字的奇偶-->
+<!-- <template name="artList">
+    <navigator url="../detail/detail?id={{id}}&title={{title}}&time={{time}}"> 
+    <view class="item">
+        <text>{{id}}</text> 
+        <text>{{title}}</text>  
+        <text>{{time}}</text>  
+    </view>
+    </navigator>
+</template> -->
+
+<import src="../template/index.wxml"/>  
+<view class="list">
+    <text>这是文章列表页面</text>  
+    <block wx:for="{{msgList}}" wx:key="index">
+        <template is="artList" data="{{...item}}"/>
+        <!-- <view class="item" bindtap="goDetail" data-item="{{item}}">
+            <text>{{item.id}}</text>
+            <text>{{item.title}}</text>
+            <text>{{item.time}}</text>
+        </view> -->
+    </block>
+</view>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>进度条的拖拽</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #progress-wrapper{
+            margin-top: 2px;
+            width: 50%;
+            height: 4px;
+            background: red;
+        }
+        #progress{
+            width: 20%;
+            height: 4px;
+            background: blue;
+        }
+        #dot{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="progress-wrapper">
+        <div id="progress">
+            <div id="dot">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function(){
+        var dot = document.getElementById('dot');
+        var progressWrapper = document.getElementById('progress-wrapper');
+        var progress = document.getElementById('progress');
+
+        // // 点击到哪里就去哪里的问题
+        document.onmousedown = function(e){
+            debugger
+            var oEvent=e||event;
+            // 这里只是更改了 横坐标
+            var oEventX;
+            if(oEvent.clientX >= (progressWrapper.clientWidth - dot.offsetWidth)){
+                oEventX = (progressWrapper.clientWidth - dot.offsetWidth)
+            }
+            else{
+                oEventX = oEvent.clientX;
+            }
+            dot.style.left = oEventX + "px";
+            progress.style.width = dot.style.left;
+        }
+        // 添加拖拽的事件
+        dot.onmousedown = function(e){
+            var oEvent = e;
+            // 获取开始的位置
+            var distanceX = oEvent.clientX - dot.offsetLeft;
+            // var distanceY = oEvent.clientY - dot.offsetTop;
+           
+            // 添加滑动的事件
+            dot.onmousemove = function(e){
+                var oEvent = e || event;
+                //重新计算距离的
+                var left = oEvent.clientX - distanceX;
+                // var top = oEvent.clientY - distanceY;
+                //left  当小于等于零时，设置为零 防止div拖出document之外
+                if (left <= 0) {
+                    left = 0;
+                }
+                //当left 超过文档右边界  设置为右边界
+                else if (left >= progressWrapper.clientWidth - dot.offsetWidth) {
+                    left = progressWrapper.clientWidth - dot.offsetWidth;
+                }
+                // 重新赋值
+                dot.style.left = left + "px";
+                progress.style.width =  dot.style.left;
+                //添加鼠标抬起事件
+                dot.onmouseup = function () {
+                    // debugger
+                    //清空事件
+                    dot.onmousemove = null;
+                    dot.onmouseup = null;
+                }
+            }
+        }
+    }
+</script>
+</html>

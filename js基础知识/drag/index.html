@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽功能</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1 {
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            background: red;
+            width: 100px;
+            height: 100px;
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+
+    </div>
+</body>
+<script>
+    window.onload = function () {
+        //获取需要拖拽的元素
+        var div1 = document.getElementById('div1');
+        console.log(div1)
+        // 添加相应的事件
+        div1.onmousedown = function (evt) {
+            // debugger
+            var oEvent = evt || event;
+            // 获取按下鼠标到div left top 的位置
+            var distanceX = oEvent.clientX - div1.offsetLeft;
+            var distanceY = oEvent.clientY - div1.offsetTop;
+            // 添加doc滑动时间
+            div1.onmousemove = function (evt) {
+                // debugger
+                var oEvent = evt || event;
+                // 重新计算div的left top 
+                var left = oEvent.clientX - distanceX;
+                var top = oEvent.clientY - distanceY;
+                //left  当小于等于零时，设置为零 防止div拖出document之外
+                if (left <= 0) {
+                    left = 0;
+                }
+                //当left 超过文档右边界  设置为右边界
+                else if (left >= document.documentElement.clientWidth - div1.offsetWidth) {
+                    left = document.documentElement.clientWidth - div1.offsetWidth;
+                }
+                if (top <= 0) {
+                    top = 0;
+                }
+                else if (top >= document.documentElement.clientHeight - div1.offsetHeight) {
+                    top = document.documentElement.clientHeight - div1.offsetHeight;
+                }
+                //重新给div赋值
+                div1.style.top = top + "px";
+                div1.style.left = left + "px";
+                //添加鼠标抬起事件
+                div1.onmouseup = function () {
+                    // debugger
+                    //清空事件
+                    div1.onmousemove = null;
+                    div1.onmouseup = null;
+                }
+            }
+        }
+
+    }
+</script>
+
+</html>

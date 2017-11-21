@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab的实现的几种方式</title>
+    <style>
+        h2 {
+            border-top: solid cornflowerblue 1px;
+            border-left: solid cornflowerblue 1px;
+            width: 50px;
+            height: 25px;
+            margin: 0;
+            float: left;
+            text-align: center;
+        }
+
+        .tab-content {
+            border: solid cornflowerblue 1px;
+            width: 152px;
+            height: 100px;
+        }
+
+        .tab-content div {
+            display: none;
+        }
+
+        .selected {
+            background-color: cornflowerblue;
+        }
+
+        .tab-content .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab-head">
+        <h2 id="tab1" onmouseover="changeTab1()" class="selected">1</h2>
+        <h2 id="tab2" onmouseover="changeTab2()">2</h2>
+        <h2 id="tab3" onmouseover="changeTab3()">3</h2>
+    </div>
+    <div class="tab-content">
+        <div id="c1" class="show">content1</div>
+        <div id="c2">content2</div>
+        <div id="c3">content3</div>
+    </div>
+    <script>
+        // https://www.cnblogs.com/-867259206/p/5664896.html 几种不同的实现方式
+        /*方式一： 每一个id 每一个方法
+        **/
+        var tab1 = document.getElementById('tab1'),
+                tab2 = document.getElementById('tab2'),
+                tab3 = document.getElementById('tab3'),
+                c1 = document.getElementById('c1'),
+                c2 = document.getElementById('c2'),
+                c3 = document.getElementById('c3');
+
+            function changeTab1() {
+                tab1.className = 'selected';
+                tab2.className = '';
+                tab3.className = '';
+                c1.className = 'show'
+                c2.className = '';
+                c3.className = '';
+            }
+
+            function changeTab2() {
+                tab1.className = '';
+                tab2.className = 'selected';
+                tab3.className = '';
+                c1.className = '';
+                c2.className = 'show';
+                c3.className = '';
+            }
+
+            function changeTab3() {
+                tab1.className = '';
+                tab2.className = '';
+                tab3.className = 'selected';
+                c1.className = ''
+                c2.className = '';
+                c3.className = 'show';
+            }
+    </script>
+</body>
+
+</html>

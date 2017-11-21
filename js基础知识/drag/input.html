@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>input的实时刷新的功能</title>
+</head>
+<body>
+    <div class="container">
+        <input id="input" type="text" placeholder="请输入内容">
+        <div id="main">
+
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function (){
+        var input = document.getElementById('input');
+        var main = document.getElementById('main');
+        input.focus();
+        // main 的数据
+        var data = [];
+        var newData = [];
+        for(var i= 0; i<= 10; i++){
+            var item = '这是数据' + i
+            var p = document.createElement('p');
+            p.innerHTML = item;
+            // main.appendChild(p);    
+            // data.push(p)
+        }
+        console.log(data);
+        var lastTimeStamp = 0
+        input.oninput = function(e){
+            // debugger
+            console.log(e.target.value);
+            lastTimeStamp = e.timeStamp;
+            // getList(val);  实时的变化的问题
+           setTimeout(function(){
+               if(lastTimeStamp == e.timeStamp){
+                main.innerHTML = e.target.value
+               }  
+           },800)
+            
+        }
+        function getList (val){
+            // debugger
+            data.forEach(function(item) {
+                if(item.indexOf(val) >0) {
+                    newData.push(item)
+                }
+            }, this);
+            console.log(newData)
+        }
+    
+    }
+</script>
+</html>

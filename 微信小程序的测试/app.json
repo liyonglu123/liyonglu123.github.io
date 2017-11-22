@@ -1,10 +1,10 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/dataStore/index",
     "pages/zhouqi/index",
    
     "pages/customMusic/index",
-    "pages/index/index",
     "pages/logs/logs"
   ],
   "window":{

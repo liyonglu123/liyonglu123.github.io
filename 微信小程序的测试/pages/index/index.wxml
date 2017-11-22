@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-
+    <text>{{position}}</text>
     <audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop></audio>
     
     <button type="primary" bindtap="audioPlay">播放</button>
@@ -40,4 +40,6 @@
       </view>
     </view>
   </view> -->
+  <image wx:if="{{tempFilePaths}}!=''" src="{{tempFilePaths}}" mode="{{}}"></image>
+  <!-- <button type="default" size="default" plain="false" bindtap="chooseImg" hover-class="button-hover">button</button> -->
 </view>

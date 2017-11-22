@@ -157,6 +157,8 @@ onReady: function (e) {
   this.audioCtx = wx.createAudioContext('myAudio')
 },
 data: {
+  position: '', // 当前的位置
+  tempFilePaths: '', // 文件的位置
   poster: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
   name: '此时此刻',
   author: '许巍',
@@ -173,5 +175,58 @@ audio14: function () {
 },
 audioStart: function () {
   this.audioCtx.seek(0)
-}
+},
+onLoad(){
+  //  逆向解码获得具体的位置信息
+  var that = this;
+  wx.getLocation({
+    type: 'wgs84',
+    success: function(res) {
+      var latitude = res.latitude
+      var longitude = res.longitude
+      var speed = res.speed
+      var accuracy = res.accuracy
+      var location = latitude+','+longitude
+    //   wx.openLocation({
+    //   latitude: latitude,
+    //   longitude: longitude,
+    //   scale: 28
+    // })
+      wx.request({
+        url: 'http://api.map.baidu.com/geocoder/v2/?location='+location+'&output=json&pois=1&ak=TmrCpX3fYsHAczyCnoL7cln6AADvYHCu',
+        success: function(res){
+          // debugger
+          console.log(res.data.result.formatted_address)
+          that.setData({
+            position: res.data.result.formatted_address
+          })
+        }
+      })
+      // that.chooseImg()
+    }
+  })
+},
+chooseImg(){
+  var that = this;
+  wx.chooseImage({
+    count: 1, // 默认9
+    sizeType: ['original'], // 可以指定是原图还是压缩图，默认二者都有
+    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+    success: function (res) {
+      // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+     that.setData({
+      tempFilePaths: res.tempFilePaths[0]
+     })
+    
+    }
+  })
+},
+// 转发  开启之后才会有效果的
+onShareAppMessage(){ 
+  // debugger
+  // return {
+  //   title: '你好，世界',
+  //   path: '/pages/index/index'
+  // }
+  }
 })

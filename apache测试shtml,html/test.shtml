@@ -1,0 +1,2 @@
+<!--#include file="index.html"-->
+<!--#echo var="DOCUMENT_NAME"-->

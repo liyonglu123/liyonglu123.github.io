@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>宽高</title>
+</head>
+<body>
+    <ul>  
+        <li>  网页可见区域宽： document.body.clientWidth    </li>  
+        <li>   网页可见区域高： document.body.clientHeight  </li>  
+        <li>   网页可见区域宽： document.body.offsetWidth (包括边线的宽)</li>  
+        <li>  网页可见区域高： document.body.offsetHeight (包括边线的高)    </li>  
+        <li>  网页正文全文宽： document.body.scrollWidth                   </li>  
+        <li>   网页正文全文高： document.body.scrollHeight                       </li>  
+        <li>    网页被卷去的高： document.body.scrollTop  </li>  
+        <li>    网页被卷去的左： document.body.scrollLeft  </li>  
+        <li>    网页正文部分上： window.screenTop   </li>  
+        <li>    网页正文部分左： window.screenLeft   </li>  
+        <li>   屏幕分辨率的高： window.screen.height</li>  
+        <li>   屏幕分辨率的宽： window.screen.width  </li>  
+        <li>   屏幕可用工作区高度： window.screen.availHeight</li>  
+        <li>   屏幕可用工作区宽度： window.screen.availWidth </li>  
+    </ul>  
+    <script>
+        window.onload = function(){
+            // debugger
+            // 元素的宽高和这个是类似的注意看了
+            console.log(document.body.clientWidth)
+            console.log(document.body.clientHeight)
+            console.log(document.body.offsetWidth)
+            console.log(document.body.offsetHeight)
+            console.log(document.body.scrollWidth)
+            console.log(document.body.scrollHeight)
+
+            console.log(document.body.scrollTop)
+            console.log(document.body.scrollLeft)
+            console.log( window.screenTop)
+            console.log( window.screenLeft)
+            console.log( window.screen.height)
+            console.log( window.screen.width)
+            console.log( window.screen.availHeight)
+            console.log( window.screen.availWidth)
+
+
+        }
+    </script>
+</body>
+</html>

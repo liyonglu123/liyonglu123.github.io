@@ -1,0 +1,11 @@
+<!--logs.wxml-->
+<view class="container log-list">
+    <view class="container" wx:if="{{flag}}">
+        <view animation="{{animation}}" class="view">我在做动画</view>
+    </view>
+    <button type="primary" bindtap="translate">旋转</button>
+  <block wx:for="{{logs}}" wx:for-item="log">
+    <text class="log-item">{{index + 1}}. {{log}}</text>
+  </block>
+
+</view>

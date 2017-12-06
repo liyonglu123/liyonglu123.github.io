@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Clamp.js Example 1</title>
+</head>
+<body>
+    <style>
+        .div{
+            width: 150px;
+            height: 100px;
+        }
+    </style>
+    <div class="div">
+        你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼
+    </div>
+    <!-- <script src="https://cdn.bootcss.com/Clamp.js/0.5.1/clamp.js"></script> -->
+    <script>
+        var module1 = document.getElementsByClassName("div"); 
+        $clamp(module1, {clamp: 3}); 
+        // $clamp(header, {clamp: 1, useNativeClamp: false});
+        // $clamp(paragraph, {clamp: 10, useNativeClamp: false, animate: true});
+    </script>
+</body>
+</html>

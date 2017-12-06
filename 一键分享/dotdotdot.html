@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery.dotdotdot最简使用教程</title>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <!-- <script type="text/javascript" language="javascript" src="src/jquery.dotdotdot.js"></script> -->
+    <script src="https://cdn.bootcss.com/jQuery.dotdotdot/3.1.0/jquery.dotdotdot.js"></script>
+    <!-- <link href="//cdn.bootcss.com/normalize/3.0.3/normalize.css" rel="stylesheet"> -->
+    <script type="text/javascript" language="javascript">
+        $(function () {
+            $('.box').dotdotdot({
+                wrap: 'letter' //注：中文必须改为letter
+            });
+        })
+    </script>
+    <style type="text/css">
+        body {
+            background: #EEEEEE;
+        }
+
+        div.box {
+            width: 250px;
+            margin: auto;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            height: 100px;
+            padding: 15px 20px 10px 20px;
+        }
+    </style>
+</head>
+
+<body>
+        <div class="box" id="dot1">
+                Lorem Ipsum只是一个打印和排版的行业的简单制作样本。1500年以前Lorem Ipsum曾经是这个行业的标准制作样本，直到一个未知的印刷者制作了一个活版盘的类型，并且把它制作成一个样本书。它不仅存活了五个世纪，而且引领电子行业印刷的发展，形式上基本上保持不变。</div>
+    <div class="box" id="dot2">
+        Lorem Ipsum只是一个打印和排版的行业的简单制作样本。1500年以前Lorem Ipsum曾经是这个行业的标准制作样本，直到一个未知的印刷者制作了一个活版盘的类型，并且把它制作成一个样本书。它不仅存活了五个世纪，而且引领电子行业印刷的发展，形式上基本上保持不变。</div>
+</body>
+
+</html>

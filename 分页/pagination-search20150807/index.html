@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>jQuery Pagination</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/pagination.css" />
+    <!-- <link rel="stylesheet" href="css/demo.css" /> -->
+    <script type="text/javascript" src="js/lib/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.pagination.js"></script>
+    <!-- Load data to paginate -->
+    <!--<script type="text/javascript" src="members.js"></script> -->
+    <script type="text/javascript">
+    // When document has loaded, initialize pagination and form 
+    $(document).ready(function() {
+        $("#Pagination").pagination("15");
+    });
+    </script>
+</head>
+
+<body>
+    <div class="pages" style="float:left">
+        <div id="Pagination"></div>
+        <div class="searchPage">
+          <span class="page-sum">共<strong class="allPage">15</strong>页</span>
+          <span class="page-go">跳转<input type="text">页</span>
+          <a href="javascript:;" class="page-btn">GO</a>
+        </div>
+    </div>
+</body>
+
+</html>

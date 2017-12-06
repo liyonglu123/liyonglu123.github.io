@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div{
+            width:120px;
+            height:120px;
+            line-height:120px;
+            margin: 20px;
+            background-color: #5cb85c;
+            float: left;
+            font-size: 12px;
+            text-align: center;
+            color:orangered;
+        }
+        /*效果一：360°旋转 修改rotate(旋转度数)*/
+        .img1 {
+            transition: All 0.4s ease-in-out;
+            -webkit-transition: All 0.4s ease-in-out;
+            -moz-transition: All 0.4s ease-in-out;
+            -o-transition: All 0.4s ease-in-out;
+        }
+
+        .img1:hover {
+            transform: rotate(360deg);
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+        }
+
+        /*效果二：放大 修改scale(放大的值)*/
+        .img2 {
+            transition: All 0.4s ease-in-out;
+            -webkit-transition: All 0.4s ease-in-out;
+            -moz-transition: All 0.4s ease-in-out;
+            -o-transition: All 0.4s ease-in-out;
+        }
+
+        .img2:hover {
+            transform: scale(1.2);
+            -webkit-transform: scale(1.2);
+            -moz-transform: scale(1.2);
+            -o-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+        }
+       /*效果三：旋转放大 修改rotate(旋转度数) scale(放大值)*/
+        .img3 {
+            transition: All 0.4s ease-in-out;
+            -webkit-transition: All 0.4s ease-in-out;
+            -moz-transition: All 0.4s ease-in-out;
+            -o-transition: All 0.4s ease-in-out;
+        }
+
+        .img3:hover {
+            transform: rotate(360deg) scale(1.2);
+            -webkit-transform: rotate(360deg) scale(1.2);
+            -moz-transform: rotate(360deg) scale(1.2);
+            -o-transform: rotate(360deg) scale(1.2);
+            -ms-transform: rotate(360deg) scale(1.2);
+        }
+        /*效果四：上下左右移动 修改translate(x轴,y轴)*/
+        .img4 {
+            transition: All 0.4s ease-in-out;
+            -webkit-transition: All 0.4s ease-in-out;
+            -moz-transition: All 0.4s ease-in-out;
+            -o-transition: All 0.4s ease-in-out;
+        }
+
+        .img4:hover {
+            transform: translate(0, -10px);
+            -webkit-transform: translate(0, -10px);
+            -moz-transform: translate(0, -10px);
+            -o-transform: translate(0, -10px);
+            -ms-transform: translate(0, -10px);
+        }
+    </style>
+</head>
+<body>
+<div class="img1">效果一：360°旋转 </div>
+<div class="img2">效果二：放大</div>
+<div class="img3">效果三：旋转放大</div>
+<div class="img4">效果四：上下左右移动 </div>
+
+</body>
+</html>

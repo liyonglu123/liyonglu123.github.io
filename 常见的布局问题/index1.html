@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>左右定宽</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .left,
+        .right {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: #df8793;
+            top: 0;
+        }
+
+        .left {
+            left: 0px;
+        }
+
+        .right {
+            right: 0px;
+        }
+
+        .center {
+            margin: 0 210px;
+            overflow: hidden;
+            background-color: yellow;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='left'>left</div>
+    <div class='right'>right</div>
+    <div class='center'>center</div>
+</body>
+
+</html>

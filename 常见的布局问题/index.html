@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>布局的问题</title>
+    <style>
+        .clearfix::after {
+            content: ".";
+            clear: both;
+            display: block;
+            /* overflow: hidden; */
+            visibility: hidden;
+            font-size: 0;
+            height: 0;
+        }
+
+        .contain {
+            background: pink;
+            float: left;
+            width: 100%;
+        }
+
+        .left {
+            height: 200px;
+            width: 200px;
+            float: left;
+            margin-left: -100%;
+            background: red;
+        }
+
+        .right {
+            background: blue;
+            height: 300px;
+            margin-left: 200px;
+        }
+    </style>
+</head>
+
+<body class="body clearfix">
+    <div class="contain">
+        <div class="right">
+            rrr
+        </div>
+    </div>
+    <div class="left">lll </div>
+</body>
+
+</html>

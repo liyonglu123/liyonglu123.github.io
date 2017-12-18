@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动画</title>
+</head>
+<body>
+    <svg width="1000px" height="1000px">
+        <circle r="8" cx="11" cy="11" fill="#fff" stroke="#2492fc">
+            <animate attributeName="r" from="8" to="10" dur="0.3s" begin="mouseover" fill="freeze" class="magnify"/>
+            <animate attributeName="r" from="10" to="8" dur="0.3s" begin="mouseout" fill="freeze" class="magnify"/>
+        </circle>
+        <circle r="3" cx="11" cy="11" fill="#2492fc">
+                <animate attributeName="fill" from="#2492fc" to="red" begin="0s" dur="3s" repeatCount="indefinite" /> 
+                
+        </circle>
+        <!-- <line x1="20" y1="200" x2="200" y2="200"
+        style="stroke:rgb(255,0,0);stroke-width:2"/> -->
+    
+        <!-- <text font-family="microsoft yahei" font-size="120" y="160" x="160">马
+                <animate attributeName="x" from="160" to="60" begin="0s" dur="3s" repeatCount="indefinite" />
+                <animate attributeName="opacity" from="1" to="0" begin="0s" dur="3s" repeatCount="indefinite" />
+            </text> -->
+            <line id="line" x1="20" y1="200" x2="200" y2="200"
+            style="stroke:rgb(255,0,0);stroke-width:2"/>
+    </svg>
+</body>
+<script>
+    var line = document.getElementById("line");
+    console.log(line);
+    line.appendChild
+</script>
+</html>

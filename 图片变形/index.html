@@ -1,36 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>测试图片变不变形</title>
     <style>
-        .img{
-            /* width: 200px; */
-            /* height: 200px; */
+        body {
+            /* margin: 0 auto; */
+        }
+
+        .img {
+            margin: 0 auto;
+            width: 200px;
+            height: 200px;
+            background: red;
             /* max-width: 300px; */
             /* width: 50%; */
+            display: inline-block;
+            vertical-align: middle;
+            overflow: hidden;
+            /* display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; */
+            /* position: relative;
+            overflow: hidden; */
         }
-        .bgImg{
+
+        /* img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        } */
+        /* .bgImg{
             width: 200px;
             height: 200px;
             background-color: red;
             background-image: url('http://pic29.photophoto.cn/20131204/0034034499213463_b.jpg');
             background-repeat: no-repeat;
             background-size: contain;
-            /* background-size: cover;  	此时会保持图像的纵横比并将图像缩放成将完全覆盖背景定位区域的最小大小。*/
-            /* background-size: 60%; 	此时会保持图像的纵横比并将图像缩放成将适合背景定位区域的最大大小。 */
-            /* background-size: 100px auto;  只设定一个值另一个自动auto*/
-        }
+            background-size: cover;  	此时会保持图像的纵横比并将图像缩放成将完全覆盖背景定位区域的最小大小。
+            background-size: 60%; 	此时会保持图像的纵横比并将图像缩放成将适合背景定位区域的最大大小。
+            background-size: 100px auto;  只设定一个值另一个自动auto
+        } */
     </style>
 </head>
-<body>
-    <!-- <div class="img">
-        <img src="http://pic29.photophoto.cn/20131204/0034034499213463_b.jpg" style="width:100%;height:auto" alt="picture">
-    </div> -->
-    <div class="bgImg">
 
+<body>
+    <div class="img">
+        <img src="http://pic29.photophoto.cn/20131204/0034034499213463_b.jpg" alt="picture">
     </div>
+    <!-- <div class="bgImg"> -->
+
+    <!-- </div> -->
 </body>
+
 </html>

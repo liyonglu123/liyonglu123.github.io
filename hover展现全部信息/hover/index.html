@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hover展示全部</title>
+    <style>
+        .main{
+            width: 100px;
+            height: 50px;
+            background: red;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        /* .main:hover{
+            background: blue;
+            white-space: normal;
+            text-overflow: none;
+        } */
+        .tip{
+            display: none;
+            position: absolute;
+            left: 100px;
+            top: 50px;
+            width: 100px;
+            height: 100px;
+            background: green;
+            word-wrap:break-word;
+            white-space: normal;
+        }
+        .main:hover .tip{
+            display: block;
+        }
+        .title{
+            display: inline-block;
+            height: 100px;
+            line-height: 100px;
+            background: blue;
+        }
+        .img p img{
+            width: 100px;
+            /* height: auto; */
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼
+        <div class="tip">
+                你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼你是我的眼
+        </div>
+    </div>
+    <div>
+        <span class="title">nishiw你会什么？</span>
+    </div>
+    <div class="container" onclick="changeTitle()">
+        该变标题
+
+    </div>
+    <div class="img">
+        <p style="text-align:center">
+            <img src="http://pic.qiantucdn.com/58pic/17/56/37/90y58PICe3w_1024.jpg" alt="">
+        </p>
+        <p>
+                <img src="http://pic.qiantucdn.com/58pic/17/56/37/90y58PICe3w_1024.jpg" alt="">
+            </p>
+            <p>
+                    <img src="http://pic.qiantucdn.com/58pic/17/56/37/90y58PICe3w_1024.jpg" alt="">
+                </p>
+    </div>
+    <script>
+        function changeTitle(){
+            // debugger
+            document.title = 'ceshi000';
+
+        }
+    </script>
+</body>
+</html>

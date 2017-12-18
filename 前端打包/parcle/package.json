@@ -1,0 +1,16 @@
+{
+  "name": "parcle",
+  "version": "1.0.0",
+  "description": "parcel是不需要任何的配置的一种打包的形式",
+  "main": "index.js",
+  "scripts": {
+    "start":"parcel index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "parcel-bundler": "^1.2.0"
+  }
+}

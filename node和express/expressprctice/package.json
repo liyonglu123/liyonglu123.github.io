@@ -1,0 +1,17 @@
+{
+  "name": "expresspractice",
+  "version": "1.0.0",
+  "description": "这是node 和express",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "liyonglu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}

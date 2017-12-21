@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>excel的导出</title>
+    <!-- <script type="text/javascript" src="js/jquery.min.js"></script> -->
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="dist/jquery.table2excel.js"></script>
+</head>
+
+<body>
+    <table id="table2excel">
+        <caption>excel</caption>
+        <thead>
+            <tr class="noExl">
+                <td>带
+                    <code>noExl</code>class的行不会被输出到excel中</td>
+                <td>带
+                    <code>noExl</code>class的行不会被输出到excel中</td>
+            </tr>
+            <tr>
+                <td>这一行会被导出到excel中</td>
+                <td>这一行会被导出到excel中</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>单元格1-1</td>
+                <td>单元格1-2</td>
+            </tr>
+            <tr>
+                <td>单元格2-1</td>
+                <td>单元格2-2</td>
+            </tr>
+            <tr>
+                <td>单元格3-1</td>
+                <td>单元格3-2</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">合并2个单元格</td>
+            </tr>
+        </tfoot>
+    </table>
+    <script>
+        $("#table2excel").table2excel({
+            // 不被导出的表格行的CSS class类
+            exclude: ".noExl",
+            // 导出的Excel文档的名称
+            name: "Excel Document Name",
+            // Excel文件的名称
+            filename: "myExcelTable"
+        });
+    </script>
+</body>
+
+</html>

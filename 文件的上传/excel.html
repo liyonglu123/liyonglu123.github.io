@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>excel的下载</title>
+    <!-- jquery 插件 -->
+    <script src="https://cuikangjie.github.io/JsonExportExcel/dist/JsonExportExcel.min.js"></script>
+</head>
+
+<body>
+    <button onclick="download()">下载excel</button>
+</body>
+<script>
+    // http://coding.cuikangjie.com/content/26/%E7%BA%AFJS%E5%AF%BC%E5%87%BAexcel%EF%BC%88%E6%94%AF%E6%8C%81%E4%B8%AD%E6%96%87%EF%BC%89
+    var option = {};
+
+    option.fileName = 'excel'
+    option.datas = [
+    {
+        sheetData: [{ one: '一行一列', two: '一行二列' }, { one: '二行一列', two: '二行二列' }],
+        sheetName: 'sheet',
+        sheetFilter: ['two', 'one'],
+        sheetHeader: ['第一列', '第二列']
+    },
+    {
+        sheetData: [{ one: '一行一列', two: '一行二列' }, { one: '二行一列', two: '二行二列' }]
+    }];
+    var toExcel = new ExportJsonExcel(option);
+    // toExcel.saveExcel();
+    function download(){
+        toExcel.saveExcel();
+    }
+</script>
+
+</html>

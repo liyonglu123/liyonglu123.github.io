@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>flexigrid表格的插件</title>
+    <link rel="stylesheet" type="text/css" href="styleII.css" />
+    <link rel="stylesheet" type="text/css" href="css/flexigrid/flexigrid.css">
+    <script type="text/javascript" src="lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="flexigrid.js"></script>
+</head>
+
+<body>
+    <table id="flextable">
+        <!-- <caption>这是标题</caption> -->
+        <thead>
+            <tr>
+                <th width="200">Col 1</th>
+                <th width="100">Col 2</th>
+                <th width="100">Col 3 is a long header name</th>
+                <th width="300">Col 4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>This is data 1 with overflowing content</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            
+        </tbody>
+    </table>
+    <script>
+        $('#flextable').flexigrid();  
+    </script>
+</body>
+
+</html>

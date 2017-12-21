@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单例模式</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //  实现1： 最简单的对象字面量
+    var singleton = {
+        attr: 1,
+        method: function () {
+            return this.attr
+        }
+    }
+    var a = singleton;
+    var b = singleton;
+    console.log(a === b);
+    // 十分简单，并且非常使用，不足之处在于没有什么封装性，所有的属性方法都是暴露的。
+    // 对于一些需要使用私有变量的情况就显得心有余而力不足了。当然在对于 this 的问题上也是有一定弊端的。
+    //  实现2：构造函数内部判断
+    //  其实和最初的JS实现有点类似，不过是将对是否已经存在该类的实例的判断放入构造函数内部。
+    function Construct() {
+        // 确保有单例
+        if (Construct.unique !== undefined) {
+            return Construct.unique
+        }
+        // 没有创建
+        this.name = 'zhangsan';
+        this.age = 12;
+        Construct.unique = this;
+    }
+    var t1 = new Construct();
+    var t2 = new Construct();
+    console.log(t1 === t2);
+    // 那么也有的， t1 === t2 。   
+    // 也是非常简单，无非就是提出一个属性来做判断，但是该方式也没有安全性，
+    // 一旦我在外部修改了Construct的unique属性，那么单例模式也就被破坏了
+    //  实现3 : 闭包方式    
+    // 对于大着 灵活 牌子的JS来说，任何问题都能找到 n 种答案，只不过让我自己去掂量孰优孰劣而已，
+    // 下面就简单的举几个使用闭包实现单例模式的方法，无非也就是将创建了的单例缓存而已。
+    var single = (function () {
+        var unique;
+
+        function Construct() {
+            //  生成单例构造函数的代码
+            this.name = '11'
+        }
+        unique = new Construct();
+        return unique;
+    })()
+
+    var a1 = single;
+    var a2 = single;
+    console.log(a1 === a2)
+    console.log(a2)
+    // 方法四  代理
+    class CreateUser {
+        constructor(name) {
+            this.name = name;
+            this.getName();
+        }
+        getName() {
+            return this.name;
+        }
+    }
+
+    // 代理实现单例模式
+    var ProxyMode = (function () {
+        var instance = null;
+        return function (name) {
+            if (!instance) {
+                instance = new CreateUser(name);
+            }
+            return instance;
+        }
+    })();
+    // 测试单体模式的实例
+    var c = new ProxyMode("aaa");
+    var d = new ProxyMode("bbb");
+    // 因为单体模式是只实例化一次，所以下面的实例是相等的
+    console.log(c === d); //true
+</script>
+
+</html>

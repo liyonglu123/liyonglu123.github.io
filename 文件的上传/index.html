@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件的上传</title>
+</head>
+
+<body>
+    <!--1\ ======html5 a标签的download 属性如果不写的话 则是调转的问题 -->
+    <a href="test.txt" target="_blank" download="">下载</a>
+    <a href="https://www.baidu.com" download="baidu.html">下载</a>
+    <!-- 前端js下载的实现 -->
+    <button onclick="downloadFile('https://www.baidu.com','baidu.html')">文件下载</button>
+    <!--2===== data URI 是前缀为 data:scheme 的 URL，允许内容创建者在文档中嵌入小文件
+        。数据URI由四个部分组成：前缀（数据:)，
+        指示数据类型的MIME类型，如果非文本则为可选的base64令牌，数据本身： -->
+    <button id="btn" onclick="downloadFile('data:,Hello%2C%20World!', 'data-uris.txt')">data URI下载</button>
+    <button onclick="downloadFile('data:text/plain;base64,SGVsbG8sIFdvcmxkIQ%3D%3D', 'data-uris.txt')">data URI下载1</button>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    function downloadFile(href, title) {
+        var a = document.createElement('a');
+        a.setAttribute('href', href);
+        a.setAttribute('download', title);
+        a.click();
+    }
+    // 3====canvas 下载示例
+    var canvas = document.querySelector('#canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'red';
+    ctx.fillRect(0, 0, 80, 100);
+    // downloadFile(canvas.toDataURL(), 'download-image');
+    // 4==== 二进制内容下载
+    /**
+    URL.createObjectURL 方法会根据传入的参数创建一个指向该参数对象的 URL。新的对象 URL 指向执行的 File 对象或者是 Blob 对象。
+    URL.createObjectURL 的参数是 File 对象或者 Blob 对象，File 对象也就是通过 input[type=file] 选择的文件，Blob 对象是二进制数据。
+    将URL.createObjectURL 返回值设为 href 属性的值，即可实现二进制内容下载。示例：
+    */
+    var content = "welcome to me";
+    var blob = new Blob([content]);
+    var href = URL.createObjectURL(blob);
+    // downloadFile(href, 'download-text.txt');
+    URL.revokeObjectURL(href); // 撤回
+
+    // 第二部分  检测浏览器是否支持 download 属性 http://caniuse.com/#feat=download 链接  判断是不是有这个属性的方法
+    var flag = 'download' in document.createElement('a');
+    // console.log(flag)
+    var div = 'disabled' in document.createElement('div');
+    // console.log(div)
+    var btn = 'disabled' in document.createElement('button');
+    var btn1 = 'disabled' in document.getElementById('btn');
+    console.log(btn1)
+    var a = 'href' in document.createElement('a');
+    // console.log(a)
+    // 对于不支持的浏览器  可以做降级进行处理
+
+    // 第三部分: 使用后端的api就可以避免浏览器的兼容问题了
+    // 使用 serviceWorker 和 fetch API 代理实现 利用 serviceWorker 和 fetch API 截拦浏览器请求
+    // ，只需实现好约定逻辑，也可实现这种功能需求
+    //  此处有衍生了一个问题 fetch 和 原生的XMLHttpRequest的区别 
+    // https://api.github.com/repos/facebook/react
+    // http://api.dev.grdoc.org/new-index/article-detail?_id=59cc6f173f725e4fc22ff1c5
+    fetch('http://api.dev.grdoc.org/new-index/article-detail', {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            _id:'59cc6f173f725e4fc22ff1c5'
+        })
+    }).then((res) => {
+        if (res.status !== 200) {
+            console.log('没有成功');
+            return
+        }
+        // 处理相应的文本信息
+        res.json().then(function (data) {
+            console.log(data)
+        })
+    }).catch(function (err) {
+        console.log(err)
+    })
+</script>
+
+</html>

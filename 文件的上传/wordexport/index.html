@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>word的导出</title>
+    <link rel="stylesheet" href="css/demo.css">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/FileSaver.js"></script>
+    <script src="js/jquery.wordexport.js"></script>
+</head>
+
+<body>
+    <div>
+            <button class="btn">导出word</button>
+        <div class="main">
+            
+            <h1>这是标题</h1>
+            <p>
+                你是我的眼
+            </p>
+            <table id="flextable" style="border:1px solid red">
+                    <!-- <caption>这是标题</caption> -->
+                    <thead>
+                        <tr>
+                            <th width="200">Col 1</th>
+                            <th width="100">Col 2</th>
+                            <th width="100">Col 3 is a long header name</th>
+                            <th width="300">Col 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>This is data 1 with overflowing content</td>
+                            <td>This is data 2</td>
+                            <td>This is data 3</td>
+                            <td>This is data 4</td>
+                        </tr>
+                        <tr>
+                            <td>This is data 1</td>
+                            <td>This is data 2</td>
+                            <td>This is data 3</td>
+                            <td>This is data 4</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+        </div>
+    </div>
+    <script>
+        $('.btn').click(function () {
+            $(".main").wordExport('word');  // 参数是名字
+        });
+    </script>
+</body>
+
+</html>

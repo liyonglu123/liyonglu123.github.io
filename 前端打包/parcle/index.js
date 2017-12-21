@@ -1,5 +1,5 @@
-// console.log("hello world");
+console.log("hello world");
 
-import main from './main';
+// import main from './main';
 
-main();
+// main();

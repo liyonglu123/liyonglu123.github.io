@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>home</title>
+    <script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
 </head>
 
 <body>
     <h1>这是我的第一个express服务器端视图文件</h1>
     <h2>我的传递的参数title为:{{title}}</h2>
     <div id='test'>
-            <!-- {{each list as value i}} {{value}} {{/each}} -->
+        <!-- {{each list as value i}} {{value}} {{/each}} -->
     </div>
 </body>
-<script src="https://cdn.bootcss.com/template_js/0.7.1/template.min.js"></script>
+<!-- <script src="https://cdn.bootcss.com/template_js/0.7.1/template.min.js"></script>
 <script src="/javascripts/index.js">
     // var data = {
     //     title: '标签',
@@ -23,16 +24,28 @@
     // };
     // var html = template('testTmp', data);
     // document.getElementById('test').innerHTML = html;
-</script>
+</script> -->
 <!-- 这里是如何使用模板 -->
+<script>
+    //  $.getJSON('javascripts/index.json',function(res){
+    //     debugger
+    // })
+    fetch("javascripts/index.json").then((res) => {
+        if (res.ok) {
+            res.json().then(function (data) {
+                console.log(data);
+            });
+        }
+    })
+</script>
 
 </html>
 <script id="testTmp" type="text/html">
     <div>
         <ul>
             <li>
-             {{each list as value i}} {{value}} {{/each}}
+                {{each list as value i}} {{value}} {{/each}}
             </li>
         </ul>
     </div>
- </script>
+</script>

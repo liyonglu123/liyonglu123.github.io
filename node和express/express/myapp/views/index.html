@@ -12,8 +12,11 @@
 <body>
     <h1>这是我的第一个express服务器端视图文件</h1>
     <h2>我的传递的参数title为:{{title}}</h2>
+    <h4>拍照</h4>
+    <input type="file"  id="inputfile" value="3333" style="display:none">
+    <div id="contianer" style="width:150px;height:150px;background:red"></div>
     <div id='test'>
-        <!-- {{each list as value i}} {{value}} {{/each}} -->
+        {{each list as value i}} {{value}} {{/each}}
     </div>
 </body>
 <!-- <script src="https://cdn.bootcss.com/template_js/0.7.1/template.min.js"></script>
@@ -26,21 +29,19 @@
     // document.getElementById('test').innerHTML = html;
 </script> -->
 <!-- 这里是如何使用模板 -->
+<script src="javascripts/index.js"></script>
 <script>
-    //  $.getJSON('javascripts/index.json',function(res){
-    //     debugger
-    // })
-    fetch("javascripts/index.json").then((res) => {
-        if (res.ok) {
-            res.json().then(function (data) {
-                console.log(data);
-            });
-        }
+    var input = $('#inputfile');
+    var picDiv = $('#contianer');
+    picDiv.click(function(){
+        input.trigger("click",function(){
+            debugger
+        })
     })
 </script>
 
 </html>
-<script id="testTmp" type="text/html">
+<!-- <script id="testTmp" type="text/html">
     <div>
         <ul>
             <li>
@@ -48,4 +49,4 @@
             </li>
         </ul>
     </div>
-</script>
+</script> -->

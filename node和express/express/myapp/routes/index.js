@@ -11,4 +11,8 @@ router.get('/users', function (req, res, next) {
   res.render('users',{ title: '用户页面' });
 // res.sendfile("./views/login.html");
 });
+router.get('/login', function (req, res, next) {
+  res.render('login',{ title: '登陆页面' });
+// res.sendfile("./views/login.html");
+});
 module.exports = router;

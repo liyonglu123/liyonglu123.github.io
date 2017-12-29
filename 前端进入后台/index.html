@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>进入后台</title>
+</head>
+
+<body>
+    <p id="txt">
+        测试
+    </p>
+    <script>
+        var txt = document.getElementById('txt');
+        var hiddenProperty = 'hidden' in document ? 'hidden' :
+            'webkitHidden' in document ? 'webkitHidden' :
+            'mozHidden' in document ? 'mozHidden' :
+            null;
+        var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+        var onVisibilityChange = function () {
+            if (!document[hiddenProperty]) {
+                console.log('页面非激活');
+                window.document.title = '页面激活';
+                txt.innerHTML += 'show\n<br>';
+            } else {
+                console.log('页面激活');
+                window.document.title = '页面非激活';
+                txt.innerHTML += 'hide\n<br>';
+            }
+        }
+        document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+        window.onload = function () {
+
+        };
+    </script>
+</body>
+
+</html>

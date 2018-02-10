@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基础用法</title>
+    <style>
+        canvas { border: 1px solid black; }
+    </style>
+</head>
+
+<body>
+    <canvas id="tutorial" width="150" height="150"></canvas>
+
+</body>
+<script>
+    // 基本的api getContext()
+    // var canvas = document.getElementById('tutorial');
+    // var ctx = canvas.getContext('2d');
+    // 检查支持性、
+    // var canvas = document.getElementById('tutorial');
+
+    // if (canvas.getContext) {
+    //     var ctx = canvas.getContext('2d');
+        // drawing code here
+    // } else {
+        // canvas-unsupported code here
+    // }
+    window.onload = function(){
+        draw();
+    }
+    // 绘制简单的矩形
+    function draw() {
+        var canvas = document.getElementById('tutorial');
+        if(canvas.getContext){
+            var ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'rgb(200,0,0)';
+            ctx.fillRect(10,10,55,50);
+
+            ctx.fillStyle = 'rgba(0,0,200,0.5)';
+            ctx.fillRect(30,30,55,50);
+        }
+    }
+
+</script>
+
+</html>

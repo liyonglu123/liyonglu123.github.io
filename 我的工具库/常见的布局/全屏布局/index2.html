@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>(2)使用flex实现</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body,
+        #parent {
+            height: 100%;
+        }
+
+        #parent {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #top {
+            height: 100px;
+        }
+
+        #bottom {
+            height: 50px;
+        }
+
+        #middle {
+            flex: 1;
+            display: flex;
+        }
+
+        #left {
+            width: 200px;
+        }
+
+        #right {
+            flex: 1;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <div id="top">top</div>
+        <div id="middle">
+            <div id="left">left</div>
+            <div id="right">right</div>
+        </div>
+        <div id="bottom">bottom</div>
+    </div>
+
+</body>
+
+</html>

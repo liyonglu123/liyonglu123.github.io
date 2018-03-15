@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>(2)使用table实现</title>
+    <style>
+        #parent {
+            width: 100%;
+            height: 500px;
+            display: table;
+        }
+
+        .column {
+            display: table-cell;
+            /*无需关注列数,单元格自动平分*/
+        }
+
+        .column:nth-child(odd) {
+            background-color: #f00;
+        }
+
+        .column:nth-child(even) {
+            background-color: #0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <div class="column">1
+            <p>我是文字我是文字我输文字我是文字我是文字</p>
+        </div>
+        <div class="column">2
+            <p>我是文字我是文字我输文字我是文字我是文字</p>
+        </div>
+        <div class="column">3
+            <p>我是文字我是文字我输文字我是文字我是文字</p>
+        </div>
+        <div class="column">4
+            <p>我是文字我是文字我输文字我是文字我是文字</p>
+        </div>
+        <div class="column">5
+            <p>我是文字我是文字我输文字我是文字我是文字</p>
+        </div>
+        <div class="column">6
+            <p>我是文字我是文字我输文字我是文字我是文字</p>
+        </div>
+    </div>
+    <!-- 优缺点：
+
+优点：代码简单，容易理解；无需关注宽度。单元格自动等分
+缺点：margin失效；设置间隔比较麻烦；不兼容ie8- -->
+</body>
+
+</html>

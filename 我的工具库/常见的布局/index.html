@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>常见的布局</title>
+    <style>
+        #partent {
+           text-align: center; 
+        }
+        /* 单个块级元素 */
+        #son {
+            /* 宽度要小于父容器的宽度 */
+            width: 100px; 
+            margin: 0 auto;
+        }
+        /* 多个块级元素 */
+        #moreBlock {
+            text-align: center;
+        }
+        .son {
+            display: inline-block;
+        }
+        /* 绝对定位实现 */
+        #absolute {
+            height: 200px;
+            width: 200px;
+            position: relative;
+            background-color: #f00;
+        }
+        .absolute-son {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: #00ff00;
+            /*父元素宽度一半,这里等同于left:100px*/
+            left: 50%; 
+            transform: translateX(-50%); /*自身宽度一半,等同于margin-left: -50px;*/
+            /* margin-left: 50px;   */
+        }
+        /* 任意元素的flex */
+        .flex {
+            display: flex;
+            justify-content: center;
+        }
+        /* 二、垂直居中 */
+        /* 1. 单行文本/行内元素/行内块级元素▲ */
+        .chuizhi {
+            height: 50px;
+            line-height: 50px;
+            background: red;
+        }
+        /* 多行文本/行内元素/行内块级元素 */
+        .duohang {
+            height: 150px;
+            background: blue;
+            line-height: 50px;  
+        }
+        /* 图片 */
+        .img {
+            height: 400px;
+            line-height: 400px;
+            background: red;
+            font-size: 0;
+        }
+        .img img, .img span {
+            vertical-align: middle;
+            /*默认是基线对齐，改为middle*/
+        }
+        .img span {
+            font-size: 20px;
+        }
+        /*单个块级元素 table */
+        .table {
+            display: table-cell;
+            width: 200px;
+            height: 200px;
+            background: red;
+            vertical-align: middle;
+        }
+        .table-son {
+            width: 100px;
+            height: 100px;
+            background: blue;
+            /* margin: 0 auto;       */
+        }
+        /* 绝对定位 */
+        .juedui{
+            width: 200px;
+            height: 200px;
+            background: gray;
+            position: relative;
+        }
+        .juedui-son {
+            width: 100px;
+            height: 100px;
+            background: blue;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            /* left: 0;
+            right: 0; */
+            margin: auto 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>一、水平居中 </h1>
+    <hr>
+    <div id="partent">
+        <span>文本/行内元素/行内块级元素</span>
+    </div>
+    <div>
+        <div id="son">单个块级元素</div>
+    </div>
+    <div id="moreBlock">
+            <div class="son">多个块级元素1</div>
+            <div class="son">多个块级元素2</div>
+            <div class="son">多个块级元素3</div>
+    </div>
+    <div id="absolute">
+        <div class="absolute-son">
+                使用绝对定位实现
+        </div>
+    </div>
+    <div class="flex">
+        <div class="flex-son">任意个元素(flex)1</div>
+        <div class="flex-son">任意个元素(flex)2</div>
+        <div class="flex-son">任意个元素(flex)3</div>
+    </div>
+    <hr>
+    <h1>二、垂直居中</h1>
+    <hr>
+    <div class="chuizhi">
+            单行文本/行内元素/行内块级元素----垂直居中
+    </div>
+    <!-- 多行文本/行内元素/行内块级元素-->
+    <div class="duohang">
+        <div class="duohang-son">多行文本/行内元素/行内块级元素</div>
+        <div class="duohang-son">多行文本/行内元素/行内块级元素</div>
+        <div class="duohang-son">多行文本/行内元素/行内块级元素</div>
+    </div>
+    <!-- 图片 -->
+    <div class="img">
+        <img src="http://img4.imgtn.bdimg.com/it/u=1972873509,2904368741&fm=27&gp=0.jpg" alt="">
+        <span>这是一张图片</span>
+    </div>
+    <!-- 单个块级元素 -->
+    <div class="table">
+        <div class="table-son">
+
+        </div>
+    </div>
+    <!-- 绝对定位 -->
+    <div class="juedui">
+        <div class="juedui-son">
+
+        </div>
+    </div>
+    <hr>
+    <h1>三、水平垂直居中</h1>
+    <hr>
+    
+    <hr>
+
+</body>
+</html>

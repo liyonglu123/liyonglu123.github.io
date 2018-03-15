@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>(3)使用table实现</title>
+    <style>
+        #parent {
+            width: 100%;
+            height: 520px;
+            /*抵消上下间距10*2的高度影响*/
+            margin: -10px 0;
+            /*抵消上下边间距10的位置影响*/
+            display: table;
+            /*左右两边间距大了一点,子元素改用padding设置盒子间距就没有这个问题*/
+            border-spacing: 10px;
+            /*关键!!!设置间距*/
+        }
+
+        #left {
+            display: table-cell;
+            width: 100px;
+            background-color: #f00;
+        }
+
+        #center {
+            display: table-cell;
+            width: 200px;
+            background-color: #eeff2b;
+        }
+
+        #right {
+            display: table-cell;
+            background-color: #0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <div id="left">左列定宽</div>
+        <div id="center">中间定宽</div>
+        <div id="right">右列自适应</div>
+    </div>
+    <!-- 优缺点：
+
+优点：代码简单，容易理解，无需关注定宽的宽度，利用单元格自动分配达到自适应效果
+缺点：margin失效；设置间隔比较麻烦；不支持ie8- -->
+</body>
+
+</html>

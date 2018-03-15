@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二维码的实现</title>
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+</head>
+
+<body>
+    <div id="code"></div>
+    <script>
+        // 可以识别中文
+        /*
+        jquery-qrcode是采用charCodeAt()方式进行编码转换的。而这个方法默认会获取它的Unicode编码，
+        如果有中文内容，在生成二维码前就要把字符串转换成UTF-8，
+        然后再生成二维码。您可以通过以下函数来转换中文字符串
+        */
+        // 转化为utf-8形式
+        function toUtf8(str) {
+            var out, i, len, c;
+            out = "";
+            len = str.length;
+            for (i = 0; i < len; i++) {
+                c = str.charCodeAt(i);
+                if ((c >= 0x0001) && (c <= 0x007F)) {
+                    out += str.charAt(i);
+                } else if (c > 0x07FF) {
+                    out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+                    out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+                    out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                } else {
+                    out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+                    out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+                }
+            }
+            return out;
+        }
+        var str = toUtf8("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520594635982&di=c98e56ada5b1d41d8fc21a4a021c8cd0&imgtype=0&src=http%3A%2F%2Fnews.cnhubei.com%2Fxw%2Fyl%2F201609%2FW020160910430736695256.jpg");
+        $('#code').qrcode(str);
+        // 不能识别中文 
+
+        // $('#code1').qrcode("钓鱼岛是中国的！"); 会出现乱码
+    </script>
+</body>
+
+</html>

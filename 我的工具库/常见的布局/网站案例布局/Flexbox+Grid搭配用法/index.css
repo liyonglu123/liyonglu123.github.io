@@ -1,0 +1,247 @@
+/*-------------------抽取公共样式-----------------*/
+* { /*为了方便,就这样清空默认样式了*/
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+body {
+    background-color: #f5f5f5;
+    display: grid;
+    /*整体布局 设置网格列,设置网格行,再设定网格区域*/
+    grid-template-columns: 1fr 1226px 1fr;
+    grid-template-rows: 40px 20px auto auto 274px 166px;
+    grid-template-areas:
+        "header header header"
+        ". . ." 
+        "top top top"
+        ". center ."
+        "bottom bottom bottom"
+        ". footer .";
+}
+.container { /*水平居中的内容盒子*/
+    width: 1226px;
+    height: 100%;
+    margin: 0 auto;
+    border: 1px solid #f00;
+}
+.top-recommend-right,
+.top-flashsale-timer,
+.top-flashsale-shops li,
+.center-phone-content > div,
+.center-household-content .row,
+.household-content-item:last-of-type p,
+.center-video-content li,
+.service-item,
+.links-left-item,
+.info-left,
+.info-right,
+.info-right {border: 1px solid #000;}  /*添加边框样式只是为了方便观察,不是布局必须,可删*/
+
+
+/*-----header部分-----*/
+.header {
+    grid-area: header; /*指定网格区域*/
+    background-color: #333;
+}
+.header .container {
+    display: flex;
+    justify-content: space-between;
+}
+.header-left {
+    width: 380px;
+    background-color: #0f0;
+}
+.header-rigth {
+    width: 260px;
+    background-color: #0f0;
+}
+
+
+/*--------top部分--------*/
+.top {
+    grid-area: top; /*指定网格区域*/
+    background-color: #fff;
+}
+.top .container {
+    display: grid;
+    /*top部分布局 设置网格行,设置网格列,再设定网格区域*/
+    grid-template-rows: 100px 460px 14px 170px 26px 58px 340px 40px;
+    grid-template-columns: auto 14px 978px;
+    grid-template-areas:
+        "top-nav top-nav top-nav"
+        "top-slider top-slider top-slider"
+        ". . ."
+        "recommend-left . recommend-right"
+        ". . ."
+        "flashsale-title flashsale-title flashsale-title"
+        "flashsale-timer . flashsale-shops"
+        ". . .";
+}
+.top-nav {
+    grid-area: top-nav;
+    background-color: #f00;
+}
+.top-slider {
+    position: relative;
+    grid-area: top-slider;
+    background-color: #00f;
+}
+.top-slider .slider-navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 234px;
+    background-color: black;
+    opacity: .5;
+}
+.top-recommend-left {
+    grid-area: recommend-left;
+    background-color: skyblue;
+}
+.top-recommend-right {grid-area: recommend-right;}
+.top-recommend-right > ul {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+.top-recommend-right li {
+    width: 316px;
+    background-color: deepskyblue;
+}
+.top-flashsale-title {
+    grid-area: flashsale-title;
+    background-color: #000;
+}
+.top-flashsale-timer {
+    grid-area: flashsale-timer;
+    background-color: #fff;
+}
+.top-flashsale-shops {
+    display: flex;
+    justify-content: space-between;
+    grid-area: flashsale-shops;
+    background-color: #6effb1;
+}
+.top-flashsale-shops li {width: 234px;}
+
+
+/*--------center部分--------*/
+.center {
+    margin-bottom: 60px;  /*边距可以在网格分区的时候考虑进去,把边距设成一行或一列,不要放内容就好了*/
+    padding-top: 60px;
+    grid-area: center; /*指定网格区域*/
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+.center-phone-title {
+    height: 58px;
+    background-color: black;
+}
+.center-phone-content {
+    margin-bottom: 8px;
+    display: grid;
+    /*这里用flex分格更好,代码更少更简洁*/
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas:
+        "big1 normal2 normal3 normal4 normal5"
+        "big1 normal6 normal7 normal8 normal9";
+    grid-gap: 14px; /*网格间隔*/
+    height: 628px;
+    background-color: pink;
+}
+.phone-content-item1 {grid-area: big1;}
+.phone-content-item2 {grid-area: normal2;}
+.phone-content-item3 {grid-area: normal3;}
+.phone-content-item4 {grid-area: normal4;}
+.phone-content-item5 {grid-area: normal5;}
+.phone-content-item6 {grid-area: normal6;}
+.phone-content-item7 {grid-area: normal7;}
+.phone-content-item8 {grid-area: normal8;}
+.phone-content-item9 {grid-area: normal9;}
+.center-household-title {
+    height: 58px;
+    background-color: black;
+}
+.center-household-content {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 614px;
+    background-color: pink;
+}
+.center-household-content .row {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+.row .household-content-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 234px;
+    background-color: #fff;
+}
+.household-content-item:last-of-type p {height: 143px;}
+.center-video-title {
+    height: 58px;
+    background-color: black;
+}
+.center-video-content {
+    display: flex;
+    justify-content: space-between;
+    height: 285px;
+    background-color: pink;
+}
+.center-video-content li {width: 296px;}
+
+
+/*--------bottom部分--------*/
+.bottom {
+    grid-area: bottom; /*指定网格区域*/
+    background-color: #fff;
+}
+.bottom .container {
+    display: grid;
+    grid-template-columns: auto 252px;
+    grid-template-rows: 80px auto;
+    grid-template-areas: "service service" "links-left links-right";
+}
+.container .bottom-service {
+    display: flex;
+    grid-area: service;
+    background-color: seagreen;
+}
+.service-item {flex: 1;}
+.container .bottom-links-left {
+    display: flex;
+    grid-area: links-left;
+    background-color: yellow;
+}
+.links-left-item {flex: 1;}
+.container .bottom-links-right {
+    grid-area: links-right;
+    background-color: yellowgreen;
+}
+
+
+/*--------footer部分---------*/
+.footer {
+    padding: 30px 0;
+    grid-area: footer; /*指定网格区域*/
+}
+.footer-info {
+    display: flex;
+    justify-content: space-between;
+    height: 57px;
+    background-color: #6effb1;
+}
+.info-left {width: 630px;}
+.info-right {width: 436px;}
+.footer-slogan {
+    margin-top: 30px;
+    height: 19px;
+    background-color: #8545e0;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>(5)使用绝对定位实现</title>
+    <style>
+        #parent {
+            position: relative;
+            /*子绝父相*/
+        }
+
+        #left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #f00;
+            width: 100px;
+            height: 500px;
+        }
+
+        #right {
+            position: absolute;
+            top: 0;
+            left: 100px;
+            /*值大于等于#left的宽度*/
+            right: 0;
+            background-color: #0f0;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parent">
+        <div id="left">左列定宽</div>
+        <div id="right">右列自适应</div>
+    </div>
+</body>
+
+</html>

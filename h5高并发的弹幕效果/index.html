@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>h5高并发的弹幕效果</title>
+</head>
+<body>
+    <canvas style="width: 1280px;height: 720px;background-color: rgba(0,0,0,0.2)">你的浏览器不支持canvas</canvas>
+    <script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <script>
+        $('canvas').barrager([{"msg":"这是我发的。。。哈哈哈"}]);
+        $('canvas').barrager([{"msg":"看着不错。。。。"},{"msg":"哈哈哈。。。。"},{"msg":"不错不错。。"},{"msg":"真好看。。。。"}]);
+        // $('canvas').barrager("clear");  // 关闭弹幕的效果
+    </script>
+</body>
+</html>

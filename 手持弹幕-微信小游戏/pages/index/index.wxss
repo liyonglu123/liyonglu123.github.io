@@ -1,0 +1,66 @@
+/*背景*/
+.barrage-fly {
+	height: 90%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+  background-color: black;
+}
+
+/* 文字  */
+.barrage-textFly {
+	position: absolute;
+	left:50%;
+	/* -webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	transform:translate(-50%,-50%); */
+	transform: translate(-50%);
+  font-size: 140px;
+  /* left: 30%; */
+}
+.textItem{
+	display: block;
+	/* text-align: center; */
+	/* 字体旋转90度问题 */
+  transform: rotate(90deg);
+  margin-top: -40px;
+}
+/* 弹幕输入框的操作*/
+
+.barrage-inputText {
+	display: incline-block;
+	background-color: #BFBFBF;
+	width: 100%;
+	height: 10%;
+	position: absolute;
+	bottom: 0;
+}
+
+.barrage-input {
+	background-color: yellow;
+	width: 60%;
+	height: 30px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.barrage-shoot {
+	margin-left: 10px;
+	width: 25%;
+	height: 30px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.shoot {
+	width: 100%;
+	color: black;
+}
+
+
+.tipTop{
+  background-color: yellow;
+  display: 
+}

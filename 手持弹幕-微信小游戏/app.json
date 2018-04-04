@@ -1,0 +1,21 @@
+{
+  "pages":[
+    "pages/index/index"
+  ]
+  ,"window":{
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "测试",
+    "backgroundColor": "#FFFFFF",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance":50
+    },
+    "networkTimeout": {
+      "request": 20000,
+      "connectSocket": 20000,
+      "uploadFile": 20000,
+      "downloadFile": 20000
+    },
+    "debug":true
+}

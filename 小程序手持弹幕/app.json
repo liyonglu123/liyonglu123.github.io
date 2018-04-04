@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/fly/fly",
     "pages/ceshi/ceshi",
     "pages/danmu/danmu",
     "pages/index/index",

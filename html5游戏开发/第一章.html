@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas的简单实例</title>
+</head>
+<body>
+    <canvas width="1000" height="600" id="canvas" style="border: 1px solid red">我不支持canvas哦</canvas>
+    <img src="images/image.JPG" alt="" id="spaceship">
+    <br>
+    <!-- <audio src="mp3/music.mp3" controls="controls">你的浏览器不支持audio请换一个新的浏览器</audio> -->
+    <!-- 下面考虑到浏览器对音频文件的兼容性 -->
+    <audio controls="controls">
+        <source src="mp3/music.mp3" type="audio/mpeg"/>
+        <source src="mp3/music.ogg" type="audio/ogg"/>
+        你的浏览器不支持audio请换一个新的浏览器
+    </audio>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            // 绘制矩形  实心和空心和清楚指定区域的矩形
+            context.fillRect(200, 10, 100, 100);
+            context.fillRect(50, 70, 90, 30);
+            
+            context.strokeRect(110, 10, 50, 50);
+            context.strokeRect(30, 10, 50, 50);
+            
+            context.clearRect(210, 20, 30, 20);
+            context.clearRect(260, 20, 30, 20);
+            // 绘制复杂的形状和路径
+            // 步骤：  1，使用beginPath()方法开始绘制路径
+            //        2，moveTo(),lineTo(),arc()方法创建线段
+            //        3，使用closePath()结束绘制并且闭合形状 （可选）
+            // 4， 使用stroke()或者fill()绘制路径的外边框或者填充形状，使用fill()会自动闭合所有未闭合的路径
+            // 填充三角形
+            context.beginPath();
+            context.moveTo(10, 120);
+            context.lineTo(10, 180);
+            context.lineTo(110, 150);
+            context.fill();
+            // 三角形边框
+            context.beginPath();
+            context.moveTo(140, 160);
+            context.lineTo(140, 220);
+            context.lineTo(40, 190);
+            context.closePath();
+            context.stroke();
+            // 一个更复杂的多边形
+            context.beginPath();
+            context.moveTo(160, 160); // 起始点
+            context.lineTo(170, 220);
+            context.lineTo(240, 210);
+            context.lineTo(260, 170);
+            context.lineTo(190, 140);
+            context.closePath();
+            context.stroke();
+            // 绘制弧
+            // 半圆弧
+            context.beginPath();
+            context.arc(100,300,40,0,Math.PI,true);
+            context.stroke();
+            // 画一个实心圆
+            context.beginPath();
+            context.arc(100,300,30,0,2*Math.PI,true);
+            context.fill();
+            // 画一个3/4弧
+            context.beginPath();
+            context.arc(200,300,25,0,3/2*Math.PI,false);
+            context.stroke();
+            // 绘制文本  strokeText(text,x,y):在x,y处绘制空心的文本  fillText(text,x,y):在x,y处绘制实心的文本 
+            // 绘制文本
+            context.fillText('this is some text...', 330 ,40);
+            // 修改样式
+            context.font = '10pt Arial';
+            context.fillText('this is 10 pt Arial...', 330 ,60);
+            // 绘制空心文本
+            context.font = '16px Arial';
+            context.strokeText('this is stroke in 16 pt Arial...', 330 ,80);
+            
+            // 自定义画笔样式（颜色和纹理） fillStyle: 设置接下来所有的fill操作的默尔颜色；strokeStyle: 设置接下来所有的stroke操作的默尔颜色；
+            // 设置填充色为红色
+            context.fillStyle = "red";
+            context.fillRect(310,160,100,50);
+            // 设置边框颜色为绿色
+            context.strokeStyle = "green";
+            context.strokeRect(310,240,100,50);
+            // 使用rgb（）
+            context.fillStyle = "rgb(255,0,0)";
+            context.fillRect(420,160,100,50);
+            // rgba();
+            context.fillStyle = "rgb(0,255,0,0.6)";
+            context.fillRect(450,180,100,50);
+            // 绘制图像 
+            // drawImage(image,x,y): 在canvas中（x,y）处绘制图相
+            // drawImage(image,x,y,width,height): 在canvas中（x,y）处绘制图相,并将其缩放到指定的宽度和高度
+            // drawImage(image,sourceX,sourceY,sourceWidth,sourceHeight,x,y,width,height):
+            // 表示，从图片中切割出一个矩形区域(sourceX,sourceY, sourceWidth, sourceHeight),
+            // 缩放到指定的宽度和高度并在canvas中(x,y)中绘制
+            var image = document.getElementById('spaceship');
+            // 
+            context.drawImage(image,0,350);
+            // 缩放
+            context.drawImage(image,0,400,150,100);
+            // 绘制图形的局部
+            context.drawImage(image,0,0,100,50,0,420,60,50);
+            // 平移和旋转
+            // translate(x,y) 将坐标系的原点平移到另一点（x,y）;
+            // rotate(angle) 以当前原点为中心顺时针旋转坐标系，旋转角度为angle（弧度）
+            // scale(x,y) 以x,y为因子缩放坐标系
+            // 步骤，1，将canvas原点平移到物体处，2，以指定的角度旋转canvas,3,绘制图像 4，将canvas恢复到初始状态
+            // 原点平移到物体处
+            context.translate(250,370);
+            // 新原点以指定的角度旋转canvas 60度
+            context.rotate(Math.PI/3);
+            context.drawImage(image,0,0,60,50,-30,-25,60,50);
+            // 通过反转回到最初
+            context.rotate(-Math.PI/3)
+            context.translate(-250,-370);
+            // 
+            context.translate(300,370);
+            // 新原点以指定的角度旋转canvas 60度
+            context.rotate(3*Math.PI/4);
+            context.drawImage(image,0,0,60,50,-30,-25,60,50);
+            // 通过反转回到最初
+            context.rotate(-3*Math.PI/4);
+            context.translate(-300,-370);
+            // 除了反转 还可以在变换之前调用save(),变换之后调用restore()恢复canvas状态；
+            // =================================================================================
+            //  audio :一些属性： controls 控制播放 
+            // preload: 指定音频是否会被预加载，autoplay: 指定音频被预加载后是否自动播放；loop：指定音频播放结束后是否循环播放；
+            // js动态加载音频文件
+
+            // 创建一个audio对象
+
+            // var audio = new Audio();
+            // // 选择音频源
+            // audio.src = "mp3/music.mp3";
+            // // 播放音频
+            // audio.play();
+
+            // 检测音频支持
+            var audio = document.createElement('audio');
+            var mp3Support, oggSupport;
+            if(audio.canPlayType){
+                // 当前canPlayType()方法返回"","maybe"或者"probably"
+                mp3Support = "" != audio.canPlayType('audio/mpeg');
+                oggSupport = "" != audio.canPlayType('audio/ogg;codecs = "vorbis"');
+            }else{
+                // 不支持audio标签
+                mp3Support = false;
+                oggSupport = false;
+            }
+            // 检查是否支持OGG,MP3,如果不支持，就将soundFileExtn设置为undefined;
+            var soundFileExtn = mp3Support ? ".mp3" : oggSupport ? ".ogg" : undefined;
+            if (soundFileExtn) {
+                var sound = new Audio();
+                // 等待音频加载完成了 预加载的时候会使用到哦
+                sound.addEventListener('canplaythrough', function () {
+                    alert("loaded");
+                    sound.play();
+                })
+                sound.src = "mp3/music" + soundFileExtn;
+                // 加载具有探测到扩展名的声音文件
+                // sound.play();
+            }
+
+            // 图像  js动态加载图像
+            // var image = new Image();
+            // image.src = "images/image.JPG";
+            // // img或者js加载的都可以使用canvas绘制
+
+            // // 图像加载
+            // // 等待图像加载完成
+            // image.onload = function(){
+            //     alert("images finished loading");
+            // }
+            // 简单的图像加载器
+            var imageLoader = {
+                loaded: true,
+                loadedImages: 0,
+                totalImages: 0,
+                load: function (url) {
+                    this.totalImages ++ ;
+                    this.loaded = false;
+                    var image = new Image();
+                    image.src = url;
+                    image.onload = function () {
+                        imageLoader.loadedImages++;
+                        if(imageLoader.loadedImages === imageLoader.totalImages){
+                            imageLoader.loaded = true; // 判断是否所有的图像都加载了
+                            alert("images finished loading");
+                        }
+                    }
+                    return image;
+                    // 这个图像加载器可用来加载大量的图片，计算loadedImages/totalImages 可以绘制一个百分比或者进度条
+
+                }
+            }
+            // imageLoader.load("images/image.JPG")
+
+            // 精灵图 === 子画面页 是一张单独的较大的图片文件，其中存储了某一个物体的所有的图像，显示图像的时候通过计算出
+            // 该图像在子画面中的位置偏移量，然后利用drawImage()方法绘制图片局部的功能，画出子页面的"那个部分'
+
+            // ==== 单独绘制的图像
+            
+            // 首先：单独载入每一张图片并存储在一个长数组中
+            // 三个参数： 图片（数组元素）和绘制的坐标（x,y）
+            // var image = imageArray[imageNumber];
+            // context.drawImage(image,x,y);
+
+            // ==== 利用子画面页绘制图像
+
+            // 首先载入子画面页图片
+
+            // 9个参数（图片（子画面页）， 图像在子画面上的坐标（x,y）, 
+            // 图像在子画面页上的宽度和高度（用来切割））
+            // 待绘制坐标（x,y）和绘制宽度和高度（调整大小）
+            // context.drawImage(this.spriteImage,this.imageWidth*(imageNumber),0,this.imageWidth,this.imageHeight,x,y,this.imageWidth,imageHeight);
+            // 使用子画面的优势：
+            // 1. 更少的http请求  2. 更好的压缩性能（图片的头部信息不必再重复了） 3. 更快的加载时间
+        }
+    </script>
+</body>
+</html>

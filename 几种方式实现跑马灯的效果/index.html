@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>跑马灯的效果</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* font: 12px/1 '微软雅黑'; */
+        }
+
+        .wrapper {
+            font-size: 20px;
+            color: #333;
+            padding-top: 15px;
+            margin: 0 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 300px;
+        }
+
+        .inner {
+            width: 1000px;
+            overflow: hidden;
+        }
+
+        .inner p {
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper" class="wrapper">
+        <div class="inner">
+            <p class="txt">文字如果超出了宽度自动向左滚动文字如果超出了宽度自动向左滚动。</p>
+        </div>
+    </div>
+    <script>
+        var wrapper = document.getElementById('wrapper');
+        var inner = wrapper.getElementsByTagName('div')[0];
+        var p = document.getElementsByTagName('p')[0];
+        var p_w = p.offsetWidth;
+        var wrapper_w = wrapper.offsetWidth;
+        window.onload = function fun() {
+            if (wrapper_w > p_w) { return false; }
+            inner.innerHTML += inner.innerHTML;
+            // setTimeout("fun1()", 0);
+            fun1();
+        };
+
+        function fun1() {
+            if (p_w > wrapper.scrollLeft) {
+                wrapper.scrollLeft++;
+                setTimeout("fun1()", 30);
+            }
+            else {
+                // setTimeout("fun2()", 50);
+                fun2();
+            }
+        }
+
+        function fun2() {
+            wrapper.scrollLeft = 0;
+            fun1();
+        }
+    </script>
+</body>
+
+</html>

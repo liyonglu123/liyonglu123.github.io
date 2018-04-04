@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css3实现keyframe 实现跑马灯</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+
+        .marquee {
+            height: 25px;
+            width: 420px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee div {
+            display: block;
+            width: 200%;
+            height: 30px;
+            position: absolute;
+            overflow: hidden;
+            animation: marquee 5s linear infinite;
+        }
+
+        .marquee span {
+            float: left;
+            width: 50%;
+        }
+
+        @keyframes marquee {
+            0% {
+                left: 0;
+            }
+            100% {
+                left: -100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marquee">
+        <div>
+            <span>You spin me right round, baby. Like a record, baby.</span>
+            <span>You spin me right round, baby. Like a record, baby.</span>
+        </div>
+    </div>
+</body>
+
+</html>

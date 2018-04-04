@@ -13,18 +13,18 @@ var config = {
     },
     module: {
         rules: [
-            {
-                test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    loaders: {
-                        css: ExtractTextPlugin.extract({
-                            use: 'css-loader',
-                            fallback: 'vue-style-loader'
-                        })
-                    }
+        {
+            test: /\.vue$/,
+            loader: 'vue-loader',
+            options: {
+                loaders: {
+                    css: ExtractTextPlugin.extract({
+                        use: 'css-loader',
+                        fallback: 'vue-style-loader'
+                    })
                 }
-            },
+            }
+        },
         {
             test: /\.js$/,
             loader: 'babel-loader',
@@ -34,14 +34,13 @@ var config = {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
             loader: 'url-loader?limit=1024'
         },
-            {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: 'css-loader',
-                    fallback: 'style-loader'
-                })
-            }
-        ]
+        {
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+                use: 'css-loader',
+                fallback: 'style-loader'
+            })
+        }]
     },
     // 热加载
     // devServer: {

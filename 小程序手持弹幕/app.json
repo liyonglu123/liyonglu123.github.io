@@ -1,0 +1,15 @@
+{
+  "pages":[
+    "pages/ceshi/ceshi",
+    "pages/danmu/danmu",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black",
+    "backgroundColor": "#eeeeee"
+  }
+}

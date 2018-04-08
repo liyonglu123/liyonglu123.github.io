@@ -70,3 +70,19 @@ var reverseInt = function (x) {
         return Number(str.split("").reverse().join(""));
     }
 };
+
+/**
+ * 
+ * @param {*} num 整数的倒置
+ */
+var huiWenShu = function (num) {
+    var newNumber = 0;
+    while (num != 0) {
+        newNumber *= 10;
+        newNumber =newNumber + (num % 10);  
+        num = Math.floor(num/10);  
+    }
+    // return newNumber;
+    console.log(newNumber);  
+}
+// huiWenShu(10)

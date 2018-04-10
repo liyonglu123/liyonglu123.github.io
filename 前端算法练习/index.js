@@ -86,3 +86,50 @@ var huiWenShu = function (num) {
     console.log(newNumber);  
 }
 // huiWenShu(10)
+// 实现罗马数字与整数的互转。 数字大小为[1, 3999]之间。
+// https://blog.csdn.net/net_wolf_007/article/details/51770112
+var romanToInt = function(s) {  
+    var tagVal = [256];  
+    tagVal['I'] = 1;  
+    tagVal['V'] = 5;  
+    tagVal['X'] = 10;  
+    tagVal['C'] = 100;  
+    tagVal['M'] = 1000;  
+    tagVal['L'] = 50;  
+    tagVal['D'] = 500;  
+    var val = 0;  
+    for(var i = 0; i < s.length; i++ ){  
+        if(i+1 >= s.length || tagVal[s[i+1]] <= tagVal[s[i]])  {
+            val += tagVal[s[i]];  
+        }
+        else{
+            val -= tagVal[s[i]];   
+        }  
+           
+    }  
+    return val;   
+    // console.log(val);
+} 
+
+// romanToInt('MMMXLV');
+// 整数转化为罗马数字
+var intToRoman = function(num) {   
+    if(num <= 0) return "";  
+    var ret = "";  
+    var number = [1000, 900, 500, 400, 100,90, 50, 40, 10, 9, 5, 4, 1];  
+    var flags = ["M","CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];  
+       
+    for(var i = 0; i < number.length && num > 0; i++){  
+        de 
+        if(num < number[i]) continue;  
+        // cout<< i << " " << number[i] << " - " <<flags[i] << endl;  
+        while(num >= number[i]){  
+            num-= number[i];  
+            ret += flags[i];  
+        }  
+          
+    }  
+    return ret;  
+    // console.log(ret); 
+}  
+// intToRoman(4)

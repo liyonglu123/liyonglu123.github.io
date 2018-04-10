@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>滑动删除的特效</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            background-color: #fff;
+            box-sizing: border-box;
+            color: inherit;
+            min-height: 48px;
+            line-height: 48px;
+            display: block;
+            overflow: hidden;
+            position: relative;
+            text-decoration: none;
+            border: 1px solid #eee;
+            transform: translateX(0px);
+        }
+
+        .left {
+            /* position: absolute; */
+            /* left: 0;
+            top: 0; */
+            height: 40px;
+            width: 100%;
+            /* transform: translateX(0px); */
+        }
+
+        .right {
+            position: absolute;
+            right: -80px;
+            top: 0;
+            height: 40px;
+            width: 80px;
+            /* box-sizing: border-box; */
+            background: red;
+            /* transform: translateX(80px); */
+        }
+    </style>
+
+</head>
+
+<body>
+    <a class="atag">
+        <div class="left">
+            向左滑动可以删除哦
+        </div>
+        <div class="right">
+           删除
+        </div>
+    </a>
+</body>
+<script>
+    window.onload = function () {
+        var initX; //触摸位置
+        var moveX; //滑动时的位置
+        var X = 0; //移动距离
+        var objX = 0; //目标对象位置
+        window.addEventListener('touchstart', function (e) {
+            e.preventDefault();
+            var obj = e.target.parentNode;
+            // debugge
+            console.log(obj.className);
+            if (obj.className == 'atag') {
+                initX = event.targetTouches[0].pageX;
+                objX = (obj.style.transform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+
+            }
+            window.addEventListener('touchmove', function (event) {
+                event.preventDefault();
+                var obj = event.target.parentNode;
+                if (obj.className == "atag") {
+                    moveX = event.targetTouches[0].pageX;
+                    X = moveX - initX;
+                    if (X >= 0) {
+                        obj.style.transform = "translateX(" + 0 + "px)";
+                    } else if (X < 0) {
+                        var l = Math.abs(X);
+                        obj.style.transform = "translateX(" + -l + "px)";
+                        if (l > 80) {
+                            l = 80;
+                            obj.style.transform = "translateX(" + -l + "px)";
+                        }
+                    }
+                }
+            })
+            window.addEventListener('touchend', function (event) {
+                event.preventDefault();
+                var obj = event.target.parentNode;
+                objX = (obj.style.transform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+
+                if (obj.className == "atag") {
+                    // objX = (obj.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+                    if (objX > -40) {
+                        obj.style.transform = "translateX(" + 0 + "px)";
+                        objX = 0;
+                    } else {
+                        obj.style.transform = "translateX(" + -80 + "px)";
+                        objX = -80;
+                    }
+                }
+            })
+        });
+    }
+</script>
+
+</html>

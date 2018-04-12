@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css的揭秘</title>
+    <style>
+        .main{
+            width: 100px;
+            height: 100px;
+            background: red;
+            background: linear-gradient(-45deg,transparent 15px, red 0) right,
+                        linear-gradient(45deg,transparent 15px, blue 0) left;
+            background-size: 50% 100%;
+            background-repeat: no-repeat;
+            /*  */
+
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            background: red;
+            background: radial-gradient(circle at top left,transparent 15px, red 0) top left,
+                        radial-gradient(circle at top right,transparent 15px, red 0) top right,
+                        radial-gradient(circle at bottom right,transparent 15px, red 0) bottom right,
+                        radial-gradient(circle at bottom left,transparent 15px, red 0) bottom left;
+            background-size: 50% 50%;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+
+    </div>
+    <div class="circle">
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tab的标签页</title>
+    <style>
+        .nav > a {
+            position: relative;
+            display: inline-block;
+            padding: .3em 1em 0;
+        }
+        .nav > a::before {
+            content: "";
+            position: absolute;
+            top:0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+            background: #ccc;
+            background-image: linear-gradient(hsla(0,0%,100%,.6), hsla(0,0%,100%,0));
+            border: 1px solid rgba(0, 0, 0, .4);
+            border-bottom: none;
+            border-radius: .5em .5em 0 0;
+            box-shadow: 0 .15em white inset;
+            /* 透视实现的效果哦记住了 */
+            transform: perspective(.5em) rotateX(5deg);  
+            transform-origin: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="">home</a>
+        <a href="">project</a>
+        <a href="">about</a>
+    </div>
+</body>
+</html>

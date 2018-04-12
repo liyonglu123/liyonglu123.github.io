@@ -15,7 +15,6 @@ window.onload=function(){
 };
 var time=0;//定义运动的执行次数
 function run(cxt){
-
     cxt.clearRect(0,0,1024,728);   
     drawNotChange(cxt);
     cxt.save();//将当前以左上角坐标为(0,0)的上下文环境进行保存，这样是为了在接下来中要进行画布偏移后，可以进行还原当前的环境

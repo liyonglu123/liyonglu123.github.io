@@ -202,7 +202,7 @@ const validBraces = function (str) {
             if (symbol !== '[') return false;
             break;
         case '}':
-            symbol = arr.pop();
+            symbol = arr.pop(); // 删除最后一个并返回最后一个元素
             if (symbol !== '{') return false;
             break
 
@@ -217,3 +217,6 @@ const validBraces = function (str) {
 // console.log(validBraces("[(])")); //false
 // console.log(validBraces("([{}])")); //true
 // console.log(validBraces("}[{}])")); //true
+// console.log(validBraces("([(}")); //true
+
+

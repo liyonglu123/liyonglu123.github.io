@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        div {
+            position: relative;
+            width: 100%;
+            height: 374px;
+            border: 5px solid lightgreen;
+            margin: 10px auto;
+            overflow: hidden;
+        }
+
+        div ul {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        div ul li {
+            width: 556px;
+            height: 374px;
+            float: left;
+        }
+
+        div ul li img {
+            width: 100%;
+            height: 100%;
+            border: 3px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <ul>
+            <li><img src="http://www.0351zhuangxiu.com/uploads/images/123.jpg" border="0" /></li>
+            <li><img src="http://www.0351zhuangxiu.com/uploads/images/124.jpg" border="0" /></li>
+            <li><img src="http://www.0351zhuangxiu.com/uploads/images/125.jpg" border="0" /></li>
+            <li><img src="http://www.0351zhuangxiu.com/uploads/images/126.jpg" border="0" /></li>
+        </ul>
+
+    </div>
+    <script>
+        // 这样可以做到不卡顿的效果
+        var oUl = document.getElementsByTagName('ul')[0];
+        var lis = oUl.getElementsByTagName('li');
+        oUl.innerHTML += oUl.innerHTML;
+        oUl.style.width = lis.length * lis[0].offsetWidth + 'px';
+        var left = null;
+        var timer = setInterval(function () {
+            left -= 3;
+            if (left < -oUl.offsetWidth / 2) {
+                left = 0;
+            }
+            oUl.style.left = left + 'px'
+        }, 50)
+    </script>
+</body>
+
+</html>

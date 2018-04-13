@@ -14,6 +14,45 @@
 </head>
 <body>
     <h1>i am a boy</h1>
-    <script src="index.js"></script>
+    <input id="input" type="text" value="ceshiefefe">
+    <input id="input1" type="text" value="copy">按键的测试
+    <p id="p">测试</p>
+    <!-- <script src="index.js"></script> -->
+    <!-- <script src="合并两个链表.js"></script> -->
+    <script>
+        window.onload = function () {
+            var input= document.getElementById('input');
+            var input1= document.getElementById('input1');
+            var p= document.getElementById('p');
+            
+            p.oncut = function (e) {
+                // 剪切
+                // debugger
+            }
+            input.focus(input.select()); // 选中全部文本
+           input.onselect = function () {
+            //    debugger
+            // 获取选择的文本  selectionRange() = 选择部分文本 开始和结束
+               console.log(input.value.substring(input.selectionStart,input.selectionEnd));
+           }
+           input1.onkeypress = function (event) {
+            // 变成了只读的效果
+            // 在这里可以进行输入的过滤情况的触发
+            // event.charCode;
+            // debugger
+            // event.preventDefault();
+           }
+           input1.onpaste = function (e) {
+           }
+        //    可以带括号哦
+          switch (3) {
+              case 3:
+                  break;
+            
+              default:
+                  break;
+          }
+        }
+    </script>
 </body>
 </html>

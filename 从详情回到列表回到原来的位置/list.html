@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>从详情回到列表页面还是返回到原先的位置</title>
+</head>
+<body>
+    <ul id="list">
+        <li data-name="first">111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+    </ul>
+    <script>
+        window.onload = function () {
+            var list = document.getElementById('list');
+            list.addEventListener('click', function (e) {
+                // debugger
+                console.log(e.target.dataset.name);
+                window.location.href = "file:///C:/Users/liyonglu/Desktop/myGithub/liyonglu123.github.io/%E4%BB%8E%E8%AF%A6%E6%83%85%E5%9B%9E%E5%88%B0%E5%88%97%E8%A1%A8%E5%9B%9E%E5%88%B0%E5%8E%9F%E6%9D%A5%E7%9A%84%E4%BD%8D%E7%BD%AE/detail.html?id=" + e.target.dataset.name;
+            })
+        }
+    </script>
+</body>
+</html>

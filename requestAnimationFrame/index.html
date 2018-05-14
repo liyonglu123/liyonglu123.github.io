@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动画的设计</title>
+    <style>
+        #animation {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="animation"></div>
+    <button id="stop">停止</button>
+    <script>
+        // 方法一： requestAnimationFrame
+        var deg = 0;
+        var id;
+        var div = document.getElementById('animation');
+        div.addEventListener('click', function () {
+            var self = this;
+            requestAnimationFrame(function change() {
+                self.style.transform = 'rotate('+(deg++) +'deg';
+                id = requestAnimationFrame(change);
+            })
+        });
+        document.getElementById('stop').onclick = function () {
+            cancelAnimationFrame(id);
+        }
+        // css进行实现
+        // settimeout 和  setinternal
+    </script>
+</body>
+</html>

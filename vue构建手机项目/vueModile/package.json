@@ -13,6 +13,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "animate.css": "^3.7.0",
+    "bounce.js": "^0.8.2",
+    "hover.css": "^2.3.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

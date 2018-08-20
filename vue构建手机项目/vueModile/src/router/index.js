@@ -9,6 +9,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: ''
+    },
+    {
+      path: '/home',
       name: 'home',
       component: () => import('@/views/home/index'),
     }

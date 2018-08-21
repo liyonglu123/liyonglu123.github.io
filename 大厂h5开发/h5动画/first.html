@@ -5,65 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>补间动画</title>
+    <style>
+        /* 默认定位在第2（或3）帧以让元素默认显示在屏幕内，便于开发调试。 */
+
+        .circle-29 {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 224, 93, .7);
+            position: absolute;
+            left: 473px;
+            top: 348px;
+            border-radius: 50%;
+            animation-name: circle29;
+            animation-duration: 3.5s;
+            /* 42 * (1 / 12) */
+            animation-delay: 0.0833s;
+            /* 1 * (1 / 12) */
+            animation-fill-mode: both;
+            animation-timing-function: ease-in-out;
+        }
+
+        @keyframes circle29 {
+            0% {
+                transform: translate3d(0, 1175px, 0);
+            }
+            61.90% {
+                /* (2 * 12 + 3 - 1) / 42，注意要减去延时时间（1），因为 02:03 包含了它。下同。*/
+                transform: translate3d(0, 0, 0);
+            }
+            64.29% {
+                transform: translate3d(0, 0, 0);
+            }
+            100% {
+                transform: translate3d(0, -1225px, 0);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="timeline">
-    
-        <div class="timeline_tit">
-            宣讲行程
-            <span>Campus Talk Schedule</span>
-            </div>
-    
-        <div class="timeline_icon">
-        
-            <svg viewBox="0 0 102 102">
-            
-                <circle cx="51" cy="51" r="50" transform="rotate(90 51 51)"></circle>
-                </svg>
-            </div>
-    
-        <ul class="timeline_list">
-        
-            <li class="timeline_item timeline_item_sp">
-            
-                <span class="timeline_item_cnt flag">
-                    <i class="flag_sin"></i>
-                </span>
-            
-                <span class="timeline_item_cnt country"></span>
-            
-                <b></b>
-                </li>
-        
-            <li class="timeline_item">
-            
-                <span class="timeline_item_cnt time">09 / 20</span>
-            
-                <span class="timeline_item_cnt city">INSEAD</span>
-            
-                <b></b>
-                </li>
-        
-            <li class="timeline_item">
-            
-                <span class="timeline_item_cnt time">09 / 21</span>
-            
-                <span class="timeline_item_cnt city">NTU</span>
-            
-                <b></b>
-                </li>
-        
-            <li class="timeline_item timeline_item_sp">
-            
-                <span class="timeline_item_cnt flag">
-                    <i class="flag_us"></i>
-                </span>
-                <span class="timeline_item_cnt country">U.S</span>
-                <b></b>
-            </li>
-    </div>
+    <div class="circle-29"></div>
 </body>
 
 </html>

@@ -1,0 +1,204 @@
+/*天空*/
+.sky { 
+	position:absolute; left:0; top:0; width:100%; height:90%;
+	background:-webkit-linear-gradient(top,#7da2e8,#c3deee 30%,#f7fcff);
+	background:-moz-linear-gradient(top,#7da2e8,#c3deee 30%,#f7fcff);
+	background:-ms-linear-gradient(top,#7da2e8,#c3deee 30%,#f7fcff);
+	background:linear-gradient(top,#7da2e8,#c3deee 30%,#f7fcff);
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled=true，GradientType:0,startColorstr='#7da2e8', endColorstr='#f7fcff');
+}
+/*海洋*/
+.sea {
+	position:absolute; left:0; bottom:0; width:100%; height:20%; z-index:4;
+	background:-webkit-linear-gradient(top,#e7eef8,#89a0c4 35%,#455d83 70%,#23375e);
+	background:-moz-linear-gradient(top,#e7eef8,#89a0c4 35%,#455d83 70%,#23375e);
+	background:-ms-linear-gradient(top,#e7eef8,#89a0c4 35%,#455d83 70%,#23375e);
+	background:linear-gradient(top,#e7eef8,#89a0c4 35%,#455d83 70%,#23375e);
+	filter:progid:DXImageTransform.Microsoft.gradient(enabled=true，GradientType:0,startColorstr='#e7eef8', endColorstr='#23375e');
+}
+/*太阳*/
+.sun {
+	position:absolute; width:200%; height:200%; left:-50%; top:-25%; z-index:2;
+	background:-webkit-radial-gradient(center center,circle,rgba(255,255,255,1),rgba(255,255,255,0.1) 6%,rgba(255,255,255,0));
+	background:-moz-radial-gradient(center center,circle,rgba(255,255,255,1),rgba(255,255,255,0.1) 6%,rgba(255,255,255,0));
+	background:-ms-radial-gradient(center center,circle,rgba(255,255,255,1),rgba(255,255,255,0.1) 6%,rgba(255,255,255,0));
+	background:radial-gradient(center center,circle,rgba(255,255,255,1),rgba(255,255,255,0.1) 6%,rgba(255,255,255,0));
+}
+.sun .kernel {
+	position:absolute; width:100%; height:100%; top:0; left:0;
+	background:-webkit-radial-gradient(center center,circle,rgba(255,255,255,1),rgba(255,255,255,0.1) 4%,rgba(255,255,255,0));
+	background:-moz-radial-gradient(center center,circle,rgba(255,255,255,1),rgba(255,255,255,0.1) 4%,rgba(255,255,255,0));
+	background:-ms-radial-gradient(center center,circle,rgba(255,255,255,1),rgba(255,255,255,0.1) 4%,rgba(255,255,255,0));
+	background:radial-gradient(center center,circle,rgba(255,255,255,1),rgba(255,255,255,0.1) 4%,rgba(255,255,255,0));
+}
+
+/*气泡*/
+.bubble {
+	position:absolute; font-size:0; line-height:0; width:10px; height:10px; border-radius:50%; bottom:0px;
+	border-radius:50%;
+	box-shadow:0px 0px 2px rgba(255,255,255,0.6) inset,-1px 1px 2px -1px rgba(0,204,255,0.1);
+	transform:skew(0deg,2deg); 
+	animation:bubbleRise 4s linear infinite;
+}
+.bubble1 {
+	left:20px; width:3px; height:3px;
+	animation:bubbleRise 6s linear infinite;
+}
+.bubble2 {
+	left:60px; width:5px; height:4px;
+	animation:bubbleRise 5s linear infinite;
+}
+.bubble3 {
+	left:120px; width:4px; height:3px;
+	animation:bubbleRise 7s linear infinite;
+}
+.bubble4 {
+	right:30px; width:5px; height:4px;
+	animation:bubbleRise 4s linear infinite;
+}
+.bubble5 {
+	right:70px; width:4px; height:4px;
+	animation:bubbleRise 6s linear infinite;
+}
+.bubble6 {
+	right:160px; width:5px; height:4px;
+	animation:bubbleRise 7s linear infinite;
+}
+.bubble7 {
+	right:120px; width:8px; height:7px;
+	animation:bubbleRise 5s linear infinite;
+}
+
+@keyframes bubbleRise{
+	0%{transform:translate(0px,0px);opacity:0;border-color:rgba(255,255,255,0.2);}
+	10%{transform:translate(0px,0px);opacity:1;}
+	30%{transform:translate(-1px,-30px);}
+	50%{transform:translate(1px,-60px);}
+	75%{transform:translate(-1px,-90px) scale(1.2);}
+	98%{opacity:1;border-color:rgba(255,255,255,0.35);}
+	100%{transform:translate(0px,-120px) scale(1.4);opacity:0;border-color:rgba(255,255,255,0.2);}
+}
+@keyframes bubbleRise{
+	0%{transform:translate(0px,0px); opacity:0; border-color:rgba(255,255,255,0.1);}
+	10%{transform:translate(0px,0px); opacity:1;}
+	30%{transform:translate(-1px,-15px);}
+	50%{transform:translate(1px,-30px);}
+	75%{transform:translate(-1px,-50px) scale(1.2);}
+	98%{opacity:1; border-color:rgba(255,255,255,0.25);}
+	100%{transform:translate(0px,-67px) scale(1.4); opacity:0; border-color:rgba(255,255,255,0.1);}
+}
+
+
+/*水母*/
+.jellyfish1{right:50px;bottom:65px;}
+.jellyfish2{left:120px;bottom:30px;}
+.jellyfish {
+	position:absolute; 
+	-webkit-animation:jellyfishSwimming 4s linear infinite alternate;
+	-moz-animation:jellyfishSwimming 4s linear infinite alternate;
+	animation:jellyfishSwimming 4s linear infinite alternate;
+	opacity:0.5;
+}
+.jellyfish_head {
+	position:absolute; left:0px; top:0px; display:block; height:15px; width:20px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.5);
+	border-radius:20px 20px 10px 10px/20px 20px 16px 16px;
+	box-shadow:0px 0px 4px rgba(255,255,255,0.5) inset,1px 1px 2px rgba(255,255,255,0.2) inset,3px 3px 1px rgba(255,255,255,0.2) inset,-1px -1px 1px rgba(255,255,255,0.1) inset;
+	animation:jellyfish_headChange 4s linear infinite alternate;
+}
+.jellyfish_head:after {
+	content:'';
+	display:block;
+	height:3px;
+	width:5px;
+	background:rgba(255,255,255,0.4);
+	position:absolute;
+	left:3px;
+	top:2px;
+	border-radius:5px/3px;
+	box-shadow:0px 0px 1px rgba(255,255,255,0.8) inset;
+	transform:rotate(-15deg);
+}
+.jellyfish_tail {
+	position:absolute;
+	left:2px;
+	top:15px;
+	display:block;
+	height:20px;
+	width:18px;
+	border:0.5px solid rgba(255,255,255,0.4);
+	border-top:none;
+	border-bottom:none;
+	border-radius:10px 10px 16px 6px/20px 20px 6px 6px;
+	box-shadow:0px 0px 3px rgba(255,255,255,0.3) inset,0px 4px 3px rgba(255,255,255,0.1) inset;
+	-webkit-transform-origin:50% 0%;
+	-webkit-animation:jellyfish_tailChange 4s linear infinite alternate;
+	-moz-transform-origin:50% 0%;
+	-moz-animation:jellyfish_tailChange 4s linear infinite alternate;
+}
+.jellyfish_tail:after {
+	content:'';
+	position:absolute;
+	left:0.5px;
+	top:1px;
+	display:block;
+	height:21px;
+	width:15.5px;
+	border:0.5px solid rgba(255,255,255,0.3);
+	border-right-color:rgba(255,255,255,0.4);
+	border-top:none;
+	border-bottom:none;
+	border-radius:10px/10px 20px 16px 16px;
+	box-shadow:0px 0px 3px rgba(255,255,255,0.3) inset,0px 3px 3px rgba(255,255,255,0.2) inset;
+}
+.jellyfish_tail:before {
+	content:'';
+	position:absolute;
+	left:1.5px;
+	top:1px;
+	display:block;
+	height:17px;
+	width:17px;
+	border-right:0.5px solid rgba(255,255,255,0.4);
+	border-radius:15px 10px 16px 16px/30px 30px 8px 8px;
+	shadow:0px 0px 3px rgba(255,255,255,0.3) inset;
+	-webkit-transform:rotate(-6deg);
+	-moz-transform:rotate(-6deg);
+}
+.jellyfish_tail_in {
+	position:absolute;
+	left:-0.5px;
+	top:0px;
+	display:block;
+	height:16px;
+	width:10px;
+	border-left:0.5px solid rgba(255,255,255,0.4);
+	border-radius:10px 20px 16px 10px/20px 20px 6px 20px;
+	box-shadow:3px 0px 3px rgba(255,255,255,0.2) inset;
+	-webkit-transform:rotate(14deg);
+	-moz-transform:rotate(14deg);
+}
+@keyframes jellyfishSwimming{
+	0%{transform:translate(0px,0px) rotate(-4deg) scale(0.8);}
+	20%{transform:translate(-1px,-3px) rotate(-6deg) scale(0.8);}
+	50%{transform:translate(-2px,-1px) rotate(-3deg) scale(0.8);}
+	70%{transform:translate(-1px,-3px) rotate(-6deg) scale(0.8);}
+	100%{transform:translate(0px,0px) rotate(-4deg) scale(0.8);}
+}
+@keyframes jellyfish_tailChange{
+	0%{transform:scale(0.8);}
+	5%{transform:scale(0.9,0.75);}
+	20%{transform:scale(0.7,1);}
+	50%{transform:scale(0.8);}
+	55%{transform:scale(0.9,0.75);}
+	70%{transform:scale(0.7,1);}
+	100%{transform:scale(0.8);}
+}
+@keyframes jellyfish_tailChange{
+	0%{transform:scale(0.8);}
+	5%{transform:scale(0.9,0.75);}
+	20%{transform:scale(0.7,1);}
+	50%{transform:scale(0.8);}
+	55%{transform:scale(0.9,0.75);}
+	70%{transform:scale(0.7,1);}
+	100%{transform:scale(0.8);}
+}

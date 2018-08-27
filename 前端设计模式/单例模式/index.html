@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单例模式</title>
+</head>
+<body>
+    <button id="loginBtn">惰性单例</button>
+    <button id="loginBtn1">惰性单例1</button>
+    <script>
+        // 不透明的单列模式
+        var Singleton = function (name) {
+            this.name = name;
+            this.instance = null;
+        };
+        Singleton.prototype.getName = function() {
+            console.log(this.name);
+        };
+        Singleton.getInstance = function(name) {
+            if(!this.instance) {
+                this.instance = new Singleton(name);
+            }
+            return this.instance;
+        };
+        // var a =  Singleton.getInstance('zhang');
+        // var b =  Singleton.getInstance('li');
+        // console.log('a:',a , 'b:',b ,a===b);
+        // 透明的单例模式  == 
+        /**
+        var CreateDiv = (function(){
+            var instance;
+            // 闭包实现自执行函数
+            var CreateDiv = function(html) {
+                if(instance) {
+                    return instance;
+                }
+                this.html = html;
+                this.init();
+                return instance = this;
+            };
+            CreateDiv.prototype.init = function() {
+                var div = document.createElement('div');
+                div.innerHTML = this.html;
+                document.body.appendChild(div);
+            };
+            return CreateDiv;
+        })();
+        */
+        // var a = new CreateDiv('ss');
+        // var b = new CreateDiv('ww');
+        // console.log(a===b);
+        // 用代理实现单例模式 
+        // 普通类的构建模式
+        var CreateDiv = function (html) {
+            this.html = html;
+            this.init();
+        };
+        CreateDiv.prototype.init = function() {
+            var div = document.createElement('div');
+            div.innerHTML = this.html;
+            document.body.appendChild(div);
+        }
+        // 下面引入代理
+        var ProxySingletonCreateDiv = (function() {
+            var instance;
+            return function(html) {
+                if(!instance) {
+                    instance = new CreateDiv(html);
+                }
+                return instance;
+            }
+        })();
+        var a = new ProxySingletonCreateDiv('eee');
+        var b = new ProxySingletonCreateDiv('ccc');
+        console.log(a===b);
+        // 全局变量的污染问题以及闭包的实现问题 __name 进行私有变量的命名实现
+        // 通用的惰性单例子
+        var getSingle = function(fn) {
+            var result;
+            return function() {
+                return result || (result = fn.apply(this, arguments));
+            }
+        };
+        var createLoginLayer = function() {
+            var div = document.createElement('div');
+            div.innerHTML = '我是登陆窗口';
+            div.style.display = 'none';
+            document.body.appendChild(div);
+            // 返回一个实例
+            return div;
+        };
+        var createSingleLoginLayer = getSingle(createLoginLayer);
+        document.getElementById('loginBtn').onclick = function() {
+            var loginLayer = createSingleLoginLayer();
+            loginLayer.style.display = 'block';
+        }
+        document.getElementById('loginBtn1').onclick = function() {
+            var loginLayer = createSingleLoginLayer();
+            loginLayer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

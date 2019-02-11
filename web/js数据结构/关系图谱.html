@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>关系图谱</title>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.11/lodash.min.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // =============================== 无向图 ========================
+
+    // 无向性的图形 === 定义顶点
+    class Vertex {
+        constructor(id, property) {
+            this.id = id
+            this.property = property
+        }
+    }
+    let vertexId = 0
+
+    function newVertex(property) {
+        return new Vertex(++vertexId, property)
+    }
+
+    // const me = newVertex(['Will', 'male']);
+    // 定义边
+    class Edge {
+        constructor(leftId, rightId, property) {
+            this.leftId = leftId
+            this.rightId = rightId
+            this.property = property
+        }
+    }
+    const will = newVertex({
+        name: 'Will',
+        gender: 'male'
+    })
+    const ru = newVertex({
+        name: 'Rrrruu',
+        gender: 'female'
+    })
+
+    // const relation = new Edge(will.id, ru.id, 'couple')
+    // 对顶点和边进行多方面的获取等等的问题
+    // 1. 对顶点进行编号， 以优化对顶点的检索；
+    // 2. 对边进行编号， 并存储好边与顶点的关系。
+    class Graph {
+        constructor(vertices, edges) {
+
+            // Vertices
+            this.vertexIds = []
+            this.vertices = {}
+
+            for (let i = 0; i < vertices.length; ++i) {
+                const vertex = vertices[i]
+
+                this.vertexIds.push(vertex.id)
+                this.vertices[vertex.id] = vertex
+            }
+
+            const edgesWithId = edges.map(function(edge, i) {
+                edge.id = i + 1
+                return edge
+            })
+
+            // Edges
+            this.edgeIds = []
+            this.edges = {}
+            this.edgeRelations = {}
+
+            for (let i = 0; i < edgesWithId.length; ++i) {
+                const edge = edgesWithId[i]
+
+                this.edgeIds.push(edge.id)
+                this.edges[edge.id] = edge
+
+                // 初始化顶点与边的关系
+                if (typeof this.edgeRelations[edge.leftId] === 'undefined') {
+                    this.edgeRelations[edge.leftId] = []
+                }
+
+                if (typeof this.edgeRelations[edge.rightId] === 'undefined') {
+                    this.edgeRelations[edge.rightId] = []
+                }
+
+                this.edgeRelations[edge.leftId].push(edge.id)
+                this.edgeRelations[edge.rightId].push(edge.id)
+            }
+
+        }
+        getVertex(vertexId) {
+                if (!_.includes(this.vertexIds, vertexId)) {
+                    return null
+                }
+
+                return this.vertices[vertexId]
+            }
+            // 使用回调函数用来模糊其有序性
+        eachVertices(callbackFunc) {
+            const self = this
+
+            return self.vertexIds.forEach(function(vertexId) {
+                return callbackFunc(self.vertices[vertexId])
+            })
+        }
+
+        eachEdges(callbackFunc) {
+            const self = this
+
+            return self.edgeIds.forEach(function(edgeId) {
+                return callbackFunc(self.edges[edgeId])
+            })
+        };
+        // 特征值 degree
+        getEdgesByVertexId(vertexId) {
+            if (!_.includes(this.vertexIds, vertexId)) {
+                return []
+            }
+
+            if (!_.has(this.edgeRelations, vertexId)) {
+                return []
+            }
+
+            const self = this
+
+            return self.edgeRelations[vertexId].map(function(edgeId) {
+                return self.edges[edgeId]
+            })
+        };
+        degree(vertexId) {
+            return this.getEdgesByVertexId(vertexId).length
+        };
+        // 获取最大的度
+        largestVertex() {
+            const self = this
+
+            const degrees = self.vertexIds.map(function(vertexId) {
+                return {
+                    degree: self.degree(vertexId),
+                    id: vertexId
+                }
+
+            })
+
+            return self.getVertex(_.maxBy(degrees, 'degree').id)
+        }
+
+        maxDegree() {
+            return this.degree(this.largestVertex().id)
+        };
+        // 平均度
+        avgDegree() {
+            return 2 * this.edgeIds.length / this.vertexIds.length
+        };
+        // 自环
+        loops() {
+            const self = this
+
+            return self.edgeIds
+                .map(function(edgeId) {
+                    return self.edges[edgeId]
+                })
+                .filter(function(edge) {
+                    return edge.leftId === edge.rightId
+                })
+        }
+    }
+
+    // const vertices = [
+    //     new Vertex(1, '1'),
+    //     new Vertex(2, '2'),
+    //     new Vertex(3, '3')
+    // ]
+
+    // const edges = [
+    //     new Edge(1, 1, 3),
+    //     new Edge(1, 2, 1),
+    //     new Edge(1, 3, 1),
+    //     new Edge(2, 3, 2)
+    // ]
+
+    // const graph = new Graph(vertices, edges)
+    // console.log(graph.loops()) //=> [ Edge{ leftId: 1, rightId: 1, property: 3 } ]
+    // ===================== 有向图 ====================
+    class DirectedEdge {
+        constructor(originalId, targetId, property) {
+            this.originalId = originalId
+            this.targetId = targetId
+            this.property = property
+        }
+    };
+    class Digraph {
+        constructor(vertices, edges) {
+
+            // Vertices
+            this.vertexIds = []
+            this.vertices = {}
+
+            for (let i = 0; i < vertices.length; ++i) {
+                const vertex = vertices[i]
+
+                this.vertexIds.push(vertex.id)
+                this.vertices[vertex.id] = vertex
+            }
+
+            const edgesWithId = edges.map(function(edge, i) {
+                edge.id = i + 1
+                return edge
+            })
+
+            // Edges
+            this.edgeIds = []
+            this.edges = {}
+            this.inEdgeRelations = {}
+            this.outEdgeRelations = {}
+
+            for (let i = 0; i < edgesWithId.length; ++i) {
+                const edge = edgesWithId[i]
+
+                this.edgeIds.push(edge.id)
+                this.edges[edge.id] = edge
+
+                if (typeof this.outEdgeRelations[edge.originalId] === 'undefined') {
+                    this.outEdgeRelations[edge.originalId] = []
+                }
+
+                if (typeof this.inEdgeRelations[edge.targetId] === 'undefined') {
+                    this.inEdgeRelations[edge.targetId] = []
+                }
+
+                this.inEdgeRelations[edge.targetId].push(edge.id)
+                this.outEdgeRelations[edge.originalId].push(edge.id)
+            }
+
+        };
+        getVertex(vertexId) {
+            if (!_.includes(this.vertexIds, vertexId)) {
+                return null
+            }
+
+            return this.vertices[vertexId]
+        }
+
+        eachVertices(callbackFunc) {
+            const self = this
+
+            return self.vertexIds.forEach(function(vertexId) {
+                return callbackFunc(self.vertices[vertexId])
+            })
+        }
+
+        eachEdges(callbackFunc) {
+            const self = this
+
+            return self.edgeIds.forEach(function(edgeId) {
+                return callbackFunc(self.edges[edgeId])
+            })
+        }
+
+        getInEdgesByVertexId(vertexId) {
+            if (!_.includes(this.vertexIds, vertexId)) {
+                return []
+            }
+
+            if (!_.has(this.inEdgeRelations, vertexId)) {
+                return []
+            }
+
+            const self = this
+
+            return self.inEdgeRelations[vertexId].map(function(edgeId) {
+                return self.edges[edgeId]
+            })
+        }
+
+        getOutEdgesByVertexId(vertexId) {
+            if (!_.includes(this.vertexIds, vertexId)) {
+                return []
+            }
+
+            if (!_.has(this.outEdgeRelations, vertexId)) {
+                return []
+            }
+
+            const self = this
+
+            return self.outEdgeRelations[vertexId].map(function(edgeId) {
+                return self.edges[edgeId]
+            })
+        }
+
+        inDegree(vertexId) {
+            return this.getInEdgesByVertexId(vertexId).length
+        }
+
+        outDegree(vertexId) {
+            return this.getOutEdgesByVertexId(vertexId).length
+        }
+
+        largestInDegreeVertex() {
+            const self = this
+
+            const inDegrees = self.vertexIds.map(function(vertexId) {
+                return {
+                    inDegree: self.inDegree(vertexId),
+                    id: vertexId
+                }
+            })
+
+            return self.getVertex(_.maxBy(inDegrees, 'inDegree').id)
+        }
+
+        largestOutDegreeVertex() {
+            const self = this
+
+            const outDegrees = self.vertexIds.map(function(vertexId) {
+                return {
+                    outDegree: self.outDegree(vertexId),
+                    id: vertexId
+                }
+            })
+
+            return self.getVertex(_.maxBy(outDegrees, 'outDegree').id)
+        }
+
+        maxInDegree() {
+            return this.inDegree(this.largestInDegreeVertex().id)
+        }
+
+        maxOutDegree() {
+            return this.outDegree(this.largestOutDegreeVertex().id)
+        }
+
+        avgInDegree() {
+            const self = this
+
+            const totalInEdgesCount = self.vertexIds
+                .map(function(vertexId) {
+                    if (typeof self.inEdgeRelations[vertexId] !== 'undefined') {
+                        return self.inEdgeRelations[vertexId]
+                    } else {
+                        return []
+                    }
+                })
+                .map(function(edges) {
+                    return edges.length
+                })
+                .reduce(function(a, b) {
+                    return a + b
+                })
+
+            return totalInEdgesCount / this.vertexIds.length
+        }
+
+        avgOutDegree() {
+            const self = this
+
+            const totalOutEdgesCount = self.vertexIds
+                .map(function(vertexId) {
+                    if (typeof self.outEdgeRelations[vertexId] !== 'undefined') {
+                        return self.outEdgeRelations[vertexId]
+                    } else {
+                        return []
+                    }
+                })
+                .map(function(edges) {
+                    return edges.length
+                })
+                .reduce(function(a, b) {
+                    return a + b
+                })
+
+            return totalOutEdgesCount / this.vertexIds.length
+        }
+
+        loops() {
+            const self = this
+
+            return self.edgeIds
+                .map(function(edgeId) {
+                    return self.edges[edgeId]
+                })
+                .filter(function(edge) {
+                    return edge.originalId === edge.targetId
+                })
+        };
+        shortestPath(fromVertexId, toVertexId) {
+            const self = this
+
+            const preferQueue = []
+                // 这里需要使用node 和 tree的节点
+            const rootNode = new Node(fromVertexId)
+            const candidateTree = new Tree(rootNode)
+
+            preferQueue.push(...self.getOutEdgesByVertexId(fromVertexId).map(function(edge) {
+                return [fromVertexId, edge.targetId]
+            }))
+
+            while (preferQueue.length > 0) {
+                const pair = preferQueue.shift()
+                const parentVertexId = pair[0]
+                const currentVertexId = pair[1]
+
+                // Add the edge to the candidate tree
+                const parentNodes = candidateTree.search(function(node) {
+                    return node.name === parentVertexId
+                })
+                const currentNode = new Node(currentVertexId)
+                parentNodes.forEach(function(parentNode) {
+                    candidateTree.addNode(currentNode, parentNode)
+                })
+
+                if (currentVertexId === toVertexId) {
+                    continue
+                }
+
+                // Add the next vertex into the prefer queue
+                let outEdges = self.getOutEdgesByVertexId(currentVertexId)
+
+                if (outEdges.length <= 0) {
+                    continue
+                }
+
+                outEdges = outEdges.filter(function(edge) {
+                    return candidateTree.search(function(node) {
+                        return node.name === edge.targetId
+                    }).length === 0
+                })
+
+                preferQueue
+                    .push(...outEdges.map(function(edge) {
+                        return [currentVertexId, edge.targetId]
+                    }))
+            }
+
+            const targetNodes = candidateTree.search(function(node) {
+                return node.name === toVertexId
+            })
+
+            if (targetNodes.length > 0) {
+                const pathsWithDistance = targetNodes
+                    .map(function(node) {
+                        const vertexId = node.name
+                        const path = [vertexId]
+                        let lastNode = node
+
+                        while (lastNode.parent != null) {
+                            path.push(lastNode.parent.name)
+                            lastNode = lastNode.parent
+                        }
+
+                        return path.reverse()
+                    })
+                    .map(function(path) {
+                        const distance = path
+                            .map(function(vertexId, index) {
+                                const nextVertexId = path[index + 1]
+
+                                if (typeof nextVertexId === 'undefined') {
+                                    return
+                                }
+
+                                const edge = self.getOutEdgesByVertexId(vertexId)
+                                    .find(function(edge) {
+                                        return edge.targetId === nextVertexId
+                                    })
+
+                                return edge
+                            })
+                            .filter(function(edge) {
+                                return typeof edge !== 'undefined'
+                            })
+                            .map(function(edge) {
+                                return edge.property
+                            })
+                            .reduce(function(distanceA, distanceB) {
+                                return distanceA + distanceB
+                            })
+
+                        return {
+                            path,
+                            distance
+                        }
+                    })
+
+                const shortestPath = _.minBy(pathsWithDistance, 'distance')
+
+                shortestPath.path = shortestPath.path.map(function(vertexId) {
+                    return self.getVertex(vertexId)
+                })
+
+                return shortestPath
+            } else {
+                return {
+                    path: [],
+                    distance: Infinity
+                }
+            }
+        }
+
+    }
+    const vertices = [
+        new Vertex(1, 'A'),
+        new Vertex(2, 'B'),
+        new Vertex(3, 'C'),
+        new Vertex(4, 'D'),
+        new Vertex(5, 'E')
+    ]
+
+    const edges = [
+        new DirectedEdge(1, 2, 1),
+        new DirectedEdge(1, 3, 2),
+        new DirectedEdge(2, 4, 1),
+        new DirectedEdge(3, 4, 1),
+        new DirectedEdge(1, 1, 3),
+        new DirectedEdge(3, 5, 4),
+        new DirectedEdge(4, 5, 5)
+    ]
+
+    const graph = new Digraph(vertices, edges)
+    console.log(graph)
+
+    console.log(graph.shortestPath(1, 5));
+    // {
+    //   distance: 6,
+    //   path: [
+    //     Vertex{ A },
+    //     Vertex{ C },
+    //     Vertex{ E }
+    //   ]
+    // }
+</script>
+
+</html>

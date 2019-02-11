@@ -1,0 +1,20 @@
+{
+    "name": "My first Extension",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "Hello World extension.",
+    "browser_action": {
+        "default_icon": "./icon.jpg",
+        "default_popup": "popup.html"
+    },
+    "devtools_page": "devtools.html",
+    "background": {
+        "scripts": [
+            "popup.js"
+        ]
+    },
+    "web_accessible_resources": [
+        "icon.png",
+        "popup.js"
+    ]
+}

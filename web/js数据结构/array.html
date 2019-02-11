@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据结构-array</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 1. 以元素为单位处理
+    const arrayUtils = {
+        append(array, ...elements) {
+            array.push(...elements);
+            return array
+        },
+        prepend(array, ...elements) {
+            array.unshift(...elements);
+            return array
+        },
+        insert(array, index, ...elements) {
+            array.splice(index, 0, ...elements);
+            return array
+        },
+        remove(array, index) {
+            array.splice(index, 1);
+            return array
+        }
+    }
+    const array = [];
+    arrayUtils.append(array, 3) // 末端添加元素 3
+    arrayUtils.prepend(array, 1) // 首端添加元素 1
+    arrayUtils.insert(array, 1, 2) // 在位置 1 添加元素 2
+    console.log(array) //=> [1, 2, 3]
+    arrayUtils.remove(array, 1);
+    // console.log(array);  ...arg 剩余参数的意思
+    // 2. 以数组为单位进行处理  转换和聚合
+</script>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>复杂数据结构-tree</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // class Person {
+    //     constructor(name) {
+    //         this.name = name
+    //     }
+
+    //     hello() {
+    //         return 'Hello, my name is ' + this.name
+    //     }
+    // }
+
+    // const me = new Person('Will')
+    // console.log(me.hello()) //=> Hello, my name is Will
+    // class Person {
+    //     constructor(givenName, familyName) {
+    //         this.givenName = givenName
+    //         this.familyName = familyName
+    //     }
+
+    //     hello() {
+    //         return `Hello, my name is ${this.givenName} ${this.familyName}`
+    //     }
+    // }
+
+    // const me = new Person('Will', 'Gunn')
+    // console.log(me.hello()) //=> Hello, my name is Will Gunn
+    // class Person {
+    //     constructor(givenName, familyName) {
+    //         this.givenName = givenName
+    //         this.familyName = familyName
+    //     }
+
+    //     get fullName() {
+    //         return `${this.givenName} ${this.familyName}`
+    //     }
+
+    //     hello() {
+    //         return `Hello, my name is ${this.fullName}`
+    //     }
+    // }
+
+    // const me = new Person('Will', 'Gunn')
+    // console.log(me.hello()) //=> Hello, my name is Will Gunn
+    class Node {
+        constructor(name) {
+            this.name = name
+            this.parent = null
+            this.children = []
+        }
+
+        addChild(node) {
+            node.parent = this
+            this.children.push(node)
+
+            return this
+        }
+
+        siblings() {
+            const self = this
+
+            if (this.parent) {
+                return this.parent.children.filter(function(node) {
+                    return node !== self
+                })
+            } else {
+                return []
+            }
+        }
+
+        get degree() {
+            return this.children.length
+        }
+
+        getDepthByRoot(root) {
+            let depth = 0
+            let currNode = this
+
+            while (currNode.parent !== root) {
+                depth++
+                currNode = currNode.parent
+            }
+
+            return depth + 1
+        }
+
+        get depth() {
+            return this.getDepthByRoot(null)
+        }
+
+        get height() {
+            const queue = [this]
+            let deepestNode = this
+
+            while (queue.length > 0) {
+                const len = queue.length
+
+                for (let i = 0; i < len; ++i) {
+                    const currNode = queue.shift()
+
+                    deepestNode = currNode
+
+                    if (currNode.children.length > 0) {
+                        queue.push(...currNode.children)
+                    }
+                }
+            }
+
+            return deepestNode.getDepthByRoot(this)
+        }
+
+        toString(join = true) {
+            let parts = [this.name]
+
+            if (this.children.length > 0) {
+                parts = parts.concat(this.children
+                    .map(function(node) {
+                        return node.toString(false)
+                    })
+                    .reduce(function(left, right) {
+                        return left.concat(right)
+                    })
+                    .map(function(line) {
+                        return '  ' + line
+                    })
+                )
+            }
+
+            if (join) {
+                return parts.join('\n')
+            } else {
+                return parts
+            }
+        }
+    }
+</script>
+
+</html>

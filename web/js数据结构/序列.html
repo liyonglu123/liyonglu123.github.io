@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>复杂数据结构-序列</title>
+    <script type="application/javascript" src="https://cdn.staticfile.org/moment.js/2.21.0/moment.min.js"></script>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.11/lodash.min.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 以某人的一日三餐为例子 每天, 每周, 每月, 每年等进行处理的问题;Moment.js 是如何进行时间格式的处理的以及实现的方式
+    let transactions = [{
+        timestamp: 1519864292535,
+        category: '餐饮',
+        price: 6.00
+    }, {
+        timestamp: 1519874872261,
+        category: '餐饮',
+        price: 12.00
+    }, {
+        timestamp: 1519899849526,
+        category: '餐饮',
+        price: 52.50
+    }, {
+        timestamp: 1519953249020,
+        category: '餐饮',
+        price: 4.50
+    }, {
+        timestamp: 1519963102270,
+        category: '餐饮',
+        price: 13.50
+    }, {
+        timestamp: 1519999849526,
+        category: '餐饮',
+        price: 104.25
+    }]
+    transactions = transactions.map(function(data) {
+        // data.timestamp = new Date(data.timestamp)
+        data.moment = moment(data.timestamp)
+        return data
+    })
+    console.log(transactions);
+    // 进行格式转换和实现
+    // 天
+    const transactionsGroupedByDate = _.groupBy(transactions, function(transaction) {
+        return transaction.moment.format('YYYY-MM-DD')
+    })
+
+    console.log(transactionsGroupedByDate)
+        // 周
+    const transactionsGroupedByWeek = _.groupBy(transactions, function(transaction) {
+        return transaction.moment.format('YYYY-WW')
+    })
+
+    console.log(transactionsGroupedByWeek)
+        // 月
+    const transactionsGroupedByMonth = _.groupBy(transactions, function(transaction) {
+        return transaction.moment.format('YYYY-MM')
+    })
+
+    console.log(transactionsGroupedByMonth)
+    const transactionsGroupedByYear = _.groupBy(transactions, function(transaction) {
+        return transaction.moment.format('YYYY')
+    })
+
+    console.log(transactionsGroupedByYear)
+
+    function createTimeSeries(timeSeriesArray) {
+        const timeSeriesObj = {
+            array: timeSeriesArray.map(function(data) {
+                data.moment = moment(data.timestamp)
+
+                return data
+            }),
+
+            groupByFormat(formatPattern) {
+                return _.groupBy(timeSeriesObj.array, function(data) {
+                    return data.moment.format(formatPattern)
+                })
+            },
+
+            groupByDate() {
+                return timeSeriesObj.groupByFormat('YYYY-MM-DD')
+            },
+
+            groupByWeek() {
+                return timeSeriesObj.groupByFormat('YYYY-WW')
+            },
+
+            groupByMonth() {
+                return timeSeriesObj.groupByFormat('YYYY-MM')
+            },
+
+            groupByYear() {
+                return timeSeriesObj.groupByFormat('YYYY')
+            },
+            groupByDate() {
+                const groupedResult = {
+                    map: timeSeriesObj.groupByFormat('YYYY-MM-DD'),
+
+                    dates() {
+                        return _.keys(groupedResult.map)
+                    },
+
+                    sum(date) {
+                        return _.sumBy(groupedResult.map[date], 'price')
+                    }
+                }
+
+                return groupedResult
+            },
+            groupByWeek() {
+                const groupedByDate = timeSeriesObj.groupByDate()
+
+                const groupedResult = {
+                    map: _.groupBy(groupedByDate.dates(), function(date) {
+                        return moment(date).format('YYYY-WW')
+                    }),
+
+                    weeks() {
+                        return _.keys(groupedResult.map)
+                    },
+
+                    sum(week) {
+                        const dates = groupedResult.map[week]
+
+                        return _.sumBy(dates, function(date) {
+                            return groupedByDate.sum(date)
+                        })
+                    },
+
+                    average(week) {
+                        const dates = groupedResult.map[week]
+                        const sum = groupedResult.sum(week)
+
+                        return sum / dates.length
+                    }
+                }
+
+                return groupedResult
+            },
+            dates() {
+                return timeSeriesObj.groupByDate().dates()
+            },
+
+            weeks() {
+                return timeSeriesObj.groupByWeek().weeks()
+            },
+
+            months() {
+                return timeSeriesObj.groupByMonth().months()
+            },
+
+            years() {
+                return timeSeriesObj.groupByYear().years()
+            },
+
+            sum(unit, point) {
+                switch (unit) {
+                    case 'date':
+                        return timeSeriesObj.groupByDate().sum(point)
+
+                    case 'week':
+                        return timeSeriesObj.groupByWeek().sum(point)
+
+                    case 'month':
+                        return timeSeriesObj.groupByMonth().sum(point)
+
+                    case 'year':
+                        return timeSeriesObj.groupByYear().sum(point)
+                }
+            },
+
+            average(unit, point) {
+                switch (unit) {
+                    case 'week':
+                        return timeSeriesObj.groupByWeek().average(point)
+
+                    case 'month':
+                        return timeSeriesObj.groupByMonth().average(point)
+
+                    case 'year':
+                        return timeSeriesObj.groupByYear().average(point)
+                }
+            }
+
+            // ...
+
+        }
+
+        return timeSeriesObj
+    }
+
+    const timeSeries = createTimeSeries(transactions)
+    console.log(timeSeries.sum('month', '2018-03')) //=> 192.75
+    console.log(timeSeries.average('month', '2018-03')) //=> 96.375
+</script>
+
+</html>

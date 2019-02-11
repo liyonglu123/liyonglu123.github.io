@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this, call,apply以及bind</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //1. bind
+    /*
+        1.JS引擎正在创建一个新的pokemonName实例，并将pokemon绑定为此变量。重要的是要理解它复制了pokemonName函数。
+        2.在创建了pokemonName函数的副本之后，它可以调用logPokemon（），尽管它最初不在pokemon对象上。它现在将识别其属性（Pika和Chu）及其方法。
+    */
+    var pokemon = {
+        firstname: 'Pika',
+        lastname: 'Chu ',
+        getPokeName: function() {
+            var fullname = this.firstname + ' ' + this.lastname;
+            return fullname;
+        }
+    };
+
+    var pokemonName = function(snack, hobby) {
+        console.log(this.getPokeName() + 'I choose you!');
+        console.log(this.getPokeName() + ' loves ' + snack + ' and ' + hobby);
+    };
+
+    var logPokemon = pokemonName.bind(pokemon); // creates new object and binds pokemon. 'this' of pokemon === pokemon now
+
+    logPokemon('sushi', 'algorithms'); // Pika Chu  loves sushi and algorithms
+    //2、call()、apply()
+    /**
+        call()方法调用具有给定此值的函数和单独提供的参数。
+        bind()和call()之间的主要区别在于call()方法：
+
+        接受其他参数
+        执行它立即调用的函数。
+        call()方法不会复制正在调用它的函数。
+        call()和apply()用于完全相同的目的。它们之间的唯一区别是call()期望所有参数都单独传递，而apply()需要一个数组。
+    */
+    var pokemon = {
+        firstname: 'Pika',
+        lastname: 'Chu ',
+        getPokeName: function() {
+            var fullname = this.firstname + ' ' + this.lastname;
+            return fullname;
+        }
+    };
+
+    var pokemonName = function(snack, hobby) {
+        console.log(this.getPokeName() + ' loves ' + snack + ' and ' + hobby);
+    };
+
+    pokemonName.call(pokemon, 'sushi', 'algorithms'); // Pika Chu  loves sushi and algorithms
+    pokemonName.apply(pokemon, ['sushi', 'algorithms']); // Pika Chu  loves sushi and algorithms
+    // 3. 箭头函数中this的指向问题
+    /*
+        1.箭头函数的this绑定看的是this所在的函数定义在哪个对象下，绑定到哪个对象则this就指向哪个对象. 箭头函数中的this指向的是定义时的this，而不是执行时的this
+        2.如果有对象嵌套的情况，则this绑定到最近的一层对象上
+        3.箭头函数的this不能用call()或者apply()进行绑定
+    */
+    // var obj1 = {
+    //     num: 4,
+    //     fn: function() {
+    //         var f = () => { //object，也就是指obj1  
+    //             console.log(this);
+    //             setTimeout(() => {
+    //                 console.log(this); // //object，也就是指obj1  
+    //             });
+    //         }
+    //         f();
+    //     }
+    // }
+    // obj1.fn();
+    var obj = {
+        num: 6
+    };
+    var obj1 = {
+        num: 4,
+        fn: function() {
+            console.log(this) //object 因为函数fn定义后被obj1对象调用了
+            var f = function() {
+                console.log(this); //window,因为函数f定义后并没有对象调用，this直接绑定到最外层的window对象  
+                setTimeout(() => {
+                    console.log(this); //window，外层this绑定到了window,内层也相当于定义在window层（全局环境）  
+                });
+            }
+            f.call(obj);
+        }
+    }
+    obj1.fn();
+
+    // var obj1 = {
+    //     num: 4,
+    //     fn: function() {
+    //         var f = () => {
+    //             console.log(this); //object,f()定义在obj1对象中，this就指向obj1,这就是箭头函数this指向的关键  
+    //             setTimeout(function() {
+    //                 console.log(this); //window，非箭头函数的情况下还是要看宿主对象是谁，如果没有被对象调用，函数体中的this就绑定的window上  
+    //             });
+    //         }
+    //         f.call(obj);  // 箭头函数中的this不能使用call,apply进行绑定哦;
+    //     }
+    // }
+    // obj1.fn();
+</script>
+
+</html>

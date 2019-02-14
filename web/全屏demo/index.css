@@ -1,0 +1,54 @@
+.top {
+    margin: 15px;
+}
+
+.main {
+    width: 100%;
+    height: 1000px;
+    display: flex;
+}
+
+.left {
+    width: 50%;
+    height: 60%;
+    background: gray;
+    padding: 20px;
+}
+
+.left-son {
+    width: 80%;
+    height: 50%;
+    margin: 15px;
+    background: red;
+}
+
+.right {
+    width: 50%;
+    height: 60%;
+    background: #dddddd;
+}
+
+
+/* 针对dom的全屏设置 */
+
+.left:-webkit-full-screen {
+    background: #fff;
+}
+
+
+/* 全屏属性 */
+
+ :-webkit-full-screen {}
+
+ :-moz-full-screen {}
+
+ :-ms-fullscreen {}
+
+
+/* 全屏伪类 当前chrome:70 不支持 */
+
+ :full-screen {}
+
+ :fullscreen {
+    /* IE11支持 */
+}

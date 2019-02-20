@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>iframe的覆盖原本的html内容</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
+    <style>
+        /* .iframe {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: red;
+        } */
+    </style>
+</head>
+
+<body>
+
+    <iframe id="iframe" src="https://www.baidu.com/" frameborder="0" name="ifr1">
+            <p>Your browser does not support iframes.</p>
+    </iframe>
+    <script>
+        // window.onload = function() {
+        // // debugger
+        // // console.log('title', $('#title'));
+        // // $('#title').remove();
+        // var iframe = document.getElementById("iframe");
+        // var iwindow = iframe.contentWindow;
+        // var idoc = iwindow.document;
+        // console.log("window", iwindow); //获取iframe的window对象
+        // console.log("document", idoc); //获取iframe的document
+        // console.log("html", idoc.documentElement); //获取iframe的html
+        // console.log("head", idoc.head); //获取head
+        // console.log("body", idoc.body); //获取body
+
+        // index.html:35 Uncaught DOMException: Blocked a frame with origin "null" from accessing a cross-origin frame.
+        // 2. 
+        // console.log(window.frames['ifr1'].window);
+        // console.dir(document.getElementById("iframe").document);
+        // console.dir(document.getElementById("iframe").contentWindow);
+
+
+        // index.html:47 Uncaught TypeError: Cannot read property 'contentWindow' of null
+        // }
+        // 3. 
+        // var title = $("#iframe").contents().find("#title");
+
+        // console.log(title);
+        window.onload = function() {
+            document.domain = "jiaju.com";
+            // $("#iframe").contents().find("#title").css('color', 'red');
+            $("#iframe").contents().find(".mnav").remove();
+            // document.getElementById('iframe').contentWindow.document.getElementById('title').style.color = 'red';
+        }
+    </script>
+</body>
+
+</html>

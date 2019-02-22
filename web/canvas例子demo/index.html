@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas实现例子背景效果</title>
+    <style>
+        #canvas {
+            background: black;
+            /* width: 400px;
+            height: 400px;  css 默认是300*150 这样的会先充满现在的容器会变形 画布就会按照 300 * 150 的比例进行缩放，也就是将 300 * 150 的页面显示在 400 * 400 的容器中。
+            */
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var cx = canvas.width = 400;
+    var cy = canvas.height = 400;
+    context.beginPath();
+    context.arc(100, 100, 50, 0, Math.PI * 2, true);
+    context.closePath();
+    context.fillStyle = 'rgb(255,255,255)';
+    context.shadowBlur = 20;
+    context.shadowColor = '#fff';
+    context.fill();
+</script>
+
+</html>

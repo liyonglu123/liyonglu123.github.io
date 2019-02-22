@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>$的实现原理</title>
+</head>
+
+<body>
+    <div id="ceshi">
+
+    </div>
+</body>
+<script>
+    /*　1.jQuery借助了沙箱模式，其实整个jQuery包中的代码就是一个自执行函数，并且把window对象作为参数传递了过去。
+
+                                                                                            　　2.jQuery函数只是一个工厂，真正的构造函数时jQuery.fn.init( )
+
+                                                                                            　　3.把init的原型对象替换为jQuery.fn，其实也就是替换为了jQuery这个函数自己的原型对象，也就是jQuery.prototype，这么做的目的是为了实现插件机制，让外界可以通过jQuery方便的进行扩展。
+                                                                                                */
+    (function(w) {
+        //工厂
+        function jQuery(selector, context) {
+            return new jQuery.fn.init(selector, context);
+        }
+        //给原型提供一个简写方式
+        jQuery.fn = jQuery.prototype = {
+
+        };
+        //init才是jQuery中真正的构造函数
+        var init = jQuery.fn.init = function(selector, context) {
+            console.log(document.getElementById(selector));
+        };
+        //把构造函数的原型，替换为jQuery工厂的原型
+        //这么做的目的是为了实现jQuery的插件机制，让外界可以通过jQuery方便的进行扩展
+        init.prototype = jQuery.fn;
+        w.jQuery = w.$ = jQuery;
+    }(window));
+    console.log($('#ceshi'));
+</script>
+
+</html>

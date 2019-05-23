@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>tool</title>
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <script>
+        var context = {
+            name: "zhangsan",
+            age: 20,
+            sex: "男"
+        };
+        var exp = "age==20";
+        execExp(context, exp, false);
+        var obj = {
+            a: {
+                b: {
+                    c: 110
+                }
+            }
+        }
+        getObjectValue(obj, 'a.b.c');
+        setObjectValue(obj, 'a.b.c', 666);
+        console.log(obj.a.b.c);
+    </script>
+</body>
+
+</html>

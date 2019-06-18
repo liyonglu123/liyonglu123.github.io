@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>颜色、样式和阴影</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+    <script>
+        var myCanvas = document.getElementById("myCanvas");
+        if (myCanvas.getContext) {
+            var cxt = myCanvas.getContext("2d");
+            // // 颜色
+            // for (var i = 1; i < 6; i++) {
+            //     for (var j = 1; j < 6; j++) {
+            //         cxt.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ',' + Math.floor(255 - 42.5 * j) + ',0)';
+            //         cxt.fillRect(j * 25, i * 25, 25, 25);
+            //     }
+            // }
+            // // 线型
+            // cxt.strokeStyle = "#e78170";
+            // for (var i = 0; i < 10; i++) {
+            //     cxt.lineWidth = 1 + i;
+            //     cxt.beginPath();
+            //     cxt.moveTo(200 + i * 14, 25);
+            //     cxt.lineTo(200 + i * 14, 140);
+            //     cxt.lineCap = "round";
+            //     cxt.stroke();
+            // }
+            // // 渐变
+            // var linearGradient = cxt.createLinearGradient(0, 200, 250, 250);
+            // linearGradient.addColorStop(0, 'yellow');
+            // linearGradient.addColorStop(.5, 'red');
+            // linearGradient.addColorStop(1, 'green');
+            // cxt.fillStyle = linearGradient;
+            // cxt.fillRect(0, 200, 200, 200);
+
+            // // 同心
+            // var rr = cxt.createRadialGradient(100, 100, 40, 100, 100, 100);
+            // rr.addColorStop(0, 'red');
+            // rr.addColorStop(.5, 'yellow');
+            // rr.addColorStop(1, 'blue');
+            // cxt.fillStyle = rr;
+            // cxt.fillRect(20, 20, 160, 160);
+            // cxt.fill();
+            // // 不同心 外包含内
+            // var rr2 = cxt.createRadialGradient(250, 250, 20, 260, 260, 50);
+            // rr2.addColorStop(0, 'red');
+            // rr2.addColorStop(.5, 'yellow');
+            // rr2.addColorStop(1, 'blue');
+            // cxt.fillStyle = rr2;
+            // cxt.fillRect(50, 50, 400, 400);
+            // cxt.fill();
+
+            // // 不同心 内外分离
+            // var rr3 = cxt.createRadialGradient(250, 250, 30, 350, 250, 50);
+            // rr3.addColorStop(0, 'red');
+            // rr3.addColorStop(.8, 'yellow');
+            // rr3.addColorStop(1, 'blue');
+            // cxt.fillStyle = rr3;
+            // cxt.fillRect(100, 100, 300, 300);
+            // // 图案样式 Patterns
+            // var img = new Image();
+            // img.src = "http://img.mp.sohu.com/q_mini,c_zoom,w_640/upload/20170522/25320f4a8c7240d685f30f08426f853e_th.jpg"
+            // img.onload = function() {
+            //     var ptrn = cxt.createPattern(img, 'repeat');
+            //     cxt.fillStyle = ptrn;
+            //     cxt.fillRect(0, 0, 100, 100);
+            // }
+
+            // var img = new Image();
+            // img.src = "http://img.mp.sohu.com/q_mini,c_zoom,w_640/upload/20170522/25320f4a8c7240d685f30f08426f853e_th.jpg";
+            // img.onload = function() {
+            //     cxt.shadowOffsetX = 10;
+            //     cxt.shadowOffsetY = 10;
+            //     cxt.shadowBlur = 8;
+            //     cxt.shadowColor = "#333";
+            //     cxt.drawImage(img, 100, 100);
+            // };
+
+            // canvas填充规则 nonzero(默认值), evenodd
+
+            cxt.beginPath();
+            cxt.arc(300, 100, 50, 0, Math.PI * 2, true);
+            cxt.arc(300, 100, 20, 0, Math.PI * 2, true);
+            cxt.fill("evenodd");
+
+        }
+    </script>
+</body>
+
+</html>

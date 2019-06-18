@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绘制基础形状</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1000" height="1000">
+        您的浏览器不支持canvas
+    </canvas>
+    <script>
+        var myCanvas = document.getElementById("myCanvas");
+        if (myCanvas.getContext) {
+            // 支持
+            var cxt = myCanvas.getContext("2d");
+            // 填充矩形
+            cxt.fillRect(40, 40, 50, 50);
+            // 矩形边框
+            cxt.strokeRect(20, 20, 100, 100);
+            // 清除区域
+            cxt.clearRect(50, 50, 30, 30);
+            // 绘制路径
+            cxt.beginPath();
+            cxt.moveTo(150, 150);
+            cxt.lineTo(150, 250);
+            cxt.lineTo(300, 250);
+            cxt.stroke();
+            cxt.closePath();
+
+            cxt.beginPath();
+            cxt.moveTo(400, 400);
+            cxt.lineTo(400, 500);
+            cxt.lineTo(500, 500);
+            cxt.fill();
+            cxt.closePath();
+            // 绘制弧线
+            cxt.beginPath();
+            cxt.arc(70, 70, 50, 0, Math.PI / 2, true);
+            cxt.stroke();
+            cxt.beginPath();
+            cxt.arc(180, 70, 50, 0, Math.PI / 2, false);
+            cxt.stroke();
+            cxt.beginPath();
+            cxt.arc(300, 70, 50, 0, Math.PI / 2, true);
+            cxt.fill();
+            cxt.beginPath();
+            cxt.arc(400, 70, 50, 0, Math.PI / 2, false);
+            cxt.fill();
+            // 贝塞尔以及二次贝塞尔曲线
+            cxt.beginPath();
+            cxt.quadraticCurveTo(500, 70, 600, 150);
+            cxt.stroke();
+            cxt.beginPath();
+            cxt.bezierCurveTo(800, 70, 600, 150, 700, 700);
+            cxt.stroke();
+            // 矩形
+            cxt.beginPath();
+            cxt.rect(200, 200, 300, 100);
+            cxt.fill();
+            // Path2D 对象
+            var path = new Path2D();
+            path.rect(120, 120, 50, 50);
+            cxt.stroke(path);
+            var p = new Path2D("M10 10 h 80 v 80 h -80 Z");
+            cxt.fill(p);
+
+        } else {
+            // 不支持
+        }
+    </script>
+</body>
+
+</html>

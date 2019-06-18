@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>iscroll 上拉加载下拉刷新</title>
+    <script src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/iScroll/5.0.2/iscroll.min.js"></script>
+    <style>
+        .main {
+            height: 100%;
+            width: 100%;
+        }
+        
+        .item {
+            height: 200px;
+        }
+        
+        .item:not(:first-child) {
+            border-top: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <ul class="main">
+            <li class="item">1</li>
+            <li class="item">2</li>
+            <li class="item">3</li>
+            <li class="item">4</li>
+            <li class="item">5</li>
+            <li class="item">6</li>
+            <li class="item">7</li>
+            <li class="item">8</li>
+            <li class="item">9</li>
+            <li class="item">10</li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript">
+    var myScroll = new IScroll('#wrapper', {
+        mouseWheel: true,
+        scrollbars: true
+    });
+    myScroll.on('scrollEnd', function() {
+        if (this.x < 100) {
+            // do something
+            debugger
+        }
+    });
+</script>
+
+</html>

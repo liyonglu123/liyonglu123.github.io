@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas基础练习</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.0/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #eee;
+        }
+        
+        .opt-pannel {
+            float: left;
+            width: 300px;
+            height: 100%;
+            background: #ccc;
+        }
+        
+        .opt-pannel .title {
+            height: 48px;
+            line-height: 48px;
+            text-align: center;
+            border-bottom: 1px solid blue;
+        }
+        
+        .opt-pannel .item {
+            height: 60px;
+            line-height: 60px;
+            padding: 0 20px;
+        }
+        
+        #myCanvas {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 操作面板 -->
+    <div class="opt-pannel">
+        <header>
+            <h4 class="title">操作面板</h4>
+            <button id="download">下载</button>
+            <!-- <img class="img" src="" alt=""> -->
+        </header>
+        <div class="item">
+            <label for="select">选择类型:</label>
+            <select id="select">
+                    <option value="rect">矩形</option>
+                    <option value="line">弧线</option>
+                    <option value="circle">圆形</option>
+            </select>
+        </div>
+        <!-- rect -->
+        <div class="rect-container">
+            <div class="item">
+                <label for="width">宽:</label>
+                <input type="range" id="width" value="100" max="500">
+                <span id="widthVal">100</span>
+            </div>
+            <div class="item">
+                <label for="height">高:</label>
+                <input type="range" id="height" value="100" max="500">
+                <span id="heightVal">100</span>
+            </div>
+            <div class="item">
+                <label for="strokeColor">stroke颜色:</label>
+                <input type="color" id="strokeColor">
+            </div>
+            <div class="item">
+                <label for="fillColor">fill颜色:</label>
+                <input type="color" id="fillColor">
+            </div>
+        </div>
+        <!-- line -->
+        <div class="line-container">
+            <div class="item">
+                <label for="moveToX">moveToX:</label>
+                <input type="number" id="moveToX">
+            </div>
+            <div class="item">
+                <label for="moveToY">moveToY:</label>
+                <input type="number" id="moveToY">
+            </div>
+            <div class="item">
+                <label for="lineToX">lineToX:</label>
+                <input type="number" id="lineToX">
+            </div>
+            <div class="item">
+                <label for="lineToY">lineToY:</label>
+                <input type="number" id="lineToY">
+            </div>
+        </div>
+        <!-- circle -->
+        <div class="circle-container">
+
+        </div>
+
+    </div>
+    <!-- canvas主题区域 -->
+    <canvas id="myCanvas">
+        您的浏览器不支持canvas
+    </canvas>
+    <script>
+        // 获取canvas
+        var myCanvas = document.getElementById("myCanvas");
+        $('.rect-container').show();
+        $('.line-container').hide();
+        $('.circle-container').hide();
+        myCanvas.width = 1000;
+        myCanvas.height = 920;
+        if (myCanvas.getContext) {
+            var w = 300;
+            var h = 300;
+            var strokeColor = "#000";
+            var fillColor = "#000";
+            var moveToX = 0;
+            var moveToY = 0;
+            var lineToX = 0;
+            var lineToY = 0;
+
+            // 根据不同的选择类型显示不同的操作内容
+            $("#select").on("change", function() {
+                clearCanvas();
+                console.log($("#select").val());
+                var val = $("#select").val();
+                switch (val) {
+                    case 'rect':
+                        $('.rect-container').show();
+                        $('.line-container').hide();
+                        $('.circle-container').hide();
+                        break;
+                    case 'line':
+                        $('.rect-container').hide();
+                        $('.line-container').show();
+                        $('.circle-container').hide();
+                        break;
+                    case 'circle':
+                        $('.rect-container').hide();
+                        $('.line-container').hide();
+                        $('.circle-container').show();
+                        break;
+                    default:
+                        break;
+                }
+            });
+            // 下载
+            $("#download").on("click", function() {
+                var type = 'jpg';
+                download(type);
+            });
+            //图片下载操作,指定图片类型
+            function download(type) {
+                //设置保存图片的类型
+                var imgdata = myCanvas.toDataURL(type);
+                //将mime-type改为image/octet-stream,强制让浏览器下载
+                var fixtype = function(type) {
+                    type = type.toLocaleLowerCase().replace(/jpg/i, 'jpeg');
+                    var r = type.match(/png|jpeg|bmp|gif/)[0];
+                    return 'image/' + r;
+                }
+                imgdata = imgdata.replace(fixtype(type), 'image/octet-stream')
+                    //将图片保存到本地
+                var saveFile = function(data, filename) {
+                    var link = document.createElement('a');
+                    link.href = data;
+                    link.download = filename;
+                    var event = document.createEvent('MouseEvents');
+                    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                    link.dispatchEvent(event);
+                }
+                var filename = new Date().toLocaleDateString() + '.' + type;
+                saveFile(imgdata, filename);
+            }
+            // var imageURL = myCanvas.toDataURL("image/png");
+            // // /当然，你也可以动态的设置下载的文件名
+            // $("#download").attr({
+            //     "href": imageURL,
+            //     "download": "abc.png"
+            // });
+            // $(".img").attr("src", imageURL);
+            // myCanvas.toBlob(function(blob) {
+            //     var a = document.createElement("a");
+            //     var body = document.getElementsByTagName("body");
+            //     document.body.appendChild(a);
+            //     a.download = "img" + ".jpg";
+            //     a.href = window.URL.createObjectURL(blob);
+            //     console.log(a.href);
+            //     a.click();
+
+            // });
+
+            // 矩形宽度和高度的问题;
+            $("#width").on("input", function() {
+                var val = $("#width").val();
+                $("#widthVal").html(val)
+                w = val;
+                clearCanvas();
+                drawRect(w, h, strokeColor, fillColor);
+            });
+            $("#height").on("input", function() {
+                var val = $("#height").val();
+                $("#heightVal").html(val);
+                h = val;
+                clearCanvas();
+                drawRect(w, h, strokeColor, fillColor);
+            });
+            // 颜色
+            $("#strokeColor").on("input", function() {
+                strokeColor = $("#strokeColor").val();
+                clearCanvas();
+                drawStrokeRect(w, h, strokeColor, fillColor);
+            });
+            $("#fillColor").on("input", function() {
+                fillColor = $("#fillColor").val();
+                clearCanvas();
+                drawRect(w, h, strokeColor, fillColor);
+
+            });
+            // line
+            $("#moveToX").on("input", function() {
+                moveToX = $("#moveToX").val();
+                clearCanvas();
+                drawLine(moveToX, moveToY, lineToX, lineToY);
+            });
+            $("#moveToY").on("input", function() {
+                moveToY = $("#moveToY").val();
+                clearCanvas();
+                drawLine(moveToX, moveToY, lineToX, lineToY);
+            });
+            $("#lineToX").on("input", function() {
+                lineToX = $("#lineToX").val();
+                clearCanvas();
+                drawLine(moveToX, moveToY, lineToX, lineToY);
+
+            });
+            $("#lineToY").on("input", function() {
+                lineToY = $("#lineToY").val();
+                clearCanvas();
+                drawLine(moveToX, moveToY, lineToX, lineToY);
+
+            });
+            var cxt = myCanvas.getContext("2d");
+            console.log(w, h, strokeColor, fillColor);
+            cxt.strokeRect(350, 20, w, h);
+            // 绘制fill矩形
+            function drawRect(w, h, strokeColor, fillColor) {
+                cxt.fillStyle = fillColor;
+                cxt.strokeStyle = strokeColor;
+                cxt.fillRect(350, 20, w, h);
+            }
+            // 绘制stroke矩形
+            function drawStrokeRect(w, h, strokeColor, fillColor) {
+                cxt.fillStyle = fillColor;
+                cxt.strokeStyle = strokeColor;
+                cxt.strokeRect(350, 20, w, h);
+            }
+            // 清楚画布
+            function clearCanvas() {
+                cxt.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            }
+            // 画line
+            function drawLine(mx, my, lx, ly) {
+                cxt.beginPath();
+                cxt.moveTo(mx, my);
+                cxt.lineTo(lx, ly);
+                cxt.stroke();
+                cxt.closePath();
+            }
+        }
+    </script>
+</body>
+
+</html>

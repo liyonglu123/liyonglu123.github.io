@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户交互</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <h4>在屏幕上拖动试试</h4>
+    <canvas id="canvas" width="400" height="300" style="background:#fff"></canvas>
+    <div class="point">
+        <p>touchstart(触摸点点击时坐标)</p>
+        <p>X: <span class="pointX">0</span></p>
+        <p>Y: <span class="pointY">0</span></p>
+        <p>touchmove(触摸点移动时坐标)</p>
+        <p>X: <span class="pointX1">0</span></p>
+        <p>Y: <span class="pointY1">0</span></p>
+        <p>touchend(触摸点释放时坐标)</p>
+        <p>X: <span class="pointX2">0</span></p>
+        <p>Y: <span class="pointY2">0</span></p>
+    </div>
+    <div class="point">
+        <div class="key">点击键盘箭头按钮试试</div>
+    </div>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        if ('ontouchend' in document) {
+            canvas.width = window.innerWidth - 50
+        };
+
+        function touchstart(event) {
+            console.log(event.point);
+            console.log(this);
+            document.querySelector('.pointX').innerHTML = event.point.x;
+            document.querySelector('.pointY').innerHTML = event.point.y;
+        };
+
+        function touchmove(event) {
+            console.log(event.point);
+            document.querySelector('.pointX1').innerHTML = event.point.x;
+            document.querySelector('.pointY1').innerHTML = event.point.y;
+            var x = event.point.x;
+            var y = event.point.y;
+            var radius = 5;
+            // ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, 2 * Math.PI, true);
+            ctx.fill();
+            ctx.closePath();
+        };
+
+        function touchend(event) {
+            console.log(event.point);
+            document.querySelector('.pointX2').innerHTML = event.point.x;
+            document.querySelector('.pointY2').innerHTML = event.point.y;
+        };
+        tool.captureMT(canvas, touchstart, touchmove, touchend);
+        // 键盘事件
+        var ctx = canvas.getContext('2d');
+        var keybox = document.querySelector('.key');
+
+        function keyEvent(event) {
+            switch (event.keyCode) {
+                case 38:
+                    keybox.innerHTML = '你点击了向上箭头（↑）';
+                    break;
+                case 40:
+                    keybox.innerHTML = '你点击了向下箭头（↓）';
+                    break;
+                case 37:
+                    keybox.innerHTML = '你点击了向左箭头（←）';
+                    break;
+                case 39:
+                    keybox.innerHTML = '你点击了向右箭头（→）';
+                    break;
+                default:
+                    keybox.innerHTML = '你点击了其他按钮';
+            };
+        };
+        window.addEventListener('keydown', keyEvent, false);
+    </script>
+</body>
+
+</html>

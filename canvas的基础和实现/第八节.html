@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>保存文件</title>
+</head>
+
+<body>
+    <!-- <img id="myImg" src="http://img.mp.sohu.com/q_mini,c_zoom,w_640/upload/20170522/25320f4a8c7240d685f30f08426f853e_th.jpg" alt=""> -->
+    <canvas id="myCanvas" width="1000" height="1000">
+                您的浏览器不支持canvas
+    </canvas>
+    <a id="download" download="aa.png">下载</a>
+    <script>
+        var myCanvas = document.getElementById("myCanvas");
+        if (myCanvas.getContext) {
+            var cxt = myCanvas.getContext("2d");
+            //  在canvas中绘出的图片只是canvas标签而已，并非是真正的图片，我们并不能保存，
+            // 不过我们可以利用canvas.toDataURL()这个方法把canvas绘制的图形生成一幅图片，生成图片后，就能对图片进行相应的操作了
+            var img = new Image();
+            img.src = "image/1.jpg";
+            img.setAttribute("crossOrigin", 'Anonymous')
+            img.onload = function() {
+                // 等图片加载完之后进行绘制
+                cxt.drawImage(img, 100, 100);
+                var imageURL = myCanvas.toDataURL("image/jpg");
+                // /当然，你也可以动态的设置下载的文件名
+                document.getElementById("download").setAttribute("download", "abc.png");
+                document.getElementById("download").href = imageURL;
+
+            }
+
+
+        } else {
+
+        }
+    </script>
+</body>
+
+</html>

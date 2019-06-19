@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绘制文本</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1000" height="1000">
+        您的浏览器不支持canvas
+    </canvas>
+    <script>
+        var myCanvas = document.getElementById("myCanvas");
+        if (myCanvas.getContext) {
+            // 
+            var cxt = myCanvas.getContext("2d");
+            cxt.font = "40px sans-serif";
+            cxt.textAlign = "center"; // start, end, left, right or center
+            cxt.direction = "inherit"; // ltr, rtl, inherit(默认)
+            cxt.fillText("666", 100, 100);
+            cxt.strokeText("888", 100, 200);
+            // 文本测量
+            cxt.measureText("888");
+            console.log(cxt.measureText("888"));
+
+        } else {
+
+        }
+    </script>
+</body>
+
+</html>

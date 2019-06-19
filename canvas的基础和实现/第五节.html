@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>变形</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1000" height="1000">
+                您的浏览器不支持canvas
+    </canvas>
+    <script>
+        var myCanvas = document.getElementById("myCanvas");
+        if (myCanvas.getContext) {
+            var cxt = myCanvas.getContext("2d");
+            // save() restore()  快照 堆中存放 stack
+            // cxt.fillStyle = "red";
+            // cxt.fillRect(10, 10, 50, 50);
+            // cxt.save();
+            // cxt.fillStyle = "blue";
+            // cxt.fillRect(20, 20, 30, 30);
+            // cxt.restore();
+            // cxt.fillRect(30, 30, 10, 10);
+            // 变形 
+            // 移动 translate
+            cxt.fillRect(0, 0, 100, 100);
+            cxt.save();
+            cxt.translate(60, 60);
+            cxt.fillStyle = "red";
+            cxt.fillRect(0, 0, 100, 100);
+            cxt.restore();
+            // 旋转 rotate
+            cxt.beginPath();
+            cxt.moveTo(0, 50);
+            cxt.lineTo(300, 50);
+            cxt.stroke();
+            cxt.save();
+            cxt.rotate(Math.PI / 6);
+            cxt.strokeStyle = "red";
+            cxt.beginPath();
+            cxt.moveTo(0, 50);
+            cxt.lineTo(300, 50);
+            cxt.stroke();
+            cxt.restore();
+            // 缩放 scale
+            cxt.fillRect(300, 300, 100, 100);
+            cxt.save();
+            cxt.scale(0.5, 0.5);
+            cxt.fillStyle = "red";
+            cxt.fillRect(300, 300, 100, 100);
+            // 变形 矩阵的知识
+            // transform(m11, m12, m21, m22, dx, dy)  该变换只会影响 transform() 方法调用之后的绘图。
+            // setTransform(m11, m12, m21, m22, dx, dy)
+            // m11 水平缩放绘图。 默认值1
+            // m12 水平倾斜绘图。 默认值0
+            // m21 垂直倾斜绘图。 默认值0
+            // m22 垂直缩放绘图。 默认值1
+            // dx 水平移动绘图。 默认值0
+            // dy 垂直移动绘图。 默认值0
+            //  transform和translate、scale、rotate 的关系 (后面是前面的特例   矩阵的理解和使用) 
+
+        } else {
+
+        }
+    </script>
+</body>
+
+</html>

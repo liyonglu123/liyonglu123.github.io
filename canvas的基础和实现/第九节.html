@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基础动画</title>
+    <script src="animation.js"></script>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+    <script>
+        var cc = document.getElementById("myCanvas");
+        var cxt = cc.getContext("2d");
+        var ca = document.createElement("canvas");
+        ca.width = 500;
+        ca.height = 500;
+        var cxt2 = ca.getContext("2d");
+        var x = y = 0;
+        // 加载多张图片
+        function loadImages(sources, callback) {
+            var count = 0,
+                images = {},
+                imgNum = 0;
+            for (k in sources) {
+                imgNum++;
+            }
+            for (k in sources) {
+                images[k] = new Image();
+                images[k].onload = function() {
+                    if (++count >= imgNum) {
+                        callback(images);
+                    }
+                }
+                images[k].src = sources[k];
+            }
+
+        }
+        var sources = [];
+        // 画图片
+        function drawGameImage() {
+            sources = ["image/1.jpg", "image/2.jpg", "image/3.jpeg", "image/4.jpg", "image/5.jpg", "image/6.jpg", "image/7.jpg",
+                "image/8.jpg", "image/9.jpg", "image/10.jpg", "image/11.jpg",
+                "image/12.jpg", "image/13.jpeg", "image/14.jpeg", "image/15.jpeg", "image/16.jpeg"
+            ];
+            // 调用图片预加载并实现回调函数
+            loadImages(sources, function(images) {
+                var x = y = 0;
+                for (var i = 0; i < sources.length; i++) {
+                    cxt2.drawImage(images[i], x * 100, y * 100, 100, 100);
+                    if (i < 4) {
+                        x++;
+                    } else if (i >= 4 && i < 8) {
+                        y++;
+                    } else if (i >= 8 && i < 12) {
+                        x--;
+                    } else {
+                        y--;
+                    }
+
+                }
+            });
+        }
+        drawGameImage();
+        var times = Math.floor(Math.random() * 10) + sources.length * 2;
+        var v = 0;
+        var aninationId;
+        // 动画运动
+        function move() {
+            var moveX = 400;
+            var speed = 100;
+            if (x < moveX && y == 0) {
+                x += speed;
+            } else if (x == moveX && y < moveX) {
+                y += speed;
+            } else if (y == moveX && x > 0) {
+                x -= speed;
+            } else if (x == 0 && y > 0) {
+                y -= speed;
+            }
+            cxt.clearRect(0, 0, 500, 500);
+            cxt.drawImage(ca, 0, 0, 500, 500);
+            cxt.fillStyle = "rgba(0,0,0,.5)";
+            cxt.fillRect(x, y, 100, 100);
+            console.log(v, aninationId, times);
+            if (v > times) {
+                window.cancelAnimationFrame(); // 这里的取消的id没有实现
+            }
+            v++;
+            aninationId = window.requestAnimationFrame(move);
+        }
+        move();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图像绘制</title>
+</head>
+
+<body>
+    <!-- <img id="myImg" src="http://img.mp.sohu.com/q_mini,c_zoom,w_640/upload/20170522/25320f4a8c7240d685f30f08426f853e_th.jpg" alt=""> -->
+    <canvas id="myCanvas" width="1000" height="1000">
+                您的浏览器不支持canvas
+    </canvas>
+    <script>
+        var myCanvas = document.getElementById("myCanvas");
+        if (myCanvas.getContext) {
+            var cxt = myCanvas.getContext("2d");
+            // 直接获取图片 
+            // var myImg = document.getElementById("myImg");
+            // 动态创建
+            var img = new Image();
+            img.src = "http://img.mp.sohu.com/q_mini,c_zoom,w_640/upload/20170522/25320f4a8c7240d685f30f08426f853e_th.jpg";
+            img.onload = function() {
+                // 等图片加载完之后进行绘制
+                // 第一种 基础
+                cxt.drawImage(img, 100, 100);
+                // 第二种 缩放 
+                cxt.drawImage(img, 500, 100, 100, 100);
+                // 第三种 切片  drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+                cxt.drawImage(img, 400, 50, 100, 100, 10, 10, 80, 80);
+            }
+
+        } else {
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>合成与裁剪</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1000" height="1000">
+                您的浏览器不支持canvas
+    </canvas>
+    <script>
+        var myCanvas = document.getElementById("myCanvas");
+        if (myCanvas.getContext) {
+            var cxt = myCanvas.getContext("2d");
+            // 存在先后层级  类似z-index
+            // globalCompositeOperation 
+            // source - over（ 默认值） 新图形会覆盖在原有内容之上
+            // source - in 新图形仅仅会出现与原有内容重叠的部分， 其他区域都变成透明的。
+            // source - out 只有新图形中与原有内容不重叠的部分会被绘制出来
+            // source - atop 新图形中与原有内容重叠部分会被绘制， 并覆盖于原有内容之上。
+            // lighter 两图形中重叠部分作加色处理
+            // xor 重叠部分会变成透明
+            // destination - over 会在原有内容之上绘制新图形
+            // destination - in 原有内容与新图形重叠的部分会被保留， 其他部分变成透明的
+            // destination - out 原有内容中与新图形不重叠的部分会被保留
+            // destination - atop 原有内容中与新图形重叠部分会被保留， 并会在原有内容之上绘制新图形
+            // darker 两图形重叠部分作减色处理
+            // copy 只有新图形会被保留， 其他都被清除掉
+            // 裁剪
+            var img = new Image();
+            img.src = "http://img.mp.sohu.com/q_mini,c_zoom,w_640/upload/20170522/25320f4a8c7240d685f30f08426f853e_th.jpg";
+            img.onload = function() {
+                // 等图片加载完之后进行绘制
+                cxt.beginPath();
+                cxt.arc(120, 100, 50, 0, Math.PI * 2, true);
+                cxt.clip();
+                cxt.drawImage(img, 10, 10);
+
+            }
+
+
+        } else {
+
+        }
+    </script>
+</body>
+
+</html>

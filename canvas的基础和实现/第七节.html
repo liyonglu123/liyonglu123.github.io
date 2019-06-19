@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>像素操作</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1000" height="1000">
+        您的浏览器不支持canvas
+    </canvas>
+    <script>
+        var myCanvas = document.getElementById("myCanvas");
+        if (myCanvas.getContext) {
+            var cxt = myCanvas.getContext("2d");
+            // imageData 
+            // ImageData对象中存储着canvas对象真实的像素数据，它包含以下几个只读属性：
+            //  width 图片宽度，单位是像素 height 图片高度，单位是像素 data 包含着RGBA格式的整型数据，范围在0至255之间（包括255）
+            // 创建一个ImageData对像
+            // var imgData = cxt.createImageData(100, 100);
+            // for (var i = 0; i < imgData.data.length; i += 4) {
+            //     imgData.data[i + 0] = 255;
+            //     imgData.data[i + 1] = 0;
+            //     imgData.data[i + 2] = 0;
+            //     imgData.data[i + 3] = 255;
+            // }
+            // cxt.putImageData(imgData, 100, 10);
+            // // 创建与指定的另一个 ImageData 对象尺寸相同的新 ImageData 对象（不会复制图像数据）
+            // var imgData1 = cxt.createImageData(imgData);
+            // console.log(imgData1);
+            // // 得到场景像素数据
+            // var sceenData = cxt.getImageData(100, 100, 300, 300);
+            // console.log(sceenData);
+            // 例子: 颜色反转
+            var img = new Image();
+            img.src = "image/1.jpg";
+            // img.crossOrigin = ''; //跨域问题 
+            // Uncaught DOMException: Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The canvas has been tainted by cross-origin data.at Image.img.onload
+            img.onload = function() {
+                    // 等图片加载完之后进行绘制
+                    cxt.drawImage(img, 10, 10);
+                    var imgData = cxt.getImageData(10, 10, 200, 300);
+                    var data = imgData.data;
+                    for (var i = 0; i < data.length; i += 4) {
+                        const element = array[index];
+                        data[i] = 255 - data[i];
+                        data[i + 1] = 255 - data[i + 1];
+                        data[i + 2] = 255 - data[i + 2];
+                        data[i + 3] = 255;
+                    }
+                    cxt.putImageData(imgData, 230, 10); // 会有透视感
+                }
+                // 在场景中写入像素数据
+                // cxt.putImageData(imgData, x, y, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+                // x	ImageData 对象左上角的 x 坐标，以像素计。
+                //  y	ImageData 对象左上角的 y 坐标，以像素计。 
+                //  dirtyX	可选。水平值（x），以像素计，在画布上放置图像的位置。 
+                //  dirtyY	可选。垂直值（y），以像素计，在画布上放置图像的位置。 
+                //  dirtyWidth	可选。在画布上绘制图像所使用的宽度。 
+                //  dirtyHeight	可选。在画布上绘制图像所使用的高度
+
+
+
+
+        } else {
+
+        }
+    </script>
+</body>
+
+</html>

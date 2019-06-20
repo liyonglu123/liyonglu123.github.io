@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>速度与加速度</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <div class="point">
+        <button id="addDisk">增加球</button>
+        <button id="fashe">发射</button>
+        <button id="danzhou">单轴加减速</button>
+        <button id="zhongli">重力加速度</button>
+
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas1" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas2" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas3" width="400" height="300" style="background:#333"></canvas>
+
+
+    <script>
+        // 速度向量
+        // 1.单轴上的速度向量
+        // 2.双轴上的速度向量 vx = Math.cos(45 * Math.PI / 180) *1;  vy = Math.sin(45 * Math.PI / 180)*1;
+        // var vx = 1; //定义x轴速度
+        // var vy = 1; //定义y轴速度  
+        // 沿x轴正方向： ball.x += vx;
+        // 沿x轴反方向： ball.x -= vx;
+        // 沿y轴正方向： ball.y += vy;
+        // 沿y轴反方向： ball.y -= vy;
+        // 加速度
+        // 单轴加速度和双轴加速度
+        // 重力加速度 重力加速度简单来说就是y轴上的一个加速度，在计算加速度时，我们只需将重力加速度g添加到每一帧的vy（y轴上的加速度和）属性上就可以了
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var canvas1 = document.getElementById('canvas1');
+        var ctx1 = canvas1.getContext('2d');
+        var canvas2 = document.getElementById('canvas2');
+        var ctx2 = canvas2.getContext('2d');
+        var ax = 0.05; // 加速度
+        var canvas3 = document.getElementById('canvas3');
+        var ctx3 = canvas3.getContext('2d');
+        var g = 0.3;
+        var bounce = -0.7; //反弹系数
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+        var balles = []; // 球数组
+        var balles1 = []; // 发射球数组
+        var balles2 = []; // 单轴加减球数组
+        var balles3 = []; // 重力加速度球数组
+
+
+        // 创建球
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.speed = speed;
+            this.angle = 0;
+        }
+        // 事件
+        document.getElementById("addDisk").addEventListener('click', function() {
+            var sp = tool.getRandom(-6, 6);
+            var speed = {
+                x: 0,
+                y: 0
+            };
+            Math.random() > 0.5 ? speed.x = sp : speed.y = sp;
+            balles.push(new Ball(centerX, centerY, 10, speed));
+        });
+        document.getElementById("fashe").addEventListener('click', function() {
+            var speed = {
+                x: 5,
+                y: 4
+            };
+            balles1.push(new Ball(0, 0, 10, speed));
+        });
+        document.getElementById("danzhou").addEventListener('click', function() {
+            var speed = {
+                x: 0.02,
+                y: 0
+            };
+            ax = 0.05;
+            balles2.push(new Ball(20, centerY, 10, speed));
+        });
+        document.getElementById("zhongli").addEventListener('click', function() {
+            var speed = {
+                x: 0,
+                y: 3
+            };
+            var x = tool.getRandom(20, canvas3.width - 30);
+            balles3.push(new Ball(x, 0, 10, speed));
+        });
+        var requestID = null;
+        var requestID1 = null;
+        var requestID2 = null;
+        var requestID3 = null;
+
+
+        // 绘制球
+        function drawBall() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < balles.length; i++) {
+                var ball = balles[i];
+                ctx.save();
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                //重新计算球的位置
+                ball.x += ball.speed.x;
+                ball.y += ball.speed.y;
+                // 边界检测的问题
+                if (ball.x >= (canvas.width - ball.radius * 2) || ball.x <= 0) {
+                    ball.speed.x = -ball.speed.x;
+                };
+                if (ball.y >= (canvas.height - ball.radius * 2) || ball.y <= 0) {
+                    ball.speed.y = -ball.speed.y;
+                };
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+                ctx.restore();
+            };
+            requestID = requestAnimationFrame(drawBall);
+        };
+        // 绘制发射球
+        function drawFasheBall() {
+            ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+            for (var i = 0; i < balles1.length; i++) {
+                var ball = balles1[i];
+                ctx1.save();
+                ctx1.fillStyle = '#fff';
+                ctx1.beginPath();
+                //重新计算球的位置
+                ball.x += 5;
+                ball.y += 4;
+                if (ball.x >= (canvas1.width - ball.radius * 2) || ball.y >= (canvas1.height - ball.radius * 2)) {
+                    balles1.splice(i, 1);
+                    i -= 1;
+                };
+                ctx1.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx1.fill();
+                ctx1.restore();
+            };
+            requestID1 = requestAnimationFrame(drawFasheBall);
+        };
+        // 绘制单轴加减数球
+        function drawDanzhouBall() {
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+            for (var i = 0; i < balles2.length; i++) {
+                var ball = balles2[i];
+                ctx2.save();
+                ctx2.fillStyle = '#fff';
+                ctx2.beginPath();
+                //重新计算球的位置
+                if (ball.x >= (canvas2.width - ball.radius * 2) || ball.x <= 0) {
+                    balles2.splice(i, 1);
+                    i -= 1;
+                };
+                ball.speed.x += ax;
+                ball.x += ball.speed.x;
+                ctx2.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx2.fill();
+                ctx2.restore();
+            };
+            requestID2 = requestAnimationFrame(drawDanzhouBall);
+        };
+
+        function keyLeft() {
+            ax -= 0.01;
+        };
+
+        function keyRight() {
+            ax += 0.02;
+        }
+        // 绘制重力球
+        function drawWeightBall() {
+            ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+            for (var i = 0; i < balles3.length; i++) {
+                var ball = balles3[i];
+                ctx3.save();
+                ctx3.fillStyle = '#fff';
+                ctx3.beginPath();
+                //重新计算球的位置
+                if (ball.y >= (canvas3.height - ball.radius * 2)) {
+                    ball.y = canvas3.height - ball.radius * 2;
+                    ball.speed.y *= bounce;
+                };
+                ball.speed.y += g;
+                ball.y += ball.speed.y;
+                ctx3.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx3.fill();
+                ctx3.restore();
+            };
+            requestID3 = requestAnimationFrame(drawWeightBall);
+        };
+        window.onload = function() {
+            drawBall();
+            drawFasheBall();
+            drawDanzhouBall();
+            window.tool.captureKeyDown({
+                "37": keyLeft,
+                "39": keyRight
+            });
+            drawWeightBall();
+        };
+    </script>
+</body>
+
+</html>

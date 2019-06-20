@@ -1,5 +1,9 @@
 // 封装事件处理函数 常见的事件问题
 window.tool = {};
+// 获取指定范围内的随机数
+window.tool.getRandom = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 window.tool.captureMouse = function(element, mousedown, mousemove, mouseup) {
     /*传入Event对象*/
     function getPoint(event) {
@@ -117,3 +121,7 @@ window.tool.captureKeyUp = function(params) {
     };
     window.addEventListener('keyup', keyEvent, false);
 };
+// 判断鼠标位置是不是在制定的区域内
+window.tool.containsPoint = function(body, x, y) {
+    return !(x < body.x || x > (body.x + body.width) || y < body.y || y > (body.y + body.height));
+}

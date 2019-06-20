@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三角函数知识</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <h4>在屏幕上移动鼠标试试</h4>
+    <div class="point">
+        <button id="addDisk">增加三角磁铁</button>
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        // 1. 三角函数
+        // 角度和弧度
+        // 1弧度 = degrees * Math.PI / 180;
+        // 1 度 = radians * 180 / Math.PI;
+        // 2. 坐标系 
+        // 网页坐标系和普通坐标系的区别   === 直接影响了角度和坐标的计算
+        // 3. 直角三角形                            js中
+        // 正弦： sin(θ) = y / R                    Math.sin(θ*Math.PI/180)
+        // 余弦： cos(θ) = x / R                    Math.cos(θ*Math.PI/180)
+        // 正切： tan(θ) = y / x                    Math.tan(θ*Math.PI/180)
+        // /*反三角函数*/
+        // 反正弦： arcsin(y / R) = θ               Math.asin(y/R)*(180/Math.PI) = θ
+        // 反余弦： arccos(x / R) = θ               Math.acos(y/R)*(180/Math.PI) = θ
+        // 反正切： arctan(y / x) = θ               Math.atan(y/R)*(180/Math.PI) = θ
+        // 注意: 因为Math对象中的三角函数采用的弧度制，也就是说，传入的值是弧度，而不是角度，反三角函数得到的值也是弧度，而不是角度
+        // Math.atan2(y,x)  也是一个反正切函数，不过它接受两个参数：对边和邻边的长度，一般是X坐标和Y坐标
+        // Math.atan() 和Math.atan2() 的区别：
+        // Math.atan(θ) 和Math.atan2(x, y) 两个方法除了传入参数不一样外， 它们的返回值也会有所不同：
+        // Math.atan2() 返回值的范围是 - PI到PI之间（ 不包括 - PI） 的值，能区分出来是那一个三角形,  而Math.atan() 返回的值范围是 - PI / 2 到PI / 2（ 不包括 - PI / 2 和PI / 2） 之间
+        // A： Math.atan(-1 / 2) - 0.5 => Math.atan(-1 / 2) * 180 / Math.PI - 26.57°
+        // B： Math.atan(1 / 2) 0.5 => Math.atan(1 / 2) * 180 / Math.PI 26.57°
+        // C： Math.atan(1 / -2) - 0.5 => Math.atan(1 / -2) * 180 / Math.PI - 26.57°
+        // D： Math.atan(-1 / -2) 0.5 => Math.atan(-1 / -2) * 180 / Math.PI 26.57°
+        // Math.atan2() 的值
+        // A： Math.atan2(-1, 2) - 0.5 => Math.atan2(-1, 2) * 180 / Math.PI - 26.57
+        // B： Math.atan2(1, 2) 0.5 => Math.atan2(1, 2) * 180 / Math.PI 26.57
+        // C： Math.atan2(1, -2) 2.7 => Math.atan2(1, -2) * 180 / Math.PI 153.43
+        // D： Math.atan2(-1, -2) - 2.7 => Math.atan2(-1, -2) * 180 / Math.PI - 153.43
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        // 取canvas的中心
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+        var rotation = 0; // 旋转角度
+        var disks = []; // 存放多个三角形
+        // 三角磁体函数
+        function Disk(x, y, width, height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+        // 添加事件
+        document.getElementById("addDisk").addEventListener('click', function() {
+            var height = tool.getRandom(5, 10);
+            var width = tool.getRandom(30, 70);
+            var x = Math.floor(Math.random() * canvas.width);
+            var y = Math.floor(Math.random() * canvas.height);
+            disks.push(new Disk(x, y, width, height));
+        });
+        // 初始化一个磁铁
+        var d = new Disk(centerX, centerY, 100, 10);
+        var point = {};
+        disks.push(d);
+        // 绘制磁铁
+        function drawDisk() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < disks.length; i++) {
+                var d = disks[i];
+                // 计算旋转的角度
+                rotation = Math.atan2(point.y - d.y, point.x - d.x);
+                // 绘制红色小圆点
+                ctx.beginPath();
+                ctx.fillStyle = "red";
+                ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI, true);
+                ctx.fill();
+                // 绘制三角形磁铁
+                ctx.save();
+                ctx.translate(d.x, d.y);
+                ctx.rotate(rotation);
+                ctx.beginPath();
+                ctx.fillStyle = "red";
+                ctx.moveTo(d.width, 0);
+                ctx.lineTo(0, -d.height);
+                ctx.lineTo(0, d.height);
+                ctx.closePath();
+                ctx.fill();
+                ctx.beginPath();
+                ctx.fillStyle = "blue";
+                ctx.moveTo(-d.width, 0);
+                ctx.lineTo(0, -d.height);
+                ctx.lineTo(0, d.height);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+            requestAnimationFrame(drawDisk); //循环调用本身
+        }
+        drawDisk();
+
+        function touchstart(event) {
+
+        }
+
+        function touchmove(event) {
+            point = event.point;
+        }
+
+        function touchend(event) {
+
+        }
+        tool.captureMT(canvas, touchstart, touchmove, touchend);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>二纬弹动</title>
+</head>
+
+<body>
+
+    <div class="point">
+        <button id="addDisk">开始弹动</button>
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+
+        var balles = []; //存放页面上的球
+        var spring = 0.03;
+        var targetX = canvas.width / 2;
+        var targetY = canvas.height / 2;
+        var friction = 0.95;
+        var vx = 0;
+        var ax = 0;
+        var vy = 0;
+        var ay = 0;
+        var dx = 0;
+        var dy = 0;
+        var isBegin = false;
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.speed = speed;
+        };
+        balles.push(new Ball(10, 10, 10));
+        document.getElementById("addDisk").addEventListener('click', function() {
+            animation();
+        });
+        //绘制球
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBall();
+            requestAnimationFrame(animation);
+        };
+
+        function drawBall() {
+            for (var i = 0; i < balles.length; i++) {
+                var ball = balles[i];
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                if (!isBegin || Math.abs(vx) > 0.001) {
+                    dx = targetX - ball.x;
+                    ax = dx * spring;
+                    vx += ax;
+                    vx *= friction;
+                    ball.x += vx;
+                    dy = targetY - ball.y;
+                    ay = dy * spring;
+                    vy += ay;
+                    vy *= friction;
+                    ball.y += vy;
+                    isBegin = true;
+                }
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+            };
+        };
+
+        window.onload = function() {
+            drawBall();
+        };
+    </script>
+</body>
+
+</html>

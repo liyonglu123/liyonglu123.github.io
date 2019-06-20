@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>弹簧</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <div class="point">
+        在canvas上移动鼠标试试：
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var mouse = {
+            x: 0,
+            y: 0
+        };
+        var balles = []; //存放页面上的球
+        var spring = 0.03;
+        var friction = 0.95;
+        var gravity = 2; // 重力加速度
+        var vx = 0;
+        var ax = 0;
+        var vy = 0;
+        var ay = 0;
+        var dx = 0;
+        var dy = 0;
+        var isBegin = false;
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.speed = speed;
+        };
+        balles.push(new Ball(10, 10, 10));
+        //绘制球
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBall();
+            requestAnimationFrame(animation);
+        };
+
+        function drawBall() {
+            for (var i = 0; i < balles.length; i++) {
+                var ball = balles[i];
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                if (!isBegin || Math.abs(vx) > 0.001) {
+                    dx = mouse.x - ball.x;
+                    ax = dx * spring;
+                    vx += ax;
+                    vx *= friction;
+                    ball.x += vx;
+                    dy = mouse.y - ball.y;
+                    ay = dy * spring;
+                    vy += ay;
+                    vy *= friction;
+                    // 真实的重力加速度
+                    vy += gravity;
+                    ball.y += vy;
+                    isBegin = true;
+                };
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.beginPath();
+                ctx.moveTo(ball.x, ball.y);
+                ctx.lineTo(mouse.x, mouse.y);
+                ctx.stroke();
+                ctx.closePath();
+            };
+        };
+
+        function mousedown(event) {
+            mouse.x = event.point.x;
+            mouse.y = event.point.y;
+        };
+
+        function mousemove(event) {
+            isBegin = false;
+            mouse.x = event.point.x;
+            mouse.y = event.point.y;
+        };
+        window.onload = function() {
+            drawBall();
+            animation();
+            tool.captureMT(canvas, mousedown, mousemove);
+        };
+    </script>
+</body>
+
+</html>

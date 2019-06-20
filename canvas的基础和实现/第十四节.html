@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>边界与摩擦力</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <div class="point">
+        <button id="addDisk">增加球</button>
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas1" width="400" height="300" style="background:#333"></canvas>
+
+    <script>
+        // 在canvas中， 我们一般会设置三种边界：
+        // 整个canvas元素
+        // 大于canvas的区域， 比如有一张大地图， 物体可以在里面任意移动， 移到边界时地图也跟着移动变化
+        // 小于canvas的区域， 比如给物体设置了一个小房间， 限制它的活动范围
+
+        // 当物体越界时， 一般我们会进行以下4中选择操作：
+        // 移除物体
+        // 重置物体， 也就是让物体所有状态恢复到原始位置
+        // 屏幕环绕： 让同一个物体出现在边界内的另一个位置
+        // 物体反弹， 也就是向反方向运动
+        // 1.移除物体 之前的都是这样的例子
+        // 2.重置物体 重置物体其实就是重新设置物体的位置坐标。
+        // 3.屏幕环绕 的意思是当物体从屏幕左边移出，它就会在屏幕右边再次出现；当物体从屏幕上方移出，它又会出现在屏幕下方，反之亦然
+        // 屏幕环绕和重置物体类似，都遵循着同一个物体的原则，只不过屏幕环绕是让其从一边出再从相反的一边进而已
+        // 4.反弹 位置不变改变方向
+        // 检测物体是否越界
+        // 如果发生越界， 立即将物体置回边界
+        // 反转物体的速度向量的方向， 也可以说是速度取反。
+        // 摩擦力 
+        // 1.精确计算
+        // var v = Math.sqrt(vx * vx + vy * vy);
+        // var angle = Math.atan2(vy, vx);
+        // if (v > f) {
+        //     v -= f;
+        // } else {
+        //     v = 0;
+        // };
+        // vx = Math.cos(angle) * v;
+        // vy = Math.sin(angle) * v;
+        // 2. 约等方法
+        // vx *= friction; (0.9)
+        // vy *= friction;
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var canvas1 = document.getElementById('canvas1');
+        var ctx1 = canvas1.getContext('2d');
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+        var requestID = null;
+        var requestID1 = null;
+        var balles = []; //存放页面上的球
+        var balles1 = []; //存放反弹的球
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.speed = speed;
+        };
+        var speed = {
+            x: 0,
+            y: 3
+        };
+        balles.push(new Ball(centerX, 0, 10, speed));
+        // 事件
+        document.getElementById("addDisk").addEventListener('click', function() {
+            var sp = tool.getRandom(-6, 6);
+            var speed1 = {
+                x: 0,
+                y: 0
+            };
+            Math.random() > 0.5 ? speed1.x = sp : speed1.y = sp;
+            balles1.push(new Ball(centerX, centerY, 10, speed1));
+        });
+
+        //绘制球
+        function drawBall() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < balles.length; i++) {
+                var ball = balles[i];
+                ctx.save();
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                //重新计算球的位置
+                if (ball.y >= canvas.height) {
+                    ball.y = 0;
+                };
+                ball.y += ball.speed.y;
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+                ctx.restore();
+            };
+            requestID = requestAnimationFrame(drawBall);
+        };
+        // 绘制反弹球
+        function drawFanTanBall() {
+            ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+            for (var i = 0; i < balles1.length; i++) {
+                var ball = balles1[i];
+                ctx1.save();
+                ctx1.fillStyle = '#fff';
+                ctx1.beginPath();
+                //重新计算球的位置
+                ball.x += ball.speed.x;
+                ball.y += ball.speed.y;
+                if (ball.x >= (canvas1.width - ball.radius * 2) || ball.x <= 0) {
+                    ball.speed.x = -ball.speed.x;
+                };
+                if (ball.y >= (canvas1.height - ball.radius * 2) || ball.y <= 0) {
+                    ball.speed.y = -ball.speed.y;
+                };
+                ctx1.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx1.fill();
+                ctx1.restore();
+            };
+            requestID1 = requestAnimationFrame(drawFanTanBall);
+        };
+
+        window.onload = function() {
+            drawBall();
+            drawFanTanBall();
+        };
+    </script>
+</body>
+
+</html>

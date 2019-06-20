@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三角函数例子</title>
+</head>
+
+<body>
+    <div class="point">
+        <button id="addDisk">正弦球</button>
+        <button id="maichong">脉冲球</button>
+        <button id="cicle">圆周球</button>
+        <button id="tuoyuan">椭圆球</button>
+        <!-- <button id="distance">两点距离</button> -->
+
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas1" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas2" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas3" width="400" height="300" style="background:#333"></canvas>
+
+    <script>
+        //1.波形波形（平滑的上下运动、线性运动、脉冲运动） 角度和弧度的相互转换 
+        //2.圆周运动与椭圆运动 sin(θ) = x1 / R   =>   x1 = R * sin(θ)  cos(θ) = y1 / R   =>   y1 = R * cos(θ)
+        //3.两点间的距离（ 勾股定律）
+        // var dx = x2 - x1;
+        // var dy = y2 - y1;
+        // var dist = Math.sqrt(dx * dx + dy * dy);
+        // for (var angle = 0; angle < Math.PI * 2; angle += 0.1) {
+        //     console.log(Math.sin(angle));
+        // }
+
+        //1. 平滑的上下运动
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        // 脉冲
+        var canvas1 = document.getElementById('canvas1');
+        var ctx1 = canvas1.getContext('2d');
+        // 圆周
+        var canvas2 = document.getElementById('canvas2');
+        var ctx2 = canvas2.getContext('2d');
+        var centerX = canvas2.width / 2;
+        var centerY = canvas2.height / 2;
+        var radius = 50;
+        // 椭圆
+        var canvas3 = document.getElementById('canvas3');
+        var ctx3 = canvas3.getContext('2d');
+        var centerX = canvas3.width / 2;
+        var centerY = canvas3.height / 2;
+        var radiusX = 100;
+        var radiusY = 50;
+
+        var balles = []; //存放页面上的球
+        var balles1 = []; // 脉冲球
+        var balles2 = []; //圆周球
+        var balles3 = []; //椭圆球
+
+        // 球函数
+        function Ball(x, y, radius) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.scale = 1; // 脉冲运动
+        };
+        // 事件
+        document.getElementById("addDisk").addEventListener('click', function() {
+            balles.push(new Ball(0, 20, 10));
+        });
+        document.getElementById("maichong").addEventListener('click', function() {
+            var x = Math.floor(Math.random() * canvas1.width);
+            var y = Math.floor(Math.random() * canvas1.height);
+            balles1.push(new Ball(x, y, 10));
+        });
+        document.getElementById("cicle").addEventListener('click', function() {
+            balles2.push(new Ball(centerX - 50, centerY - 50, 5));
+        });
+        document.getElementById("tuoyuan").addEventListener('click', function() {
+            balles3.push(new Ball(centerX - 50, centerY - 50, 5));
+        });
+        // 划线
+        function drawSinLine() {
+            var x = 0;
+            var y = 20;
+            for (var angle = 0; angle < Math.PI * 14; angle += 0.1) {
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                x += 1;
+                y += Math.sin(angle) * 10;
+                ctx.arc(x, y, 2, 2 * Math.PI, true);
+                ctx.fill();
+            }
+        };
+        var requestID = null;
+        var requestID1 = null;
+        var requestID2 = null;
+        var requestID3 = null;
+
+        // 画圆周
+        function drawCircleLine() {
+            var x = centerX - 50;
+            var y = centerY - 50;
+            for (var angle = 0; angle < Math.PI * 2; angle += 0.1) {
+                ctx2.fillStyle = '#fff';
+                ctx2.beginPath();
+                x = centerX + Math.sin(angle) * radius;
+                y = centerY + Math.cos(angle) * radius;
+                ctx2.arc(x, y, 2, 2 * Math.PI, true);
+                ctx2.fill();
+            }
+        };
+        // 画椭圆线
+        function drawTuoYuanLine() {
+            var x = centerX - 50;
+            var y = centerY - 50;
+            for (var angle = 0; angle < Math.PI * 2; angle += 0.1) {
+                ctx3.fillStyle = '#fff';
+                ctx3.beginPath();
+                x = centerX + Math.sin(angle) * radiusX;
+                y = centerY + Math.cos(angle) * radiusY;
+                ctx3.arc(x, y, 2, 2 * Math.PI, true);
+                ctx3.fill();
+            }
+        };
+        //绘制球
+        function drawBall() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSinLine();
+            for (var i = 0; i < balles.length; i++) {
+                var ball = balles[i];
+                if (ball.x > canvas.width) {
+                    balles.splice(i, 1);
+                    i -= 1;
+                } else {
+                    ctx.save();
+                    //使用径向渐变
+                    var grd = ctx.createRadialGradient(ball.x, ball.y, 0, ball.x, ball.y, ball.radius - 1);
+                    grd.addColorStop(0.5, 'rgba(255,255,255,1)');
+                    grd.addColorStop(1, 'rgba(255,255,255,.7)');
+                    ctx.fillStyle = grd;
+                    ctx.beginPath();
+                    //重新计算球的位置
+                    ball.x += 1;
+                    ball.y += Math.sin(ball.angle) * 10;
+                    ball.angle += 0.1; // 线性运动
+                    ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            };
+            requestID = requestAnimationFrame(drawBall);
+        };
+        // 绘制脉冲球
+        function drawMaiChongBall() {
+            ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+            for (var i = 0; i < balles1.length; i++) {
+                var ball = balles1[i];
+                ctx1.fillStyle = '#fff';
+                ctx1.beginPath();
+                //重新计算球的位置
+                ball.scale = 1 + Math.sin(ball.angle);
+                ball.angle += 0.1;
+                ball.radius = 10 * ball.scale;
+                ctx1.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx1.fill();
+            };
+            requestID1 = requestAnimationFrame(drawMaiChongBall);
+        };
+        //绘制圆周球
+        function drawCircleBall() {
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+            drawCircleLine();
+            for (var i = 0; i < balles2.length; i++) {
+                var ball = balles2[i];
+                ctx2.fillStyle = '#fff';
+                ctx2.beginPath();
+                //重新计算球的位置
+                ball.x = centerX + Math.sin(ball.angle) * radius;
+                ball.y = centerY + Math.cos(ball.angle) * radius;
+                ctx2.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ball.angle += 0.1;
+                ctx2.fill();
+            };
+            requestID2 = requestAnimationFrame(drawCircleBall);
+        };
+        //绘制椭圆球
+        function drawToyuanBall() {
+            ctx3.clearRect(0, 0, canvas3.width, canvas3.height);
+            drawTuoYuanLine();
+            for (var i = 0; i < balles3.length; i++) {
+                var ball = balles3[i];
+                ctx3.fillStyle = '#fff';
+                ctx3.beginPath();
+                //重新计算球的位置
+                ball.x = centerX + Math.sin(ball.angle) * radiusX;
+                ball.y = centerY + Math.cos(ball.angle) * radiusY;
+                ctx3.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ball.angle += 0.1;
+                ctx3.fill();
+            };
+            requestID3 = requestAnimationFrame(drawToyuanBall);
+        };
+        window.onload = function() {
+            drawBall();
+            drawMaiChongBall();
+            drawCircleBall();
+            drawToyuanBall();
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>缓动</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+
+    <div class="point">
+        <button id="addDisk">增加球</button>
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        // 缓动是速度 弹动是加速度
+        // 实现缓动的步骤
+        // 1.为运动确定一个小于1且大于0的小数作为比例系数(easing)
+        // 2.确定目标点
+        // 3.计算物体与目标点的距离
+        // 4.计算速度， 速度 = 距离 * 比例系数
+        // 5.用当前位置加上速度来计算新的位置
+        // 6.不断重复第3步到第5步， 直到物体到达目标点
+        // 缓动的计算公式
+        // ball.x += (targetX - ball.x) * easing;
+        // ball.y += (targetY - ball.y) * easing;
+        // 不仅仅适用于速度, 旋转,透明度等等属性均适用
+        // 注意什么时候停止的问题
+        /*二维坐标 * /
+        distance = Math.sqrt(dx * dx + dy * dy);
+        /*一维坐标*/
+        // distance = Math.abs(dx)
+        // if (distance < 1) {
+        //     console.log('到达终点');
+        //     cancelAnimationFrame(requestID);
+        // }
+
+
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+        var balles = []; //存放页面上的球
+        var easing = 0.05;
+        var targetX = canvas.width - 10;
+        var targetY = canvas.height - 10;
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.speed = speed;
+        };
+        document.getElementById("addDisk").addEventListener('click', function() {
+            var speed = {
+                x: 0,
+                y: 3
+            };
+            var y = tool.getRandom(30, canvas.height - 30);
+            balles.push(new Ball(0, y, 10, speed));
+        });
+        //绘制球
+        function drawBall() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < balles.length; i++) {
+                var ball = balles[i];
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ball.x += (targetX - ball.x) * easing;
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+            };
+            requestAnimationFrame(drawBall);
+        };
+
+        window.onload = function() {
+            drawBall();
+        };
+    </script>
+</body>
+
+</html>

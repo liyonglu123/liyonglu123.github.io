@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>链式弹动</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <div class="point">
+        在canvas上移动鼠标试试：
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        // 链式运动是指物体A以物体B为目标点， 物体B又以物体C为目标点， 诸如此类的运动
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var mouse = {
+            x: 0,
+            y: 0
+        };
+        var balles = []; //存放页面上的球
+        var spring = 0.03;
+        var friction = 0.95;
+        var gravity = 2;
+        var dx = 0;
+        var dy = 0;
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.vx = 0;
+            this.vy = 0;
+            this.speed = speed;
+        };
+        //绘制球
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            balles.forEach(connect);
+            requestAnimationFrame(animation);
+        };
+
+        function drawBall(ball, targetX, targetY) {
+            dx = targetX - ball.x;
+            dy = targetY - ball.y;
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ball.vx += dx * spring;
+            ball.vy += dy * spring;
+            ball.vy += gravity;
+            ball.vx *= friction;
+            ball.vy *= friction;
+            ball.x += ball.vx;
+            ball.y += ball.vy;
+            ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+            ctx.fill();
+        }
+
+        function connect(ball, i) {
+            if (i === 0) {
+                drawBall(ball, mouse.x, mouse.y);
+                ctx.moveTo(mouse.x, mouse.y);
+            } else {
+                var ballA = balles[i - 1];
+                drawBall(ball, ballA.x, ballA.y);
+                ctx.moveTo(ballA.x, ballA.y);
+            };
+            ctx.strokeStyle = '#fff';
+            ctx.lineTo(ball.x, ball.y);
+            ctx.stroke();
+        };
+
+        function mousedown(event) {
+            mouse.x = event.point.x;
+            mouse.y = event.point.y;
+        };
+
+        function mousemove(event) {
+            mouse.x = event.point.x;
+            mouse.y = event.point.y;
+        };
+        window.onload = function() {
+            for (var i = 0; i < 4; i++) {
+                var b = new Ball(10, 10, 10);
+                balles.push(b);
+            };
+            mouse.x = canvas.width / 2;
+            animation();
+            tool.captureMT(canvas, mousedown, mousemove);
+        };
+    </script>
+</body>
+
+</html>

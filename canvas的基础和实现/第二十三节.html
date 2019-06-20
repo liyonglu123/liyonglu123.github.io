@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用弹簧连接三个物体</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <div class="point">
+        拖动其中一个球试试：
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var mouse = {
+            x: 0,
+            y: 0
+        };
+        var balles = []; //存放页面上的球
+        var spring = 0.03;
+        var friction = 0.95;
+        var gravity = 2;
+        var springLength = 100;
+        var dx = 0;
+        var dy = 0;
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.vx = 0;
+            this.vy = 0;
+            this.speed = speed;
+        };
+        var ball0 = new Ball(Math.random() * canvas.width, Math.random() * canvas.height, 10);
+        var ball1 = new Ball(Math.random() * canvas.width, Math.random() * canvas.height, 10);
+        var ball2 = new Ball(Math.random() * canvas.width, Math.random() * canvas.height, 10);
+        balles.push(ball0);
+        balles.push(ball1);
+        balles.push(ball2);
+        var ball0_dragging = false;
+        var ball1_dragging = false;
+        var ball2_dragging = false;
+        //绘制球
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (!ball0_dragging) {
+                springTo(ball0, ball1);
+                springTo(ball0, ball2);
+            };
+            if (!ball1_dragging) {
+                springTo(ball1, ball0);
+                springTo(ball1, ball2);
+            };
+            if (!ball2_dragging) {
+                springTo(ball2, ball0);
+                springTo(ball2, ball1);
+            };
+            ctx.beginPath();
+            ctx.strokeStyle = '#fff';
+            ctx.moveTo(ball0.x, ball0.y)
+            ctx.lineTo(ball1.x, ball1.y);
+            ctx.lineTo(ball2.x, ball2.y);
+            ctx.lineTo(ball0.x, ball0.y);
+            ctx.stroke();
+            balles.forEach(function(ball, i) {
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+            });
+            requestAnimationFrame(animation);
+        };
+        //让ballA弹向ballB
+        function springTo(ballA, ballB) {
+            dx = ballA.x - ballB.x;
+            dy = ballA.y - ballB.y;
+            angle = Math.atan2(dy, dx); // 获取鼠标与球之间的夹角
+            //计算目标点坐标
+            targetX = ballB.x + Math.cos(angle) * springLength;
+            targetY = ballB.y + Math.sin(angle) * springLength;
+            ballA.vx += (targetX - ballA.x) * spring;
+            ballA.vy += (targetY - ballA.y) * spring;
+            ballA.vx *= friction;
+            ballA.vy *= friction;
+            ballA.x += ballA.vx;
+            ballA.y += ballA.vy;
+        };
+        //获取圆的边界矩形
+        function getBound(body) {
+            return {
+                x: (body.x - body.radius),
+                y: (body.y - body.radius),
+                width: body.radius * 2,
+                height: body.radius * 2
+            };
+        }
+
+        function mousedown(event) {
+            mouse.x = event.point.x;
+            mouse.y = event.point.y;
+            //判断鼠标是否在ball0球上
+            if (tool.containsPoint(getBound(ball0), mouse.x, mouse.y)) {
+                ball0_dragging = true;
+            };
+            if (tool.containsPoint(getBound(ball1), mouse.x, mouse.y)) {
+                ball1_dragging = true;
+            };
+            if (tool.containsPoint(getBound(ball2), mouse.x, mouse.y)) {
+                ball2_dragging = true;
+            };
+        };
+
+        function mousemove(event) {
+            mouse.x = event.point.x;
+            mouse.y = event.point.y;
+            if (ball0_dragging) {
+                ball0.x = mouse.x;
+                ball0.y = mouse.y;
+            };
+            if (ball1_dragging) {
+                ball1.x = mouse.x;
+                ball1.y = mouse.y;
+            };
+            if (ball2_dragging) {
+                ball2.x = mouse.x;
+                ball2.y = mouse.y;
+            };
+        };
+
+        function mouseup(event) {
+            if (ball0_dragging || ball1_dragging || ball2_dragging) {
+                ball0_dragging = false;
+                ball1_dragging = false;
+                ball2_dragging = false;
+            }
+        };
+        window.onload = function() {
+
+            mouse.x = canvas.width / 2;
+            animation();
+            tool.captureMT(canvas, mousedown, mousemove, mouseup);
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>移动物体</title>
+    <script src="tool.js"></script>
+    <style>
+        /* .box {
+            position: absolute;
+            top: 10px;
+            left: 450px;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas1" width="400" height="300" style="background:#333"></canvas>
+    <canvas id="canvas2" width="400" height="300" style="background:#333"></canvas>
+
+
+    <script>
+        // 目标:
+        // 1.如何判断鼠标是否落在某一个物体上
+        // 2.拖曳物体 
+        // 3.投掷物体
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        // 拖拽物体
+        var canvas1 = document.getElementById('canvas1');
+        var ctx1 = canvas1.getContext('2d');
+        // 投掷物体
+        var canvas2 = document.getElementById('canvas2');
+        var ctx2 = canvas2.getContext('2d');
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+        var balles = []; //存放页面上的球
+        var balles1 = []; //拖拽的球
+        var balles2 = []; //投掷的球
+
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.speed = speed;
+        };
+        var speed = {
+            x: 0,
+            y: 3
+        };
+        // 拖拽
+        var speed1 = {
+            x: 0,
+            y: 3
+        };
+        // 投掷
+        var speed2 = {
+            x: 0,
+            y: 0
+        };
+        var isPressed2 = false;
+        var oldX = 0;
+        var oldY = 0;
+        balles2.push(new Ball(30, 30, 20, speed2));
+        var ball = balles[0];
+        var box = document.querySelector('.box');
+        // 是否在指定区域内
+        balles.push(new Ball(centerX, centerY, 40, speed));
+        // 拖拽
+        var isPressed = false; // 判断手指是不是还在触摸标志
+        balles1.push(new Ball(centerX, centerY, 20, speed1));
+        var box = document.querySelector('.box');
+        //绘制球 => 判断区域
+        function drawBall() {
+            var ball = balles[0];
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+            ctx.fill();
+            requestAnimationFrame(drawBall);
+        };
+
+        function mousedown(event) {
+
+        };
+
+        function mousemove(event) {
+            var ball = balles[0];
+            var body = {
+                x: (ball.x - ball.radius),
+                y: (ball.y - ball.radius),
+                width: ball.radius * 2,
+                height: ball.radius * 2
+            };
+            if (tool.containsPoint(body, event.point.x, event.point.y)) {
+                box.innerHTML = '鼠标移到球上了';
+            } else {
+                box.innerHTML = '鼠标离开球上了';
+            };
+        };
+        //绘制移动球 => 拖拽
+        function drawMoveBall() {
+            ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
+            var ball = balles1[0];
+            ctx1.fillStyle = '#fff';
+            ctx1.beginPath();
+            ctx1.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+            ctx1.fill();
+            requestAnimationFrame(drawMoveBall);
+        };
+        // 拖拽球
+        function drag(event) {
+            var ball = balles1[0];
+            var body = {
+                x: (ball.x - ball.radius),
+                y: (ball.y - ball.radius),
+                width: ball.radius * 2,
+                height: ball.radius * 2
+            };
+            if (isPressed && tool.containsPoint(body, event.point.x, event.point.y)) {
+                var point = event.point;
+                var ball = balles1[0];
+                ball.x = event.point.x;
+                ball.y = event.point.y;
+            };
+        };
+
+        function mousedown1(event) {
+            isPressed = true;
+            drag(event);
+        };
+
+        function mousemove1(event) {
+            drag(event);
+        };
+
+        function mouseup1(event) {
+            isPressed = false;
+        };
+        //绘制球 => 投掷
+        function drawTouzhiBall() {
+            ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+            var ball = balles2[0];
+            ctx2.fillStyle = '#fff';
+            ctx2.beginPath();
+            if (!isPressed2) {
+                ball.x += ball.speed.x;
+                ball.y += ball.speed.y;
+            };
+            if (ball.x > canvas2.width || ball.x < (-ball.width) || ball.y > canvas2.height || ball.y < (-ball.height)) {
+                ball.x = 30;
+                ball.y = 30;
+                ball.speed.x = 0;
+                ball.speed.y = 0;
+            };
+            ctx2.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+            ctx2.fill();
+            requestAnimationFrame(drawTouzhiBall);
+        };
+        // 投掷中的拖拽
+        function dragTouzhi(event) {
+            var ball = balles2[0];
+            var body = {
+                x: (ball.x - ball.radius),
+                y: (ball.y - ball.radius),
+                width: ball.radius * 2,
+                height: ball.radius * 2
+            };
+            if (isPressed2 && tool.containsPoint(body, event.point.x, event.point.y)) {
+                var point = event.point;
+                ball.x = event.point.x;
+                ball.y = event.point.y;
+                ball.speed.x = ball.x - oldX;
+                ball.speed.y = ball.y - oldY;
+                oldX = ball.x;
+                oldY = ball.y;
+            };
+        };
+
+        function mousedown2(event) {
+            isPressed2 = true;
+            oldX = event.point.x;
+            oldY = event.point.y;
+            dragTouzhi(event);
+        };
+
+        function mousemove2(event) {
+            dragTouzhi(event);
+        };
+
+        function mouseup2(event) {
+            isPressed2 = false;
+        };
+        window.onload = function() {
+            drawBall();
+            tool.captureMT(canvas, mousedown, mousemove);
+            drawMoveBall();
+            tool.captureMT(canvas1, mousedown1, mousemove1, mouseup1);
+            drawTouzhiBall();
+            tool.captureMT(canvas2, mousedown2, mousemove2, mouseup2);
+        };
+    </script>
+</body>
+
+</html>

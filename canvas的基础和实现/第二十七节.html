@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单旋转</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+
+        var balles = []; //存放页面上的球
+        var angle = 0;
+        var vr = 0.05;
+        var radius = 0;
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.speed = speed;
+        };
+
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#fff';
+            balles.forEach(function(ball, i) {
+                ball.x = centerX + Math.cos(angle) * radius;
+                ball.y = centerY + Math.sin(angle) * radius;
+                angle += vr;
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+            });
+            ctx.beginPath();
+            ctx.strokeStyle = '#fff';
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 2, 0, 2 * Math.PI, true);
+            ctx.fill();
+            requestAnimationFrame(animation);
+        };
+
+        window.onload = function() {
+            balles.push(new Ball(centerX - 50, centerY - 50, 10));
+            var x = balles[0].x - centerX;
+            var y = balles[0].y - centerY;
+            radius = Math.floor(Math.sqrt(x * x + y * y));
+            animation();
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>弹性碰撞</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var balles = [];
+        var gravity = 2;
+        var requestID = null;
+        var ballNums = 10;
+        var bounce = -1; //反弹系数
+        var spring = 0.03;
+        // 球函数
+        function Ball(x, y, radius) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.vx = 0;
+            this.vy = 0;
+        };
+        var ballA = new Ball(canvas.width / 2, canvas.height / 2, 40);
+        //动画
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(ballA.x, ballA.y, ballA.radius, 0, 2 * Math.PI, true);
+            ctx.fill();
+            balles.forEach(function(ball, i) {
+                //检测是否碰到canvas边界
+                var right = canvas.width - ball.radius;
+                var left = ball.radius;
+                var top = ball.radius;
+                var bottom = canvas.height - ball.radius;
+                if (ball.x > right) {
+                    ball.x = right;
+                    ball.vx *= bounce;
+                } else if (ball.x < left) {
+                    ball.x = left;
+                    ball.vx *= bounce;
+                }
+                if (ball.y > bottom) {
+                    ball.vy *= bounce;
+                    ball.y = bottom;
+                } else if (ball.y < top) {
+                    ball.y = top;
+                    ball.vy *= bounce;
+                };
+                ball.x += ball.vx;
+                ball.y += ball.vy;
+                //检测是否碰撞中心圆球
+                var dx = ball.x - ballA.x;
+                var dy = ball.y - ballA.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                var min_dist = ball.radius + ballA.radius;
+                if (dist < min_dist) {
+                    var angle = Math.atan2(dy, dx);
+                    var tx = ballA.x + Math.cos(angle) * min_dist;
+                    var ty = ballA.y + Math.sin(angle) * min_dist;
+                    ball.vx += (tx - ball.x) * spring;
+                    ball.vy += (ty - ball.y) * spring;
+                };
+                ctx.fillStyle = '#' + ball.color.toString(16);
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+            });
+            requestID = requestAnimationFrame(animation);
+        };
+
+        window.onload = function() {
+            for (var i = 0; i < ballNums; i++) {
+                var ball = new Ball();
+                ball.x = Math.random() * canvas.width;
+                ball.y = Math.random() * canvas.height;
+                ball.vx = tool.getRandom(3, 6);
+                ball.vy = tool.getRandom(3, 6);
+                ball.radius = tool.getRandom(10, 20);
+                ball.color = Math.floor(Math.random() * 0xffffff);
+                balles.push(ball);
+            };
+            animation();
+        };
+    </script>
+</body>
+
+</html>

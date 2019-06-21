@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>旋转单个物体</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        // 如果物体(x,y)围绕着一个点(x2,y2)旋转，而我们只知道物体的坐标和点的坐标，那如何计算旋转后物体的坐标呢？下面有一个很适合这种场景的公式：
+        // x1 = (x - x2) * cos(rotation) - (y - y2) * sin(rotation);
+        // y1 = (y - y2) * cos(rotation) + (x - x2) * sin(rotation);
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+
+        var balles = []; //存放页面上的球
+        var vr = 0.05;
+        var cos = Math.cos(vr);
+        var sin = Math.sin(vr);
+        var radius = 0;
+        // 球函数
+        function Ball(x, y, radius, speed) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.speed = speed;
+        };
+
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#fff';
+            balles.forEach(function(ball, i) {
+                var x1 = ball.x - centerX;
+                var y1 = ball.y - centerY;
+                ball.x = centerX + (x1 * cos - y1 * sin);
+                ball.y = centerY + (y1 * cos + x1 * sin);
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+            });
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#fff';
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, true);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 2, 0, 2 * Math.PI, true);
+            ctx.fill();
+            requestAnimationFrame(animation);
+        };
+
+        window.onload = function() {
+            balles.push(new Ball(centerX - 50, centerY - 50, 10));
+            var x = balles[0].x - centerX;
+            var y = balles[0].y - centerY;
+            radius = Math.floor(Math.sqrt(x * x + y * y));
+            animation();
+        };
+    </script>
+</body>
+
+</html>

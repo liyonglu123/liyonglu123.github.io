@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多物体的碰撞</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <div class="point">
+        <button id="add">增加球</button>
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        // 1. 矩形边界碰撞检测
+        // tool.intersects = function(bodyA, bodyB) {
+        //         return !(bodyA.x + bodyA.width < bodyB.x ||
+        //             bodyB.x + bodyB.width < bodyA.x ||
+        //             bodyA.y + bodyA.height < bodyB.y ||
+        //             bodyB.y + bodyB.height < bodyA.y);
+        //     }
+        // 2. 基于距离的碰撞检测
+        // dx = objectB.x - objectA.x;
+        // dy = objectB.y - objectA.y;
+        // dist = Math.sqrt(dx * dx + dy * dy);
+        // if (dist < objectA.radius + objectB.radius) {}
+        // 3. 多物体碰撞检测
+        // for (var i = 0; i < objects.length; i++) {
+        //     var objectA = objects[i];
+        //     for (var j = i + 1; j < objects.length; j++) {
+        //         var objectB = objects[j];
+        //         if (tool.intersects(objectA, objectB) {}
+        //         }
+        //     };
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var balles = [];
+        var gravity = 0.1;
+        var requestID = null;
+        var ballNums = 10;
+        var bounce = -0.5; //反弹系数
+        var spring = 0.03;
+        // 球函数
+        function Ball(x, y, radius) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.vx = 0;
+            this.vy = 0;
+        };
+        //让ballA弹向ballB
+        function checkCollision(ballA, ballB) {
+            var dx = ballA.x - ballB.x;
+            var dy = ballA.y - ballB.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            var min_dist = ballB.radius + ballA.radius;
+            if (dist < min_dist) {
+                var angle = Math.atan2(dy, dx);
+                var tx = ballB.x + Math.cos(angle) * min_dist;
+                var ty = ballB.y + Math.sin(angle) * min_dist;
+                var ax = (tx - ballA.x) * spring * 0.5;
+                var ay = (ty - ballA.y) * spring * 0.5;
+                ballA.vx += ax;
+                ballA.vy += ay;
+                ballB.vx += (-ax);
+                ballB.vy += (-ay);
+            };
+        };
+        //动画
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            balles.forEach(function(ball, i) {
+                ball.x += ball.vx;
+                ball.y += ball.vy;
+                //检测是否碰到canvas边界
+                var right = canvas.width - ball.radius;
+                var left = ball.radius;
+                var top = ball.radius;
+                var bottom = canvas.height - ball.radius;
+                if (ball.x > right) {
+                    ball.x = right;
+                    ball.vx *= bounce;
+                } else if (ball.x < left) {
+                    ball.x = left;
+                    ball.vx *= bounce;
+                };
+                if (ball.y > bottom) {
+                    ball.vy *= bounce;
+                    ball.y = bottom;
+                } else if (ball.y < top) {
+                    ball.y = top;
+                    ball.vy *= bounce;
+                };
+                //检测是否碰撞中心圆球
+                for (var j = i + 1; j < balles.length; j++) {
+                    checkCollision(ball, balles[j]);
+                };
+                ctx.fillStyle = '#' + ball.color.toString(16);
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+            });
+            requestID = requestAnimationFrame(animation);
+        };
+
+        document.getElementById('add').addEventListener('click', function() {
+            if (typeof requestID !== null) {
+                cancelAnimationFrame(requestID);
+                balles = []
+            };
+            for (var i = 0; i < ballNums; i++) {
+                var ball = new Ball();
+                ball.x = Math.random() * canvas.width;
+                ball.y = Math.random() * canvas.height;
+                ball.vx = tool.getRandom(5, 8);
+                ball.vy = tool.getRandom(5, 8);
+                ball.radius = tool.getRandom(10, 20);
+                ball.color = Math.floor(Math.random() * 0xffffff);
+                balles.push(ball);
+            };
+            animation();
+        });
+    </script>
+</body>
+
+</html>

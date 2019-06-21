@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>碰撞检测</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        // 两个物体间的碰撞检测、一个物体与一个点的碰撞检测、基于距离的碰撞检测等等碰撞检测方法
+        // 从几何图形的角度来检测， 就是判断一个物体是否与另一个有重叠， 我们可以用物体的矩形边界来判断。
+        // 检测距离， 就是判断两个物体是否足够近到发生碰撞， 需要计算距离和判断两个物体是否足够近
+        // 1. 交集
+        // 2.基于距离的简单碰撞检测
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var balles = [];
+        var gravity = 2;
+        var requestID = null;
+        var isPressed = false;
+        // 球函数
+        function Ball(x, y, radius) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.vx = 0;
+            this.vy = 0;
+        };
+        var ballA = new Ball(canvas.width / 2, canvas.height / 2, 50);
+        var ballB = new Ball(30, 30, 20);
+        balles.push(ballA, ballB);
+        //动画
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            balles.forEach(function(ball, i) {
+                var dx = ballB.x - ballA.x;
+                var dy = ballB.y - ballA.y;
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI, true);
+                ctx.fill();
+                if (ball != ballB && dist < ballA.radius + ballB.radius) {
+                    ctx.strokeStyle = 'red';
+                    var txt = '你压着我了';
+                    var tx = ballA.x - ctx.measureText(txt).width / 2;
+                    ctx.font = '30px Arial'
+                    ctx.strokeText(txt, tx, ballA.y);
+                };
+            });
+            requestID = requestAnimationFrame(animation);
+        };
+
+        function mousedown(event) {
+            if (tool.containsPoint(tool.getBound(ballB), event.point.x, event.point.y)) {
+                isPressed = true;
+            }
+        };
+
+        function mousemove(event) {
+            if (isPressed) {
+                ballB.x = event.point.x;
+                ballB.y = event.point.y;
+            }
+        };
+
+        function mouseup(event) {
+            isPressed = false;
+        };
+        window.onload = function() {
+            animation();
+            tool.captureMT(canvas, mousedown, mousemove, mouseup);
+        };
+    </script>
+</body>
+
+</html>

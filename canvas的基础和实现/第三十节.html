@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>斜面反弹1</title>
+    <script src="tool.js"></script>
+</head>
+
+<body>
+
+    <div class="point">
+        <button id="add">碰撞一下</button>
+    </div>
+    <canvas id="canvas" width="400" height="300" style="background:#333"></canvas>
+    <script>
+        // 处理斜面反弹，我们要做的是：旋转整个系统使反弹面水平，然后做反弹，最后再旋转回来，这意味着反弹面、物体的坐标位置和速度向量都发生了旋转。
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var centerX = Math.floor(canvas.width / 2);
+        var centerY = Math.floor(canvas.height / 2);
+        var requestID = null;
+        var balles = []; //存放页面上的球
+        var ball = null;
+        var gravity = 0.2;
+        var bounce = -0.6;
+        var line = null;
+        var sin = null;
+        var cos = null;
+        var bounds = null; // 获取线的边界
+        document.getElementById('add').addEventListener('click', function() {
+            var x = Math.random() * canvas.width;
+            var y = Math.random() * (canvas.height - 100);
+            ball = new Ball(x, y, 10);
+            animation();
+        });
+        // 球函数
+        function Ball(x, y, radius) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.angle = 0;
+            this.vx = 0;
+            this.vy = 0;
+        };
+        Ball.prototype.draw = function(context) {
+            context.beginPath();
+            context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true);
+            context.fill();
+            context.closePath();
+        };
+
+        function Line(x1, y1, x2, y2) {
+            this.x = 0;
+            this.y = 0;
+            this.x1 = (x1 === undefined) ? 0 : x1;
+            this.y1 = (y1 === undefined) ? 0 : y1;
+            this.x2 = (x2 === undefined) ? 0 : x2;
+            this.y2 = (y2 === undefined) ? 0 : y2;
+            this.rotation = 0;
+            this.scaleX = 1;
+            this.scaleY = 1;
+            this.lineWidth = 1;
+        };
+        Line.prototype.draw = function(context) {
+            context.save();
+            context.translate(this.x, this.y); //平移
+            context.rotate(this.rotation); // 旋转
+            context.scale(this.scaleX, this.scaleY);
+            context.lineWidth = this.lineWidth;
+            context.beginPath();
+            context.moveTo(this.x1, this.y1);
+            context.lineTo(this.x2, this.y2);
+            context.closePath();
+            context.stroke();
+            context.restore();
+        };
+        Line.prototype.getBounds = function() {
+            if (this.rotation === 0) {
+                var minX = Math.min(this.x1, this.x2);
+                var minY = Math.min(this.y1, this.y2);
+                var maxX = Math.max(this.x1, this.x2);
+                var maxY = Math.max(this.y1, this.y2);
+                return {
+                    x: this.x + minX,
+                    y: this.y + minY,
+                    width: maxX - minX,
+                    height: maxY - minY
+                };
+            } else {
+                //基于坐标系原点旋转
+                var sin = Math.sin(this.rotation);
+                var cos = Math.cos(this.rotation);
+                var x1r = cos * this.x1 + sin * this.y1;
+                var x2r = cos * this.x2 + sin * this.y2;
+                var y1r = cos * this.y1 + sin * this.x1;
+                var y2r = cos * this.y2 + sin * this.x2;
+                return {
+                    x: this.x + Math.min(x1r, x2r),
+                    y: this.y + Math.min(y1r, y2r),
+                    width: Math.max(x1r, x2r) - Math.min(x1r, x2r),
+                    height: Math.max(y1r, y2r) - Math.min(y1r, y2r)
+                };
+            }
+        }
+
+        function animation() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#fff';
+            ctx.strokeStyle = '#fff';
+            ball.vy += gravity;
+            ball.x += ball.vx;
+            ball.y += ball.vy;
+            //旋转后的坐标和速度
+            var x1 = ball.x - line.x;
+            var y1 = ball.y - line.y;
+            var y2 = y1 * cos - x1 * sin;
+            // 什么时候执行反弹的问题
+            // 方式一
+            // if (tool.intersects(ball.getBound(), line.getBound())) {
+            // };
+            // 方式二
+            // ball.x + ball.radius > bounds.x && ball.x - ball.radius <bounds.x + bounds.width
+            if ((y2 > -ball.radius) && (ball.x + ball.radius > bounds.x && ball.x - ball.radius < bounds.x + bounds.width)) {
+                var x2 = x1 * cos + y1 * sin;
+                var vx1 = ball.vx * cos + ball.vy * sin;
+                var vy1 = ball.vy * cos - ball.vx * sin;
+                y2 = -ball.radius;
+                vy1 *= bounce;
+                //旋转回来，计算坐标和速度
+                x1 = x2 * cos - y2 * sin;
+                y1 = y2 * cos + x2 * sin;
+                ball.vx = vx1 * cos - vy1 * sin;
+                ball.vy = vy1 * cos + vx1 * sin;
+                ball.x = line.x + x1;
+                ball.y = line.y + y1;
+            };
+            ball.draw(ctx);
+            line.draw(ctx);
+            if (ball.x > canvas.wdith || ball.y > canvas.height) {
+                cancelAnimationFrame(requestID);
+            }
+            requestID = requestAnimationFrame(animation);
+        };
+        window.onload = function() {
+            line = new Line(0, 0, 300, 0);
+            line.x = 50;
+            line.y = 200;
+            line.rotation = (10 * Math.PI / 180); //设置线的倾斜角度
+            cos = Math.cos(line.rotation);
+            sin = Math.sin(line.rotation);
+            ctx.strokeStyle = '#fff';
+            line.draw(ctx);
+            bounds = line.getBounds(); // 边界问题
+
+        }
+    </script>
+</body>
+
+</html>

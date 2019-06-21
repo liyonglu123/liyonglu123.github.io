@@ -3,7 +3,15 @@ window.tool = {};
 // 获取指定范围内的随机数
 window.tool.getRandom = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
-}
+};
+// 碰撞检测 判断两个物体是否有交集
+window.tool.intersects = function(bodyA, bodyB) {
+    return !(bodyA.x + bodyA.width < bodyB.x ||
+        bodyB.x + bodyB.width < bodyA.x ||
+        bodyA.y + bodyA.height < bodyB.y ||
+        bodyB.y + bodyB.height < bodyA.y);
+};
+
 window.tool.captureMouse = function(element, mousedown, mousemove, mouseup) {
     /*传入Event对象*/
     function getPoint(event) {
@@ -124,4 +132,13 @@ window.tool.captureKeyUp = function(params) {
 // 判断鼠标位置是不是在制定的区域内
 window.tool.containsPoint = function(body, x, y) {
     return !(x < body.x || x > (body.x + body.width) || y < body.y || y > (body.y + body.height));
+};
+// 获取矩形边界
+window.tool.getBound = function(body) {
+    return {
+        x: (body.x - body.radius),
+        y: (body.y - body.radius),
+        width: body.radius * 2,
+        height: body.radius * 2
+    };
 }

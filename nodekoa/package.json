@@ -1,0 +1,24 @@
+{
+  "name": "nodekoa",
+  "version": "1.0.0",
+  "description": "node koa mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon start.js"
+  },
+  "author": "liyonglu",
+  "license": "ISC",
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-register": "^6.26.0",
+    "ejs": "^2.6.2",
+    "koa": "^2.7.0",
+    "koa-art-template": "^1.1.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-views": "^6.2.0",
+    "nodemon": "^1.19.1"
+  }
+}

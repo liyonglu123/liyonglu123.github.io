@@ -4,7 +4,35 @@ const bodyParser = require("koa-bodyparser");
 const views = require('koa-views');
 const render = require('koa-art-template');
 const path = require('path');
-// const router = require("koa-router")();
+require("./db");
+// const mongoose = require("mongoose");
+// const db = mongoose.connect("mongodb://localhost/test");
+// // const router = require("koa-router")();
+// // 账户的数据库模型
+// var UserSchema = new mongoose.Schema({
+//     name: String
+// });
+// var User = mongoose.model('User', UserSchema);
+
+// // 新增数据
+// var user = {
+//     name: '李勇鲁',
+// }
+// var newUser = new User(user);
+// newUser.save();
+
+// router.get('/', async(ctx, next) => {
+//     let val = null
+//     const data = await User.find({})
+//     console.log('data', data)
+//     const result = {
+//         code: 200,
+//         response: data,
+//         ts: 12345
+//     }
+//     ctx.response.body = result
+//     return result
+// });
 
 app.use(bodyParser()); //解析request的body
 // const Router = require("koa-router");

@@ -9,10 +9,12 @@
 </head>
 
 <body>
+    <button id="addBtn">新增</button>
     <h2>这是一个art-template模板引擎</h2>
-    {{obj.name}} {{@ obj.sex}} {{if obj.flg}}true{{/if}} {{each obj.list}}
-    <li>{{$index}}---{{$value}}</li>
-    {{/each}}
+    {{each obj}}
+    <span>
+        {{$value.username}}-{{$value.password}}-{{$value.age}}
+    </span><br> {{/each}}
     <hr>
 
 </body>

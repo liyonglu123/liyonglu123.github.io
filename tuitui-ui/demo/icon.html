@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>字体图标</title>
+    <link rel="stylesheet" href="../src/tuitui-ui.css">
+    <style>
+        /* 覆盖默认的样式 */
+        /* 图标默认样式 */
+        .fa {
+            display: inline-block;
+            text-align: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* 红色图标 */
+        .fa-code {
+            color: red;
+        }
+
+        /* 圆形实心图标 */
+        .fa-info {
+            background: #666;
+            color: #fff;
+            border-radius: 50%;
+        }
+
+        /* 大图标 */
+        .fa-check {
+            display: block;
+            margin: 0 auto;
+            width: 6rem;
+            height: 6rem;
+            line-height: 6rem;
+            font-size: 3.5rem;
+            border-radius: 50%;
+            background: #09BB07;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <i class="fa fa-address-book"></i>
+    <!-- 演示修改图标样式 -->
+    <h2>更改图标样式：</h2>
+    <div>
+        <i class="fa fa-code"></i>
+        <i class="fa fa-info"></i>
+        <i class="fa fa-check"></i>
+    </div>
+    <!-- 演示图标旋转 -->
+    <h2>图标旋转：</h2>
+    <div>
+        <i class="fa fa-spinner fa-spin"></i>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <i class="fa fa-cube fa-spin"></i>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+/* 头部导航条 */
+.tt-header{
+    display: flex;
+    position: fixed;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 640px;
+    height: 2.3rem;
+    line-height: 2.3rem;
+    text-align: center;
+    top: 0;
+    z-index: 200;
+    border-bottom: 1px solid #ddd;
+    background: #f8f8f8;
+}
+/* 左侧功能区 */
+.tt-header > .left{
+    flex-basis: 3rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+/* 中间标题部分 */
+.tt-header > .title{
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/* 右侧功能区 */
+.tt-header > .right{
+    flex-basis: 3rem;
+    flex-shrink: 0;
+}

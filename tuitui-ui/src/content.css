@@ -1,0 +1,15 @@
+/* 内容区 */
+.tt-content{
+    box-sizing: border-box;
+    position: relative;
+    overflow-y: auto;
+    /* padding-top: 2.3rem;
+    padding-bottom: 2.5rem; */
+}
+/* 根据header和navbar自动适应内容区高度 */
+.tt-header ~ .tt-content{
+    padding-top: 2.3rem;
+}
+.tt-navbar ~ .tt-content{
+    padding-bottom: 2.5rem;
+}

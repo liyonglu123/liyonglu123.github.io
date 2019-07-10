@@ -1,15 +1,13 @@
-var __extends = (this && this.__extends) || (function() {
-    var extendStatics = function(d, b) {
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] }
-                instanceof Array && function(d, b) { d.__proto__ = b; }) ||
-            function(d, b) { for (var p in b)
-                    if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
-    return function(d, b) {
+    return function (d, b) {
         extendStatics(d, b);
-
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
@@ -60,7 +58,7 @@ var tup = ["sfd", 23];
 //  enum----> 组织收集一组相关变量的方式
 // 数字枚举
 var REN;
-(function(REN) {
+(function (REN) {
     // nan = 1 ----->初始化下标
     REN[REN["nan"] = 0] = "nan";
     REN[REN["nv"] = 1] = "nv";
@@ -75,7 +73,7 @@ console.log(REN[2]); // yao
 // 数字的枚举---->下标从0开始,也可以自行设置枚举成员的初始值，它们会依次递增
 // 字符串枚举
 var SIJI;
-(function(SIJI) {
+(function (SIJI) {
     SIJI["chun"] = "\u6625";
     SIJI["xia"] = "\u590F";
     SIJI["qiu"] = "\u79CB";
@@ -148,7 +146,7 @@ var age = 22;
 var res = f(age);
 console.log(res);
 // 函数表达式定义
-var f1 = function(age) {
+var f1 = function (age) {
     return "\u627E\u5230\u4E86" + age + "\u7684\u5C0F\u54E5\u54E5";
 };
 var age1 = 21;
@@ -160,12 +158,12 @@ console.log(res1);
 // 在 TypeScript 的类型定义中，=> 用来表示函数的定义，左边是输入类型，需要用括号括起来，右边是输出类型。
 // let fn: (x: Type, y: Type) => Type = (x, y) => {}
 //例子
-var run3 = function(x, y) {
+var run3 = function (x, y) {
     return 'run3';
 };
 console.log(run3(1, 2));
 //当给变量run3指定类型的时候，应该是函数的参数和返回值的约束类型。如果用后面学到的ts类型推论，可以简写为：
-var run4 = function(x, y) {
+var run4 = function (x, y) {
     // 类型推论可以确定函数的参数和返回值类型，也就可以省略类型指定
     return 'run4';
 };
@@ -180,7 +178,8 @@ function f4(age, cm) {
     //cm为可选参数，可传可不传
     if (cm) {
         return "\u53EF\u9009\u53C2\u6570------\u8EAB\u9AD8\u4E3A" + cm + "\u5398\u7C73";
-    } else {
+    }
+    else {
         return "\u53EF\u9009\u53C2\u6570-----\u5E74\u9F84" + age + "\u5C81";
     }
 }
@@ -203,7 +202,6 @@ function f6() {
     return rest.slice();
 }
 console.log(f6(1, 2, 3, 4, 5, 6, 7, 8, 9));
-
 function f7(a, b) {
     var rest = [];
     for (var _i = 2; _i < arguments.length; _i++) {
@@ -223,11 +221,11 @@ f8('a', 'b');
 // public：公共修饰符
 // 注意：
 // 表示属性或方法都是公有的，在类的内部，子类的内部，类的实例都能被访问,默认情况下，为public
-var People = /** @class */ (function() {
+var People = /** @class */ (function () {
     function People(name) {
         this.name = name;
     }
-    People.prototype.say = function() {
+    People.prototype.say = function () {
         console.log('你好');
     };
     return People;
@@ -235,11 +233,11 @@ var People = /** @class */ (function() {
 // private 私有修饰符
 // 注意：
 // 表示在当前类中可以访问，子类，外部类不可以访问
-var People1 = /** @class */ (function() {
+var People1 = /** @class */ (function () {
     function People1(name) {
         this.name = name;
     }
-    People1.prototype.say = function() {
+    People1.prototype.say = function () {
         console.log('你好');
     };
     return People1;
@@ -247,11 +245,11 @@ var People1 = /** @class */ (function() {
 // protected 保护类型
 // 注意：
 // 表示在当前类中和子类中可以访问，外部类不可以访问
-var People3 = /** @class */ (function() {
+var People3 = /** @class */ (function () {
     function People3(name) {
         this.name = name;
     }
-    People3.prototype.say = function() {
+    People3.prototype.say = function () {
         console.log('你好');
     };
     return People3;
@@ -261,19 +259,19 @@ var People3 = /** @class */ (function() {
 // readonly 只读修饰符
 // 注意：
 // 表示某个属性是只读的，不能被修改
-var People4 = /** @class */ (function() {
+var People4 = /** @class */ (function () {
     function People4(name) {
         this.name = name;
     }
     return People4;
 }());
 // 2. 声明类
-var People5 = /** @class */ (function() {
+var People5 = /** @class */ (function () {
     function People5(name, age) {
         this.name = name;
         this.age = age;
     }
-    People5.prototype.say = function() {
+    People5.prototype.say = function () {
         console.log('你好');
     };
     return People5;
@@ -283,17 +281,15 @@ console.log(HH.name);
 console.log(HH.age);
 HH.say();
 // 3. 类的继承
-var Student = /** @class */ (function(_super) {
+var Student = /** @class */ (function (_super) {
     __extends(Student, _super);
-
     function Student(name, age, cm) {
         var _this = _super.call(this, name, age) //super 继承父类的构造函数，并向构造函数传参，super必须写在第一行
-            ||
-            this;
+         || this;
         _this.cm = cm;
         return _this;
     }
-    Student.prototype.work = function() {
+    Student.prototype.work = function () {
         console.log('学习');
     };
     return Student;
@@ -308,9 +304,10 @@ stu1.work();
 // 注意：
 // 静态方法和静态属性必须使用类名调用
 // 静态属性和静态方法在实例化之前就已经存在
-var People6 = /** @class */ (function() {
-    function People6() {}
-    People6.say = function() {
+var People6 = /** @class */ (function () {
+    function People6() {
+    }
+    People6.say = function () {
         console.log('静态方法');
     };
     People6.name1 = '静态属性';
@@ -322,33 +319,31 @@ People6.say();
 // 5. 多态
 // 多态---->重写方法
 // 父类定义一个方法不去实现，让继承它的子类去实现，每个子类的该方法有不同的表现
-var Animal = /** @class */ (function() {
+var Animal = /** @class */ (function () {
     function Animal(name) {
         this.name = name;
     }
-    Animal.prototype.eat = function() {
+    Animal.prototype.eat = function () {
         //让它的子类去实现不同的eat方法
     };
     return Animal;
 }());
-var Laohu = /** @class */ (function(_super) {
+var Laohu = /** @class */ (function (_super) {
     __extends(Laohu, _super);
-
     function Laohu(name) {
         return _super.call(this, name) || this;
     }
-    Laohu.prototype.eat = function() {
+    Laohu.prototype.eat = function () {
         console.log(this.name + "\u5403\u8089\uFF01");
     };
     return Laohu;
 }(Animal));
-var Laoshu = /** @class */ (function(_super) {
+var Laoshu = /** @class */ (function (_super) {
     __extends(Laoshu, _super);
-
     function Laoshu(name) {
         return _super.call(this, name) || this;
     }
-    Laoshu.prototype.eat = function() {
+    Laoshu.prototype.eat = function () {
         console.log(this.name + "\u5403\u7CAE\u98DF\uFF01");
     };
     return Laoshu;
@@ -357,9 +352,10 @@ var laohu = new Laohu('老虎');
 laohu.eat();
 var laoshu = new Laoshu('老鼠');
 laoshu.eat();
-var Playy = /** @class */ (function() {
-    function Playy() {}
-    Playy.prototype.plays = function(difang) {
+var Playy = /** @class */ (function () {
+    function Playy() {
+    }
+    Playy.prototype.plays = function (difang) {
         console.log("\u6211\u4EEC\u8981\u53BB" + difang + "\u73A9\uFF01\uFF01\uFF01");
     };
     return Playy;
@@ -377,26 +373,25 @@ pl.plays('北京');
 // 抽象类：它是提供其他类继承的基类，不能直接被实例化，子类继承可以被实例化
 // abstract修饰的方法(抽象方法)只能放在抽象类里面
 // 抽象类和抽象方法用来定义标准(比如定义标准为：抽象类Animal有抽象方法eat，要求它的子类必须包含eat方法)
-var People8 = /** @class */ (function() {
+var People8 = /** @class */ (function () {
     function People8(name) {
         this.name = name;
     }
     return People8;
 }());
-var Stud1 = /** @class */ (function(_super) {
+var Stud1 = /** @class */ (function (_super) {
     __extends(Stud1, _super);
     //抽象类的子类必须实现抽象类中的抽象方法
     function Stud1(name) {
         return _super.call(this, name) || this;
     }
-    Stud1.prototype.eat = function(food) {
+    Stud1.prototype.eat = function (food) {
         console.log("\u6211\u7231\u5403" + food);
     };
     return Stud1;
 }(People8));
 var stu11 = new Stud1('liu');
 stu11.eat('面条');
-
 function fn8(peop) {
     //name age 必须传递
     console.log(peop);
@@ -406,7 +401,7 @@ var obj = {
     age: 25
 };
 fn8(obj);
-var play = function(difang, todo) {
+var play = function (difang, todo) {
     return "\u6211\u4EEC\u53BB" + difang + "\u5403" + todo;
 };
 console.log(play('灞桥', '吃烧烤'));
@@ -415,11 +410,11 @@ console.log(arr);
 var obj1 = { 2: 1, 3: 4 };
 console.dir(obj1);
 //类实现接口要用implements , 子类必须实现接口里面声明的属性和方法
-var Laoshu1 = /** @class */ (function() {
+var Laoshu1 = /** @class */ (function () {
     function Laoshu1(name) {
         this.name = name;
     }
-    Laoshu1.prototype.eat = function(food) {
+    Laoshu1.prototype.eat = function (food) {
         console.log(this.name + "\u5403" + food);
     };
     return Laoshu1;
@@ -427,14 +422,14 @@ var Laoshu1 = /** @class */ (function() {
 var lao = new Laoshu1('老鼠');
 lao.eat('粮食');
 //继承并实现接口
-var XiaoLaoHu = /** @class */ (function() {
+var XiaoLaoHu = /** @class */ (function () {
     function XiaoLaoHu(name) {
         this.name = name;
     }
-    XiaoLaoHu.prototype.eat = function(food) {
+    XiaoLaoHu.prototype.eat = function (food) {
         console.log(this.name + "\u5403" + food);
     };
-    XiaoLaoHu.prototype.say = function(sa) {
+    XiaoLaoHu.prototype.say = function (sa) {
         console.log(this.name + "\u8BF4" + sa);
     };
     return XiaoLaoHu;
@@ -455,7 +450,6 @@ function f9(value) {
     return value;
 }
 f9(10);
-
 function f10(value) {
     //传入参数的类型为T，返回任意类型的值
     console.log("\u6211\u8FD4\u56DE\u4E86" + value);
@@ -464,11 +458,11 @@ function f10(value) {
 console.log(f10('我是ljy'));
 // 2. 泛型类
 // 泛型类，使用 < > 跟在类名后面
-var Ni = /** @class */ (function() {
+var Ni = /** @class */ (function () {
     function Ni(name) {
         this.name = name;
     }
-    Ni.prototype.say = function(value) {
+    Ni.prototype.say = function (value) {
         return this.name + "\u8BF4" + value;
     };
     return Ni;
@@ -477,12 +471,11 @@ var ni1 = new Ni('ljy'); //实例化类，指定类的类型是string
 console.log(ni1.say('你好'));
 var ni2 = new Ni(20); //实例化类，指定类的类型是number
 console.log(ni2.say(23));
-var fff = function(value) {
+var fff = function (value) {
     return "\u6211\u4F20\u5165\u4E86" + value;
 };
 console.log(fff(25));
 console.log(fff('ljy'));
-
 function setDataTwo(value) {
     return value;
 }
@@ -490,12 +483,12 @@ var setDataTwoFn = setDataTwo;
 setDataTwoFn('name');
 // 六，命名空间
 var Shuaige;
-(function(Shuaige) {
-    var DeHua = /** @class */ (function() {
+(function (Shuaige) {
+    var DeHua = /** @class */ (function () {
         function DeHua() {
             this.name = '刘德华';
         }
-        DeHua.prototype.say = function() {
+        DeHua.prototype.say = function () {
             console.log("\u6211\u662F" + this.name);
         };
         return DeHua;
@@ -503,12 +496,12 @@ var Shuaige;
     Shuaige.DeHua = DeHua;
 })(Shuaige || (Shuaige = {}));
 var Bajie;
-(function(Bajie) {
-    var DeHua = /** @class */ (function() {
+(function (Bajie) {
+    var DeHua = /** @class */ (function () {
         function DeHua() {
             this.name = '马德华';
         }
-        DeHua.prototype.say = function() {
+        DeHua.prototype.say = function () {
             console.log("\u6211\u662F" + this.name);
         };
         return DeHua;
@@ -555,7 +548,8 @@ f12('ljy', 21);
 function f13(name, age) {
     if (age.length) { //报错
         console.log(age.length); //报错
-    } else {
+    }
+    else {
         console.log(age.toString);
     }
 }
@@ -564,7 +558,8 @@ f13('ljy', 21); //Property 'length' does not exist on type 'string |number'.Prop
 function f14(name, age) {
     if (age.length) { //断言
         console.log(age.length); //断言
-    } else {
+    }
+    else {
         console.log(age.toString);
     }
 }

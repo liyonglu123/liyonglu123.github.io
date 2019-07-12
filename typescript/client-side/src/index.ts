@@ -138,3 +138,177 @@
 // };
 // console.log(obj[key1]);
 // console.log(obj[key2]); // error 类型“symbol”不能作为索引类型使用。
+
+// 枚举 enum
+// enum Status {// 这里你的TSLint可能会报一个：枚举声明只能与命名空间或其他枚举声明合并。这样的错误，这个不影响编译，声明合并的问题我们在后面的小节会讲。
+//     Uploading,
+//     Success,
+//     Failed
+// }
+// console.log(Status.Uploading); // 0
+// console.log(Status["Success"]); // 1
+// console.log(Status.Failed); // 2
+// 修改起始编号
+// enum Color {
+//     Red = 2,
+//     Blue,
+//     Yellow
+//   }
+//   console.log(Color.Red, Color.Blue, Color.Yellow); // 2 3 4
+//   // 指定任意字段的索引值
+//   enum Status {
+//     Success = 200,
+//     NotFound = 404,
+//     Error = 500
+//   }
+//   console.log(Status.Success, Status.NotFound, Status.Error); // 200 404 500
+//   // 指定部分字段，其他使用默认递增索引
+//   enum Status {
+//     Ok = 200,
+//     Created,
+//     Accepted,
+//     BadRequest = 400,
+//     Unauthorized
+//   }
+//   console.log(Status.Created, Status.Accepted, Status.Unauthorized); // 201 202 401
+// 数字枚举  使用计算和常量的时候 紧接着的变量必须设置默认初始值
+//   const getValue = () => {
+//     return 0;
+//   };
+//   enum ErrorIndex {
+//     a = getValue(),
+//     b, // error 枚举成员必须具有初始化的值
+//     c
+//   }
+//   enum RightIndex {
+//     a = getValue(),
+//     b = 1,
+//     c
+//   }
+//   const Start = 1;
+//   enum Index {
+//     a = Start,
+//     b, // error 枚举成员必须具有初始化的值
+//     c
+//   }
+// 数字枚举的 方向映射  == 字符串不支持哦
+// enum Status {
+//     Success = 200,
+//     NotFound = 404,
+//     Error = 500
+//   }
+//   console.log(Status["Success"]); // 200
+//   console.log(Status[200]); // 'Success'
+//   console.log(Status[Status["Success"]]); // 'Success'
+// 下面的处理方式可以实现双向的实现
+//   {
+//     200: "Success",
+//     404: "NotFound",
+//     500: "Error",
+//     Error: 500,
+//     NotFound: 404,
+//     Success: 200
+// }
+
+// 字符串枚举
+// enum Message {
+//     Error = "Sorry, error",
+//     Success = "Hoho, success"
+//   }
+//   console.log(Message.Error); // 'Sorry, error'
+
+//   enum Message {
+//     Error = "error message",
+//     ServerError = Error,
+//     ClientError = Error
+//   }
+//   console.log(Message.Error); // 'error message'
+//   console.log(Message.ServerError); // 'error message'
+
+// 异构枚举
+// enum Result {
+//     Faild = 0,
+//     Success = "Success"
+//   }
+// 枚举成员类型和联合枚举类型
+// 1. 枚举成员类型
+// enum Animal {
+//     Dog = 1,
+//     Cat = 2
+//   }
+//   interface Dog {
+//     type: Animal.Dog; // 这里使用Animal.Dog作为类型，指定接口Dog的必须有一个type字段，且类型为Animal.Dog
+//   }
+//   interface Cat {
+//     type: Animal.Cat; // 这里同上
+//   }
+//   let cat1: Cat = {
+//     type: Animal.Dog // error [ts] 不能将类型“Animal.Dog”分配给类型“Animal.Cat”
+//   };
+//   let dog: Dog = {
+//     type: Animal.Dog
+//   };
+// 2. 联合枚举类型
+// enum Status {
+//     Off,
+//     On
+//   }
+//   interface Light {
+//     status: Status;
+//   }
+//   enum Animal {
+//     Dog = 1,
+//     Cat = 2
+//   }
+//   const light1: Light = {
+//     status: Animal.Dog // error 不能将类型“Animal.Dog”分配给类型“Status”
+//   };
+//   const light2: Light = {
+//     status: Status.Off
+//   };
+//   const light3: Light = {
+//     status: Status.On
+//   };
+// 运行是的枚举
+// enum E {
+//     A,
+//     B
+//   }
+//   const getIndex = (enumObj: { A: number }): number => {
+//     return enumObj.A;
+//   };
+//   console.log(getIndex(E)); // 0
+// const enum  ts1.4 新增的 编译的时候不回生成对象只是取值的问题
+// enum Status {
+//     Off,
+//     On
+//   }
+//   const enum Animal {
+//     Dog,
+//     Cat
+//   }
+//   const status = Status.On;
+//   const animal = Animal.Dog; 
+// 类型断言  == 有点像类型转换
+// const getLength = target => {
+//     if (target.length) {
+//       return target.length;
+//     } else {
+//       return target.toString().length;
+//     }
+//   };
+
+// const getLength = (target: string | number): number => {
+//     if (target.length) { // error 报错信息看下方
+//       return target.length; // error 报错信息看下方
+//     } else {
+//       return target.toString().length;
+//     }
+//   };
+  const getStrLength = (target: string | number): number => {
+    if ((<string>target).length) { // 这种形式在JSX代码中不可以使用，而且也是TSLint不建议的写法
+      return (target as string).length; // 这种形式是没有任何问题的写法，所以建议大家始终使用这种形式
+    } else {
+      return target.toString().length;
+    }
+  };

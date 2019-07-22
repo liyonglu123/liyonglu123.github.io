@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>搜索</title>
+    <link rel="stylesheet" href="../src/tuitui-ui.css">
+
+</head>
+<body>
+    <div class="tt-content">
+        <!-- 带suggest的搜索框 -->
+        <div class="tt-search on-focus">
+            <!-- 搜索框 -->
+            <form class="tt-search-form" action="#">
+                <div class="tt-search-input-wrap">
+                    <i class="fa fa-search tt-search-icon"></i>
+                    <input type="text" class="tt-search-input" placeholder="搜索" autocomplete="off" required/>
+                    <i class="fa fa-close tt-search-clear"></i>
+                </div>
+                <span class="tt-search-cancel">取消</span>
+            </form>
+            <!-- 搜索建议 --> 
+            <ul class="tt-search-suggest">
+                <li class="tt-suggest-item">手机</li>
+                <li class="tt-suggest-item">iPhone XS Max</li>
+                <li class="tt-suggest-item">华为P30</li>
+                <li class="tt-suggest-item">小米 MIX3</li>
+                <li class="tt-suggest-item">诺基亚1110</li>
+            </ul>
+        </div>
+        <p class="content">内容区</p>
+    </div>
+</body>
+</html>

@@ -3,6 +3,7 @@
     box-sizing: border-box;
     position: relative;
     overflow-y: auto;
+    height: 100%;
     /* padding-top: 2.3rem;
     padding-bottom: 2.5rem; */
 }

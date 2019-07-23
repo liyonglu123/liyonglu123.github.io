@@ -2,13 +2,11 @@
     <div>
         <div id="father">
             <div :class="'box-'+index" :style="{width:item.width + 'px', height:item.height + 'px', position: 'absolute', top: item.top + 'px', left: item.left + 'px', cursor: 'move', backgroundColor: item.color }" @mousedown="contentMousedown($event, item, index)" v-for="(item, index) in list" :key="index">
-                <!-- <img src="http://img4.imgtn.bdimg.com/it/u=4245161611,1195625695&fm=27&gp=0.jpg" /> -->
                 <div class="aim">
                     {{ item.content }}
                 </div>
                     <div id="scale" :class="'scale-'+index" @mousedown="scaleMousedown($event, item, index)"></div>
                 </div>
-
             </div>
             <div>
                 <el-form ref="form" :model="form" label-width="80px">
@@ -29,7 +27,7 @@
 
 </template>
 <script>
-import { deepCopy, getRandom } from "@/utils/tool"
+    import { deepCopy, getRandom } from "@/utils/tool"
     export default {
         data() {
             return {
@@ -78,8 +76,8 @@ import { deepCopy, getRandom } from "@/utils/tool"
                 fa.onmousemove = function (ev) {
                     oEvent = ev;
                     oEvent.preventDefault();
-                    var x = oEvent.clientX - disX;
-                    var y = oEvent.clientY - disY;
+                    let x = oEvent.clientX - disX;
+                    let y = oEvent.clientY - disY;
                     // 图形移动的边界判断
                     x = x <= 0 ? 0 : x;
                     x = x >= fa.offsetWidth - box.offsetWidth ? fa.offsetWidth - box.offsetWidth : x;
@@ -119,7 +117,6 @@ import { deepCopy, getRandom } from "@/utils/tool"
                     let w = Math.max(30, ev.clientX - pos.x + pos.w)
                     let h = Math.max(30, ev.clientY - pos.y + pos.h)
                     // console.log(w,h)
-
                     // 设置图片的最大宽高
                     w = w >= fa.offsetWidth - box.offsetLeft ? fa.offsetWidth - box.offsetLeft : w
                     h = h >= fa.offsetHeight - box.offsetTop ? fa.offsetHeight - box.offsetTop : h
@@ -149,7 +146,7 @@ import { deepCopy, getRandom } from "@/utils/tool"
     }
 
     #father {
-        width: 600px;
+        width: 50%;
         height: 500px;
         background-color: rgb(226, 117, 184);
         position: relative;
@@ -160,6 +157,7 @@ import { deepCopy, getRandom } from "@/utils/tool"
         height: 100%;
         cursor: move;
     }
+
     .aim {
         width: 100%;
         height: 100%;

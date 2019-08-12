@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="prize-2.0.js"></script>
+    <style>
+        .container{
+            margin: 10px 200px;
+        }
+        .container .prize{
+            width: 500px;
+            height: 400px;
+            margin: auto;
+        }
+        .left{
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="prize">
+
+    </div>
+    <div class="btn-msg">
+        <div class="left"><button>开始</button></div>
+        <div class="left" style="margin-left: 20px">
+           获奖编号为：<span id="prize-num"></span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    var list = [];
+    for (var i=1;i<20;i++){
+        list.push({title:i,ratio:0.1,img:"../img/"+i%5+".jpg"});
+    }
+    var option = {
+        isAuto:false,
+        emptyBlock:{
+            title:"再接再厉",
+            img:""
+        },
+        repeat:{
+            isOpen:true,//是否开启可重复中奖
+            style:{
+                background:"red"
+            }
+        },
+        tooltip:function (data) {
+//            console.log($(this))
+        },
+        activeStyle:{
+//            background:'url(../img/0.active.png)',
+//            border: "1px solid red"
+            transform:"rotate(7deg)"
+        },
+        series:{
+            data:list,
+            style:{
+//                background:function (data) {
+//                    return 'url('+data.img+')';
+//                },
+                width:"78px",
+                height:"60px",
+                border: "1px solid yellow" //等等自己追加样式
+            }
+        }
+    }
+    var p = new Prize($(".prize"),option);
+    $(".btn-msg button").click(function () {
+        this.disabled = true;
+        var _this = this;
+        p.beginExe(function (dom,data) {
+            console.log(data)
+            $("#prize-num").append(data.title+",")
+            _this.disabled = false;
+        });
+    });
+</script>
+</body>
+</html>

@@ -24,3 +24,9 @@
 @import './menu.css';
 /* 弹框样式 */
 @import './modal.css';
+/* 加载提示组件 */
+@import './loading.css';
+/* toast提示组件 */
+@import './toast.css';
+/* actionSheet可选菜单 */
+@import './action-sheet.css';

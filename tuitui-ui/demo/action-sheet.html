@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ActionSheet</title>
+    <link rel="stylesheet" href="../src/tuitui-ui.css">
+
+</head>
+<body>
+    <div class="tt-content">
+        <h1 class="tt-panel-title">ActionSheet弹出式菜单</h1>
+        <div class="tt-panel-body">
+            <a class="tt-btn" id="js-show">显示弹出式菜单</a>
+        </div>
+    </div>
+    <div class="tt-action-sheet">
+        <div class="tt-mask"></div>
+        <div class="tt-action-sheet-wrap">
+            <div class="tt-action-sheet-header">
+                <h1 class="tt-action-sheet-title">你需要做什么操作？</h1>
+            </div>
+            <div class="tt-action-sheet-body">
+                <a class="tt-action-sheet-menu">收藏</a>
+                <a class="tt-action-sheet-menu">关注</a>
+                <a class="tt-action-sheet-menu">分享给好友</a>
+            </div>
+            <div class="tt-action-sheet-footer">
+                <a class="tt-action-sheet-menu" id="js-close">取消</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = ()=>{
+        // 弹出菜单
+        document.querySelector('#js-show').onclick = (e) => {
+            document.querySelector('.tt-action-sheet').classList.add('show');
+        }
+        // 收回菜单
+        document.querySelector('#js-close').onclick = (e) => {
+            document.querySelector('.tt-action-sheet').classList.remove('show');
+        }
+    };
+</script>
+</html>

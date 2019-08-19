@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js基于原型的程序</title>
+</head>
+<body>
+    <script>
+        // function A() {
+        //     this.name = "xiaoming";
+        // };
+        // A.prototype.showName = function() {
+        //     alert(this.name);
+        // }
+        // var a = new A();
+        // a.showName();
+
+        // var arr = new Array();
+        // arr.push();
+        // arr.sort();
+        //在js 源码中  系统对象也是基于原型的程序
+        // function Array() {
+        //     this.length = 0;
+        // };
+        // Array.prototype.push = function() {};
+        // Array.prototype.sort = function() {};
+        
+        // 尽量不要去修改或者添加系统对象下面方法和属性
+        var arr = [1,2,3];
+        Array.prototype.push = function() {
+            // this: 1,2,3
+            // arguments: 4,5,6
+            for (var i = 0; i < arguments.length; i++) {
+                this[this.length] = arguments[i];
+            }
+            return this.length;
+        }
+        arr.push(4,5,6);
+        alert(arr);
+        // pop shift unshift splice sort slice 等的实现方式
+
+    </script>
+</body>
+</html>

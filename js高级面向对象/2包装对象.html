@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>包装对象</title>
+</head>
+
+<body>
+    <script>
+        // 基本类型为何有自己的方法
+        // var str = "hello";
+        // str.charAt(0);
+        // str.indexOf("e");
+        // alert(typeof str);
+        // null undefined
+        // 包装对象： 基本类型都有自己的对于的包装对象  String, Number Boolean  == Array
+        // var str = new String("hello");
+        // // alert(typeof str);
+        // alert(str.charAt(1));
+        // String.prototype.charAt = function(){};
+
+        // var str = "hello";
+        //基本类型会找到对应的包装对象类型，然后包装对象把所有的属性和方法给了基本类型，然后包装对象消失了；
+        // str.charAt(0);
+
+        // var str = "hello";
+        // String.prototype.lastValue = function() {
+        //     return this.charAt(this.length-1);
+        // }
+        // alert(str.lastValue()); // o
+
+
+        // var str = "hello";
+        // str.num = 10;
+        // alert(str.num); // number  包装对象消失了 是一个新的对象
+    </script>
+</body>
+
+</html>

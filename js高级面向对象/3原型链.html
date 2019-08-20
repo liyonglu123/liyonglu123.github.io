@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型链</title>
+</head>
+
+<body>
+    <script>
+        // 原型链： 实例对象和原型之间的链接  
+        // 原型链的最外层是 Object.prototype
+        function A() {
+            // this.num = 20;
+        };
+        // A.prototype.num = 10;
+        Object.prototype.num = 30;
+        var a = new A();
+        alert(a.num);
+        // __proto__ 从自身开始查找 找不到去原型上找
+    </script>
+</body>
+
+</html>

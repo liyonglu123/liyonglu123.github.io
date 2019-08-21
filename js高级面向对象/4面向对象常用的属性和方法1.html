@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面向对象常用的属性和方法</title>
+</head>
+<body>
+    <script>
+        //  hasOwnProperty :  看看是不是自身的属性
+        // var arr = [];
+        // arr.num = 10;
+        // Array.prototype.num2 = 20;
+        // alert(arr.hasOwnProperty("num")); true 
+        // alert(arr.hasOwnProperty("num2")); false
+
+        // constructor 查看对象的构造函数
+        // function A() {
+
+        // }
+        // var a = new A();
+        // // alert(a.constructor);  A
+        // var arr = [];
+        // alert(arr.constructor === Array);
+
+        // function A() {};
+        // // A.prototype.constructor = A; // 每一个函数都有的自动生成的
+        // // alert(A.prototype.constructor == A);
+        // // A.prototype.constructor = Array;  //修改
+        // var a = new A();
+        // // alert(a.constructor);
+        // alert(a.hasOwnProperty == Object.prototype.hasOwnProperty ); // Object.propertype
+        
+        // function A() {};
+        // // 不会影响  a.constructor
+        // //  A.prototype.name = "xiaoming";
+        // //  A.prototype.age = 16;
+        // // json  会影响  a.constructor  json 所对应的 object
+        //  A.prototype = {
+        //     constructor: A, // 修正过来
+        //     name: "xiaoming",
+        //     age: 16
+        //  }
+        // var a = new A();
+        // alert(a.constructor);
+
+
+        function A() {
+
+        }
+        A.prototype.name = 0;
+        A.prototype.constructor = A; // 循环找不到
+        for (var attr in A.prototype) {
+            alert(attr);  //name   系统自带的很多找不到
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>面向对象常用的属性和方法2</title>
+</head>
+<body>
+    <script>
+        // 类型的判断的几种方式 typeOf  instanceof constructor 
+        // instanceof ： 对象和构造函数在原型链上是否有关系  类型判断
+        // function A() {
+
+        // }
+        // var a = new A();
+        // alert( a instanceof A); // true 
+        // alert( a instanceof Array); // false 
+        // alert( a instanceof Object); // false 
+        // 最好的方案
+        // toString(): 系统对象下面都是自带的 而自己写的对象都是通过原型链找Object下面的
+        // 把对象转字符串
+        // var arr = [];
+        // alert(arr.toString == Object.prototype.toString);// false
+        // alert(arr.toString == Array.prototype.toString);// true
+        
+        // function A () {
+
+        // }
+        // var a = new A();
+        // alert(a.toString == Object.prototype.toString); // true
+
+        // var arr = [1,2];
+        // Array.prototype.toString = function() {
+        //     return this.join("+");
+        // }
+        // alert(arr.toString()); // "1,2"
+
+        // toString 进制转换
+        // var num = 255;
+        // alert(num.toString(16));
+
+
+        //  toString 做类型的判断
+        // var arr = [];
+        // // alert(Object.prototype.toString(arr)); // '[object object]'
+        // alert(Object.prototype.toString.call(arr) == '[object Array]'); // true
+
+
+        // iframe constructor   instanceof  中失效
+        window.onload = function() {
+            var f = document.createElement("iframe");
+            document.body.appendChild(f);
+            var ifArray = window.frames[0].Array;
+            var arr = new ifArray();
+            // alert(arr.constructor == Array) //false
+            // alert(arr instanceof Array) //false
+            alert(Object.prototype.toString.call(arr) == '[object Array]') //true
+            
+        }
+    </script> 
+</body>
+</html>

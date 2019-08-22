@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>对象的继承</title>
+</head>
+
+<body>
+    <script>
+        // 继承： 子类不影响父类， 子类可以复用父类的一些功能
+        // 属性的继承: 调用父类的构造函数 call
+        // 方法的继承：for in jq也是采用拷贝继承 
+        // // 父类
+        // function CreatePerson(name, sex) {
+        //     this.name = name;
+        //     this.sex = sex;
+        // }
+        // CreatePerson.prototype.showName = function () {
+        //     alert(this.name);
+        // };
+        // var p = new CreatePerson("小米", "男");
+        // // p.showName();
+        // // 子类
+        // function CreateStar(name, sex, job) {
+        //     CreatePerson.call(this, name, sex);
+        //     // this.name = name;
+        //     // this.sex = sex;
+        //     this.job = job;
+        // }
+        // // 方法继承 for in jq也是采用拷贝继承
+        // // CreateStar.prototype = CreatePerson.prototype;
+        // extend(CreateStar.prototype, CreatePerson.prototype);
+        // CreateStar.prototype.showJob = function(){};  // 对象的引用的影响
+        // var p1 = new CreateStar("a", "k", "p");
+        // p1.showName();
+
+
+
+        // 对象的复制操作
+        // var a = {
+        //     name: "11"
+        // }
+        // var b = a; // 引用关系
+        // b.name = 66;
+        // alert(a.name);
+
+        // var a = {
+        //     name: "11"
+        // }
+        // // var b = a; // 引用关系
+        // var b = {}; // 基本类型的复制
+        // extend(b, a);
+        // b.name = 66;
+        // alert(a.name);
+
+        // function extend(obj1, obj2) {
+        //     for (var attr in obj2) {
+        //         obj1[attr] = obj2[attr];
+        //     }
+        // }
+        // 函数不能修改只能赋值
+        var a = [1,2];
+        var b = a;
+        // b.push(3);
+        b = [1,2,3]; // 
+        alert(a);
+    </script>
+</body>
+
+</html>

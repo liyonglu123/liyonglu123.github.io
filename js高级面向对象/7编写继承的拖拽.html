@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>继承的拖拽</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+
+        #div2 {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            position: absolute;
+            left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <script>
+        window.onload = function () {
+            var d1 = new Drag('div1');
+            d1.init();
+            var d2 = new ChildDrag('div2');
+            d2.init();
+        }
+
+        function Drag(id) {
+            this.obj = document.getElementById(id);
+            this.disX = 0;
+            this.disY = 0;
+
+        };
+        Drag.prototype.init = function () {
+            var that = this;
+            that.obj.onmousedown = function (e) {
+                var e = e || window.event;
+                that.fnDown(e);
+                document.onmousemove = function (e) {
+                    var e = e || window.event;
+                    that.fnMove(e);
+                }
+                document.onmouseup = function (e) {
+                    var e = e || window.event;
+                    that.fnUp(e);
+                }
+                return false;
+            }
+        };
+        Drag.prototype.fnDown = function (e) {
+            this.disX = e.clientX - this.obj.offsetLeft;
+            this.disY = e.clientY - this.obj.offsetTop;
+        };
+        Drag.prototype.fnMove = function (e) {
+            this.obj.style.left = e.clientX - this.disX + 'px';
+            this.obj.style.top = e.clientY - this.disY + 'px';
+        };
+        Drag.prototype.fnUp = function (e) {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+        // 子类
+        function ChildDrag(id) {
+            Drag.call(this, id);
+        }
+        extend(ChildDrag.prototype, Drag.prototype);
+        function extend(obj1, obj2) {
+            for (var attr in obj2) {
+                obj1[attr] = obj2[attr];
+            }
+        }
+        // 改写子类的方法 
+        ChildDrag.prototype.fnMove = function (e) {
+            var L = e.clientX - this.disX;
+            var T = e.clientY - this.disY;
+            if(L < 0 ) {
+                L = 0;
+            }else if(L> document.documentElement.clientWidth - this.obj.offsetLeft) {
+                L = document.documentElement.clientWidth - this.obj.offsetLeft;
+            }
+            if(T < 0 ) {
+                T = 0;
+            }else if(T> document.documentElement.clientHeight - this.obj.offsetTop) {
+                T = document.documentElement.clientHeight - this.obj.offsetTop;
+            }
+            this.obj.style.left = L + 'px';
+            this.obj.style.top = T + 'px';
+        };
+    </script>
+</body>
+
+</html>

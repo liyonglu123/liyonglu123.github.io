@@ -1,15 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>jq下拉刷新上拉加载</title>
+    
+    <link rel="stylesheet" href="./drop.css">
     <link rel="stylesheet" href="index.css">
+
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/iScroll/5.0.0/iscroll.js"></script>
 </head>
+
 <body>
+    <div class="header">
+        <h1>就当我是新闻页吧</h1>
+    </div>
+    <div class="content">
+        <div class="lists">
+            <a class="item" href="#">
+                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                <h3>1文字描述文字描述</h3>
+                <span class="date">2014-14-14</span>
+            </a>
+            <a class="item" href="#">
+                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                <h3>2文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述</h3>
+                <span class="date">2014-14-14</span>
+            </a>
+            <a class="item" href="#">
+                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                <h3>3文字描述文字描述文字描述文字描述文字描述</h3>
+                <span class="date">2014-14-14</span>
+            </a>
+            <a class="item" href="#">
+                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                <h3>4文字描述文字描述文字描述文字描述文字描述</h3>
+                <span class="date">2014-14-14</span>
+            </a>
+        </div>
+    </div>
+    <div class="footer">
+        <a href="#1" class="item">测试菜单</a>
+        <a href="#2" class="item">只做展示</a>
+        <a href="#3" class="item">无功能</a>
+        <a href="#4" class="item">不用点</a>
+    </div>
     <script src="index.js"></script>
+    <script>
+        $(function () {
+            // 页数
+            var page = 0;
+            // 每页展示10个
+            var size = 10;
+            // pdscroll
+            $('.content').pdscroll({
+                scrollArea: window,
+                domUp: {
+                    domClass: 'pdscroll-up',
+                    domRefresh: '<div class="pdscroll-refresh">↓下拉刷新-自定义内容</div>',
+                    domUpdate: '<div class="pdscroll-update">↑释放更新-自定义内容</div>',
+                    domLoad: '<div class="pdscroll-load"><span class="loading"></span>加载中-自定义内容...</div>'
+                },
+                domDown: {
+                    domClass: 'pdscroll-down',
+                    domRefresh: '<div class="pdscroll-refresh">↑上拉加载更多-自定义内容</div>',
+                    domLoad: '<div class="pdscroll-load"><span class="loading"></span>加载中-自定义内容...</div>',
+                    domNoData: '<div class="pdscroll-noData">暂无数据-自定义内容</div>'
+                },
+                dropdownRefreshFn: function (me) {
+                    $.ajax({
+                        type: 'GET',
+                        url: './json/update.json',
+                        dataType: 'json',
+                        success: function (data) {
+                            var result = '';
+                            for (var i = 0; i < data.lists.length; i++) {
+                                result += '<a class="item opacity" href="' + data.lists[i].link + '">' +
+                                    '<img src="' + data.lists[i].pic + '" alt="">' +
+                                    '<h3>' + data.lists[i].title + '</h3>' +
+                                    '<span class="date">' + data.lists[i].date + '</span>' +
+                                    '</a>';
+                            }
+                            // 为了测试，延迟1秒加载
+                            setTimeout(function () {
+                                $('.lists').html(result);
+                                // 每次数据加载完，必须重置
+                                me.reload();
+                                // 重置页数，重新获取loadDownFn的数据
+                                page = 0;
+                                // 解锁loadDownFn里锁定的情况
+                                // me.unlock();
+                                me.noData(false);
+                            }, 1000);
+                        },
+                        error: function (xhr, type) {
+                            alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.reload();
+                        }
+                    });
+                },
+                pullUploadFn: function (me) {
+                    page++;
+                    // 拼接HTML
+                    var result = '';
+                    $.ajax({
+                        type: 'GET',
+                        url: './json/more.json?page=' + page + '&size=' + size,
+                        dataType: 'json',
+                        success: function (data) {
+                            var arrLen = data.length;
+                            if (arrLen > 0) {
+                                for (var i = 0; i < arrLen; i++) {
+                                    result += '<a class="item opacity" href="' + data[i].link + '">' +
+                                        '<img src="' + data[i].pic + '" alt="">' +
+                                        '<h3>' + data[i].title + '</h3>' +
+                                        '<span class="date">' + data[i].date + '</span>' +
+                                        '</a>';
+                                }
+                                // 如果没有数据
+                            } else {
+                                // 锁定
+                                // me.lock();
+                                // 无数据
+                                me.noData();
+                            }
+                            // 为了测试，延迟1秒加载
+                            setTimeout(function () {
+                                // 插入数据到页面，放到最后面
+                                $('.lists').append(result);
+                                // 每次数据插入，必须重置
+                                me.reload();
+                            }, 1000);
+                        },
+                        error: function (xhr, type) {
+                            alert('Ajax error!');
+                            // 即使加载出错，也得重置
+                            me.reload();
+                        }
+                    });
+                },
+                // threshold: 50
+            });
+        });
+    </script>
 </body>
+
 </html>

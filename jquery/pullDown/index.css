@@ -140,3 +140,7 @@ body {
 .footer a:first-child:before {
   display: none;
 }
+.main {
+    height: 300px;
+    overflow: auto;
+}

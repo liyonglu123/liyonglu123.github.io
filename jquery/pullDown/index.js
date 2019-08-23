@@ -104,7 +104,7 @@
             });
             // 加载下方
             me.$scrollArea.on('scroll', function () {
-                if (me._scrollContentHeight > window.innerHeight) {
+                if (me._scrollContentHeight > me._scrollWindowHeight) {
                     // 底部加载的添加
                     $(".pdscroll-down").removeClass("not-active").addClass("active");
                     me._scrollTop = me.$scrollArea.scrollTop();

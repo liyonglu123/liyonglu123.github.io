@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>jq下拉刷新上拉加载</title>
-    
+    <style>
+        .pic {
+            height: 200px;
+            background-color: red;
+        }
+    </style>
     <link rel="stylesheet" href="./drop.css">
     <link rel="stylesheet" href="index.css">
-
+    
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 </head>
 
@@ -18,28 +23,34 @@
         <h1>就当我是新闻页吧</h1>
     </div>
     <div class="content">
-        <div class="lists">
-            <a class="item" href="#">
-                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
-                <h3>1文字描述文字描述</h3>
-                <span class="date">2014-14-14</span>
-            </a>
-            <a class="item" href="#">
-                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
-                <h3>2文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述</h3>
-                <span class="date">2014-14-14</span>
-            </a>
-            <a class="item" href="#">
-                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
-                <h3>3文字描述文字描述文字描述文字描述文字描述</h3>
-                <span class="date">2014-14-14</span>
-            </a>
-            <a class="item" href="#">
-                <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
-                <h3>4文字描述文字描述文字描述文字描述文字描述</h3>
-                <span class="date">2014-14-14</span>
-            </a>
+        <div class="pic">
+
         </div>
+        <div class="main">
+                <div class="lists">
+                        <a class="item" href="#">
+                            <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                            <h3>1文字描述文字描述</h3>
+                            <span class="date">2014-14-14</span>
+                        </a>
+                        <a class="item" href="#">
+                            <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                            <h3>2文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述文字描述</h3>
+                            <span class="date">2014-14-14</span>
+                        </a>
+                        <a class="item" href="#">
+                            <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                            <h3>3文字描述文字描述文字描述文字描述文字描述</h3>
+                            <span class="date">2014-14-14</span>
+                        </a>
+                        <a class="item" href="#">
+                            <img src="http://d6.yihaodianimg.com/N02/M0B/81/5A/CgQCsVMhX_mAAvXsAAJDE3K2zh485900_80x80.jpg" alt="">
+                            <h3>4文字描述文字描述文字描述文字描述文字描述</h3>
+                            <span class="date">2014-14-14</span>
+                        </a>
+                    </div>
+        </div>
+       
     </div>
     <div class="footer">
         <a href="#1" class="item">测试菜单</a>
@@ -55,8 +66,8 @@
             // 每页展示10个
             var size = 10;
             // pdscroll
-            $('.content').pdscroll({
-                scrollArea: window,
+            $('.main').pdscroll({
+                scrollArea: $(".main"),
                 domUp: {
                     domClass: 'pdscroll-up',
                     domRefresh: '<div class="pdscroll-refresh">↓下拉刷新-自定义内容</div>',

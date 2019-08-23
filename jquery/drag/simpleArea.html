@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单个子对象的拖拽--- 限定范围</title>
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.js"></script>
+    <style>
+        .parent {
+            position: relative;
+            width: 400px;
+            height: 500px;
+            background: #ccc;
+            box-sizing: border-box;
+            border: 1px dashed #eee;
+        }
+        .child1 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+        }
+        .child2 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="child1"></div>
+        <div class="child2"></div>
+    </div>
+    <script>
+        // 构建实例
+        function Drag(id) {
+            this.obj = document.querySelector(id);
+            this.disX = 0;
+            this.dixY = 0;
+            this.init();
+        }
+        Drag.prototype.init = function () {
+            var that = this;
+            that.obj.onmousedown = function (e) {
+                var e = e || window.event;
+                that.fnDown(e);
+                document.onmousemove = function (e) {
+                    var e = e || window.event;
+                    that.fnMove(e);
+                }
+                document.onmouseup = function () {
+                    that.fnUp();
+                }
+            }
+        }
+        Drag.prototype.fnDown = function (e) {
+            this.disX = e.clientX - this.obj.offsetLeft;
+            this.disY = e.clientY - this.obj.offsetTop;
+        }
+        Drag.prototype.fnMove = function (e) {
+            // 限定范围 0 - window.innerWidth;
+            var pW = $(".parent").width();
+            var pH = $(".parent").height();
+            var L = e.clientX - this.disX;
+            var T = e.clientY - this.disY;
+            if(L<0) {
+                L = 0;
+            }else if(L > pW - this.obj.offsetWidth) {
+                L = pW - this.obj.offsetWidth;
+            }
+            if(T<0) {
+                T = 0;
+            }else if(T > pH - this.obj.offsetHeight) {
+                T = pH - this.obj.offsetHeight;
+            }
+            this.obj.style.left = L + 'px';
+            this.obj.style.top =  T + 'px';
+        }
+        Drag.prototype.fnUp = function () {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+        window.onload = function() {
+            var child1 = new Drag(".child1");
+            var child2 = new Drag(".child2");
+
+        }
+    </script>
+</body>
+
+</html>

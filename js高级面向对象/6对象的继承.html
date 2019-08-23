@@ -62,11 +62,56 @@
         //     }
         // }
         // 函数不能修改只能赋值
-        var a = [1,2];
-        var b = a;
-        // b.push(3);
-        b = [1,2,3]; // 
-        alert(a);
+        // var a = [1,2];
+        // var b = a;
+        // // b.push(3);
+        // b = [1,2,3]; // 
+        // alert(a);
+
+        // 类式继承
+        // js 是没有类的概念的，  把js的构造函数看作类
+        // 属性和方法继承的时候分开继承
+
+        // function A() { // 父类
+        //     this.name = [1,2];
+        // }
+        // A.prototype.showName = function() {
+        //     alert(this.name);
+        // }
+
+        // function B() { // 子类
+        //     A.call(this); // 属性继承
+        // }
+        // // 4句话
+        // var F = function(){};
+        // F.prototype = A.prototype;
+        // B.prototype  = new F(); //一句话实现继承
+        // B.prototype.constructor = B; // 修正指向问题
+        // var b1 = new B();
+        // // b1.showName();
+        // // alert(b1.constructor);
+        // b1.name.push(3);
+        // var b2 = new B();
+        // alert(b2.name);
+
+        // 原型继承
+        
+        var a = {
+            name: "33"
+        }
+        var b = cloneObj(a);
+        b.name = "66";
+        alert(b.name);
+        function cloneObj (obj) {
+            var F = function() {};
+            F.prototype = obj;
+            return new F();
+        }
+
+        // 拷贝继承 通用型 new 或者 无new
+        // 类式继承 通过new构造函数继承
+        // 原型继承 无new 的对象
+
     </script>
 </body>
 

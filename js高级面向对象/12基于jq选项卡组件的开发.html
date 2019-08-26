@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基于jq选项卡组件的开发</title>
+    <script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.js"></script>
+    <style>
+        #div1 div,
+        #div2 div,
+        #div3 div,
+        #div4 div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000000;
+            display: none;
+        }
+
+        .active {
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <input class="active" type="button" value="1">
+        <input type="button" value="2">
+        <input type="button" value="3">
+        <div style="display:block">111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+    <div id="div2">
+        <input class="active" type="button" value="1">
+        <input type="button" value="2">
+        <input type="button" value="3">
+        <div style="display:block">111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+    <div id="div3">
+        <input class="active" type="button" value="1">
+        <input type="button" value="2">
+        <input type="button" value="3">
+        <div style="display:block">111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+    <div id="div4">
+        <input class="active" type="button" value="1">
+        <input type="button" value="2">
+        <input type="button" value="3">
+        <div style="display:block">111</div>
+        <div>222</div>
+        <div>333</div>
+    </div>
+    <input type="button" value="点击" id="input1">
+    <script>
+        $(function () {
+            // options： event delay
+            // methods： nowSel() getContent()
+            // event:  beforeClick afterClick
+            // jq中主动触发事件 trigger
+            var div1 = new Tab();
+            div1.init('div1', {});
+            var div2 = new Tab();
+            div2.init('div2', {
+                event: 'mouseover'
+            });
+            var div3 = new Tab();
+            div3.init('div3', {
+                event: 'mouseover',
+                delay: 200
+            });
+            var div4 = new Tab();
+            div4.init('div4', {});
+            div4.nowSel(2);
+            $('#input1').click(function(){
+                alert(div4.getContent());
+            })
+            $(div4).on('beforeClick', function() {
+                alert(div4.getContent());
+            })
+            $(div4).on('afterClick', function() {
+                alert(div4.getContent());
+            })
+            
+        })
+
+        function Tab() {
+            this.oParent = null;
+            this.oDiv = null;
+            this.oInput = null;
+            this.isNow = 0;
+            this.setting = {
+                event: 'click',
+                delay: 0
+            };
+        }
+        Tab.prototype.init = function (oParent, opts) {
+            $.extend(this.setting, opts);
+            this.oParent = $('#' + oParent);
+            this.oDiv = this.oParent.find('div');
+            this.oInput = this.oParent.find('input');
+            this.change();
+        };
+        Tab.prototype.change = function () {
+            var that = this;
+            var timer = null;
+            this.oInput.on(this.setting.event, function () {
+                var _this = this;
+                if (that.setting.event === 'mouseover' && that.setting.delay) {
+                    timer = setTimeout(function () {
+                        show(_this);
+                    }, that.setting.delay);
+                } else {
+                    show(this);
+                }
+            }).mouseout(function () {
+                clearTimeout(timer);
+            });
+
+            function show(obj) {
+                $(that).trigger('beforeClick');
+                that.oInput.attr('class', '');
+                that.oDiv.css('display', 'none');
+                $(obj).attr('class', 'active');
+                that.oDiv.eq($(obj).index()).css('display', 'block');
+                that.isNow = $(obj).index();
+                $(that).trigger('afterClick');
+            }
+        };
+        Tab.prototype.nowSel = function (index) {
+            this.oInput.attr('class', '');
+            this.oDiv.css('display', 'none');
+            this.oInput.eq(index).attr('class', 'active');
+            this.oDiv.eq(index).css('display', 'block');
+            this.isNow = index;
+        }
+        Tab.prototype.getContent = function(){
+            return this.oDiv.eq(this.isNow).html();
+        }
+    </script>
+</body>
+
+</html>

@@ -67,19 +67,19 @@
             var size = 10;
             // pdscroll
             $('.main').pdscroll({
-                scrollArea: $(".main"),
-                domUp: {
-                    domClass: 'pdscroll-up',
-                    domRefresh: '<div class="pdscroll-refresh">↓下拉刷新-自定义内容</div>',
-                    domUpdate: '<div class="pdscroll-update">↑释放更新-自定义内容</div>',
-                    domLoad: '<div class="pdscroll-load"><span class="loading"></span>加载中-自定义内容...</div>'
-                },
-                domDown: {
-                    domClass: 'pdscroll-down',
-                    domRefresh: '<div class="pdscroll-refresh">↑上拉加载更多-自定义内容</div>',
-                    domLoad: '<div class="pdscroll-load"><span class="loading"></span>加载中-自定义内容...</div>',
-                    domNoData: '<div class="pdscroll-noData">暂无数据-自定义内容</div>'
-                },
+                scrollArea: $('.main'),
+                // domUp: {
+                //     domClass: 'pdscroll-up',
+                //     domRefresh: '<div class="pdscroll-refresh">↓下拉刷新</div>',
+                //     domUpdate: '<div class="pdscroll-update">↑释放更新</div>',
+                //     domLoad: '<div class="pdscroll-load"><span class="loading"></span>加载中...</div>'
+                // },
+                // domDown: {
+                //     domClass: 'pdscroll-down',
+                //     domRefresh: '<div class="pdscroll-refresh">↑上拉加载更多</div>',
+                //     domLoad: '<div class="pdscroll-load"><span class="loading"></span>加载中..</div>',
+                //     domNoData: '<div class="pdscroll-noData">我是有底线的</div>'
+                // },
                 dropdownRefreshFn: function (me) {
                     $.ajax({
                         type: 'GET',

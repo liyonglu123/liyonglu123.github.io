@@ -104,14 +104,11 @@
             });
             // 加载下方
             me.$scrollArea.on('scroll', function () {
-                if (me._scrollContentHeight > me._scrollWindowHeight) {
-                    // 底部加载的添加
+                me._scrollTop = me.$scrollArea.scrollTop();
+                // 滚动页面触发加载数据
+                if (me.opts.pullUploadFn && !me.loading && me._scrollContentHeight <= (me._scrollWindowHeight + me._scrollTop)) {
                     $(".pdscroll-down").removeClass("not-active").addClass("active");
-                    me._scrollTop = me.$scrollArea.scrollTop();
-                    // 滚动页面触发加载数据
-                    if (me.opts.pullUploadFn && !me.loading && me._scrollContentHeight <= (me._scrollWindowHeight + me._scrollTop)) {
-                        pullUploadFn(me);
-                    }
+                    pullUploadFn(me);
                 }
             });
         },

@@ -65,8 +65,9 @@
             pid: 15,
         }]
         var tree = new WTree(toTree(data));
-        $("body").append(tree.render());
+        $("body").html(tree.render(toTree(data)));
         console.log(tree);
+        console.log(tree.render(toTree(data)));
 
     </script>
 </body>

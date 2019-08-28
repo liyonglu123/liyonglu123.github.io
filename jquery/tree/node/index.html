@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>树形结构</title>
+</head>
+<body>
+    <script src="node.js"></script>
+    <script>
+        var node = new Node("root");
+        var node1 = new Node("node1");
+        var node2 = new Node("node2");
+
+        node.addChild(node1);
+        node.addChild(node2);
+        console.log(node1.siblings(), node.getDegree());
+
+    </script>
+</body>
+</html>

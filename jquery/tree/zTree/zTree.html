@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ztree的使用</title>
+    <link href="https://cdn.bootcss.com/zTree.v3/3.5.40/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="zTree.js"></script>
+    <!-- <script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.core.js"></script> -->
+    <!-- <script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.excheck.js"></script> -->
+</head>
+
+<body>
+    <div class="zTreeDemoBackground">
+        <ul id="tree" class="ztree"></ul>
+    </div>
+    <!-- <script src="zTree.js"></script> -->
+    <script>
+        var setting = {
+            view: {
+                selectedMulti: true
+            },
+            check: {
+                enable: true,
+            },
+            data: {
+                simpleData: {
+                    enable: true, //是否采用简单数据模式
+                    idKey: "id", //树节点ID名称
+                    pIdKey: "pid", //父节点ID名称
+                    rootPId: -1, //根节点ID
+                }
+            }
+        };
+        $(function () {
+            //加载后端构建的ZTree树（节点的数据格式已在后端格式化好了）
+            $.ajax({
+                url: 'data.json',
+                type: 'get',
+                dataType: "json",
+                success: (data) => {
+                    console.log(data);
+                    $.fn.zTree.init($("#tree"), setting, data); //初始化树节点时，添加同步获取的数据
+                },
+                error: (data) => {
+                    alert(data.message);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

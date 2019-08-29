@@ -849,6 +849,7 @@
                         data.addCreatedNode(setting, node);
                     }
                 }
+                console.log(html);
                 return html;
             },
             appendParentULDom: function (setting, node) {

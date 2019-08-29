@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <div id="w-tree">
+        
+    </div>
     <script src="index.js"></script>
     <script>
         var data = [
@@ -63,11 +66,18 @@
             id: 13,
             name: "f级分类：2",
             pid: 15,
-        }]
-        var tree = new WTree(toTree(data));
-        $("body").html(tree.render(toTree(data)));
+        }];
+        var setting = {
+            data: {
+                key: {
+                    children: "child",
+                    name: "name",
+                    title: "",
+                }
+            },
+        }
+        var tree = new WTree().init($('#w-tree'), setting, toTree(data));
         console.log(tree);
-        console.log(tree.render(toTree(data)));
 
     </script>
 </body>

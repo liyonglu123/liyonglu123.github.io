@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文章</title>
+    <link rel="stylesheet" href="../src/tuitui-ui.css">
+</head>
+<body>
+    <div class="tt-content">
+        <div class="tt-article fold">
+            <h1 class="tt-article-title">什么是UI框架</h1>
+            <p class="tt-article-info">作者：Rosen</p>
+            <div class="tt-article-content">
+                <h2 class="tt-article-subtitle">UI是什么？</h2>
+                <p class="tt-article-paragraph">先来说下UI，这俩字母是User Interface的缩写，一般翻译成“用户界面”。UI最主要的功能就是建立用户和系统后台之间的联系，系统后台通过UI把数据转换成可视化的内容展示给用户，同时用户也要通过UI把操作指令（包括数据）传给系统后台。</p>
+                <p class="tt-article-paragraph">对UI不太熟悉的同学一听到这个概念，可能会觉得它的作用就是怎么把一个产品做的漂亮，所以UI设计师经常被人叫成美工。而事实上UI应该是负责“交互”和“视觉”这两方面的工作，这两部分内容构成了产品的用户体验。</p>
+                <p class="tt-article-paragraph">用户体验里最重要的应该是这个产品好不好用，也就是“交互”这部分，这其中包括产品功能是否完善，产品流程是否设计的合理，使用是否方便，操作是否流畅等。在一些大公司里，为了保证产品好用，还会专门设置交互设计师这个职位，专门做交互部分的设计工作。</p>
+                <img class="tt-article-img" src="http://pic16.nipic.com/20111006/6239936_092702973000_2.jpg" alt="测试图片">
+            </div>
+            <div class="tt-article-unfold-btn" id="js-unfold">
+                <i class="fa fa-angle-double-down fa-vibrate-y"></i>
+            </div>
+        </div>
+        <div class="tt-panel">
+            <div class="tt-panel-title">其他内容</div>
+            <div class="tt-panel-body">
+                其他内容...
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = ()=>{
+            // 展开文章
+            document.querySelector('#js-unfold').onclick = (e) => {
+                document.querySelector('.tt-article').classList.remove('fold');
+            }
+        };
+    </script>
+</body>
+</html>

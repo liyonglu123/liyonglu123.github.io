@@ -172,6 +172,12 @@ body{
     font-size: 14px;
     font-weight: normal;
 }
+/* 标题导航 */
+.tt-content .tt-panel-title > .tt-panel-link{
+    float: right;
+    margin-right: 1rem;
+    color: #aaa;
+}
 /* Panel 内容区 */
 .tt-content .tt-panel-body{
     position: relative;
@@ -401,6 +407,7 @@ body{
     max-width: 640px;
     margin: 0 auto;
     background: #f8f8f8;
+    z-index: 110;
 }
 /* 搜索状态中，覆盖内容区 */
 .tt-search.on-focus{

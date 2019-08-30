@@ -102,6 +102,16 @@
 
         // reduce   从左到右缩减求和
         // var arr = [1, 2, 3];
+        Array.prototype.myReduce = function (fn, initialValue) {
+            var arr = Array.prototype.slice.call(this);
+            var res, startIndex;
+            res = initialValue ? initialValue : arr[0];
+            startIndex = initialValue ? 0 : 1;
+            for (var i = startIndex; i < arr.length; i++) {
+                res = fn.call(null, res, arr[i], i, this);
+            }
+            return res;
+        }
         // Array.prototype.reduce = function(fn, base) {
         //     if (typeof fn !== "function") {
         //         throw new TypeError("arguments[0] is not a function");

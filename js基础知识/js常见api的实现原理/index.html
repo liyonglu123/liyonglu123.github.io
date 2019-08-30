@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js常见api的实现原理</title>
+</head>
+
+<body>
+    <script>
+        // 数组中常用的方法
+        // push  重写
+        // var arr = [1,2,3];
+        // Array.prototype.push = function() {
+        //     for (var i = 0; i < arguments.length; i++) {
+        //        this[this.length] = arguments[i];
+        //     }
+        //     return this.length
+        // }
+        // arr.push(4,5);
+        // console.log(arr.length);
+        // pop 
+        // var arr = [1, 2, 3];
+        // Array.prototype.pop = function () {
+        //     if (this.length == 0) {
+        //         return undefined;
+        //     }
+        //     var last = this[this.length - 1];
+        //     this.length = this.length - 1;
+        //     return last
+        // }
+        // console.log(arr.pop());
+        // unshift
+        // var arr = [1, 2, 3];
+        // Array.prototype.unshift = function () {
+        //     var L = this.length;
+        //     for (var i = L + arguments.length - 1; i >= 0; i--) {
+        //         if (i > arguments.length - 1) {
+        //             this[i] = this[i - arguments.length];
+        //         } else {
+        //             this[i] = arguments[i];
+        //         }
+        //     }
+        //     return this.length
+        // }
+        // arr.unshift(4, 5);
+        // console.log(arr);
+        // shift 
+        // var arr = [1, 2, 3];
+        // Array.prototype.shift = function () {
+        //     if (this.length == 0) {
+        //         return undefined;
+        //     }
+        //     var first = this[0];
+        //     for (var i = 1; i < this.length; i++) {
+        //         this[i - 1] = this[i];
+        //     }
+        //     this.length = this.length - 1;
+        //     return first;
+        // }
+        // console.log(arr.shift(), arr);
+        // map 不改变原有数组
+        // var arr = [1, 2, 3];
+        // Array.prototype.map = function (fn, context) {
+        //     const array = this;
+        //     context = Object(context) || global // 严格模式下
+        //     const resultArr = []
+
+        //     for (let i = 0; i < array.length; i++) {
+        //         let item = array[i]
+        //         result = fn.call(context, item, i, array)
+        //         resultArr.push(result)
+        //     }
+        //     return resultArr
+        // }
+        // var arr1 = arr.map(function (item, index, arr) {
+        //     return item * 2;
+        // })
+        // console.log(arr, arr1);
+
+        // filter 不改变原数组
+        // var arr = [1, 2, 3];
+        // Array.prototype.filter = function (fn, context) {
+        //     const array = this;
+        //     context = Object(context) || global // 严格模式下
+        //     const resultArr = []
+        //     for (let i = 0; i < array.length; i++) {
+        //         let item = array[i]
+        //         result = fn.call(context, item, i, array)
+        //         if(result){
+        //             resultArr.push(item);
+        //         }
+        //     }
+        //     return resultArr
+        // }
+        // var arr1 = arr.filter(function (item, index, arr) {
+        //     return item > 1;
+        // })
+        // console.log(arr, arr1);
+
+        // reduce   从左到右缩减求和
+        // var arr = [1, 2, 3];
+        // Array.prototype.reduce = function(fn, base) {
+        //     if (typeof fn !== "function") {
+        //         throw new TypeError("arguments[0] is not a function");
+        //     }
+        //     let initialArr = this;
+        //     let arr = initialArr.concat();
+
+        //     if (base) arr.unshift(base);
+        //     let index, newValue;
+
+        //     while (arr.length > 1) {
+        //         index = initialArr.length - arr.length + 1;
+        //         newValue = fn.call(null, arr[0], arr[1], index, initialArr);
+
+        //         arr.splice(0, 2, newValue); // 直接用 splice 实现替换
+        //     }
+
+        //     return newValue;
+        // };
+        // var arr1 = arr.reduce(function (total, item, index, arr) {
+        //     return total + item;
+        // }, 0)
+        // console.log(arr, arr1);
+    </script>
+</body>
+
+</html>

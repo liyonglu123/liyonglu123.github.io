@@ -57,6 +57,8 @@
 }
 /* 文章图片 */
 .tt-article .tt-article-img{
+    /* 防止出现空隙 */
+    display: block;  
     max-width: 100%;
     margin: auto;
 }

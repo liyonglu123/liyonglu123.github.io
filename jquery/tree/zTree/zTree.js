@@ -1480,7 +1480,6 @@
             event.bindTree(setting);
             event.unbindEvent(setting);
             event.bindEvent(setting);
-
             var zTreeTools = {
                 setting: setting,
                 addNodes: function (parentNode, newNodes, isSilent) {

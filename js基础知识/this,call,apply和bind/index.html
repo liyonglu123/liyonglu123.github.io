@@ -20,13 +20,13 @@
     var pokemon = {
         firstname: 'Pika',
         lastname: 'Chu ',
-        getPokeName: function() {
+        getPokeName: function () {
             var fullname = this.firstname + ' ' + this.lastname;
             return fullname;
         }
     };
 
-    var pokemonName = function(snack, hobby) {
+    var pokemonName = function (snack, hobby) {
         console.log(this.getPokeName() + 'I choose you!');
         console.log(this.getPokeName() + ' loves ' + snack + ' and ' + hobby);
     };
@@ -47,13 +47,13 @@
     var pokemon = {
         firstname: 'Pika',
         lastname: 'Chu ',
-        getPokeName: function() {
+        getPokeName: function () {
             var fullname = this.firstname + ' ' + this.lastname;
             return fullname;
         }
     };
 
-    var pokemonName = function(snack, hobby) {
+    var pokemonName = function (snack, hobby) {
         console.log(this.getPokeName() + ' loves ' + snack + ' and ' + hobby);
     };
 
@@ -65,16 +65,52 @@
         2.如果有对象嵌套的情况，则this绑定到最近的一层对象上
         3.箭头函数的this不能用call()或者apply()进行绑定
     */
+    // var obj = {
+    //     num: 6
+    // }
     // var obj1 = {
     //     num: 4,
     //     fn: function() {
-    //         var f = () => { //object，也就是指obj1  
+    //         // var f = () => { //object，也就是指obj1  
+    //         //     console.log(this);
+    //         //     setTimeout(() => {
+    //         //         console.log(this); // //object，也就是指obj1  
+    //         //     });
+    //         //     setTimeout(function() {
+    //         //         console.log(this); // window
+    //         //     }, 100);
+    //         // }
+    //         // // f();
+    //         // f.call(obj);
+    //         var f1 = function() { //object，也就是指obj1  
     //             console.log(this);
     //             setTimeout(() => {
     //                 console.log(this); // //object，也就是指obj1  
     //             });
+    //             setTimeout(function() {
+    //                 console.log(this); // window
+    //             }, 100);
     //         }
-    //         f();
+    //         // f1();
+    //         f1.call(obj);
+    //     }
+    // }
+    // obj1.fn();
+    // var obj = {
+    //     num: 6
+    // };
+    // var obj1 = {
+    //     num: 4,
+    //     fn: function() {
+    //         console.log(this) //object 因为函数fn定义后被obj1对象调用了
+    //         var f = function() {
+    //             console.log(this); //window,因为函数f定义后并没有对象调用，this直接绑定到最外层的window对象  
+    //             setTimeout(() => {
+    //                 console.log(this); //window，外层this绑定到了window,内层也相当于定义在window层（全局环境）  
+    //             });
+    //         }
+    //         f.call(obj);
+    //         // f();
     //     }
     // }
     // obj1.fn();
@@ -83,32 +119,17 @@
     };
     var obj1 = {
         num: 4,
-        fn: function() {
-            console.log(this) //object 因为函数fn定义后被obj1对象调用了
-            var f = function() {
-                console.log(this); //window,因为函数f定义后并没有对象调用，this直接绑定到最外层的window对象  
-                setTimeout(() => {
-                    console.log(this); //window，外层this绑定到了window,内层也相当于定义在window层（全局环境）  
+        fn: function () {
+            var f = () => {
+                console.log(this); //object,f()定义在obj1对象中，this就指向obj1,这就是箭头函数this指向的关键  
+                setTimeout(function () {
+                    console.log(this); //window，非箭头函数的情况下还是要看宿主对象是谁，如果没有被对象调用，函数体中的this就绑定的window上  
                 });
             }
-            f.call(obj);
+            f.call(obj); // 箭头函数中的this不能使用call,apply进行绑定哦;
         }
     }
     obj1.fn();
-
-    // var obj1 = {
-    //     num: 4,
-    //     fn: function() {
-    //         var f = () => {
-    //             console.log(this); //object,f()定义在obj1对象中，this就指向obj1,这就是箭头函数this指向的关键  
-    //             setTimeout(function() {
-    //                 console.log(this); //window，非箭头函数的情况下还是要看宿主对象是谁，如果没有被对象调用，函数体中的this就绑定的window上  
-    //             });
-    //         }
-    //         f.call(obj);  // 箭头函数中的this不能使用call,apply进行绑定哦;
-    //     }
-    // }
-    // obj1.fn();
 </script>
 
 </html>

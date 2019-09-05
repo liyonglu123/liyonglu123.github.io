@@ -32,7 +32,7 @@
     }
     /**
      * 思路: 传入 setting, data
-     * 1. 数据  平滑以及处理好的
+     * 1. 数据  平滑以及处理好的 最好对数据进行备份, 处理备份的数据  
      * 2. 视图  渲染ui
      * 3. 事件  本身事件以及自定义事件
      */
@@ -44,6 +44,13 @@
             COLLAPSE: "wtree_collapse",
             ASYNC_SUCCESS: "wtree_async_success",
             ASYNC_ERROR: "wtree_async_error"
+        },
+        tag: {
+            A: "a",
+            ICON: "ico",
+            SPAN: "span",
+            SWITCH: "switch",
+            UL: "ul"
         },
     }
     var tools = {
@@ -59,6 +66,7 @@
         wSetting = wSetting || {};
         this.treeId = '';
         this.treeObj = null;
+        
         this.setting = {
             data: {
                 key: {
@@ -108,9 +116,12 @@
         },
         // 生成ui
         createNode: function (node) {
+            var zId = 0;
             var handler = this;
+            console.log(node);
             function createNode(curNode) {
                 var li = document.createElement("li");
+                // var li = $('<li id='+ curNode.tId +' class=level '+ curNode.level+'></li>');
                 li.style.listStyle = "none";
                 //折叠图片
                 var folder = document.createElement("img");
@@ -141,6 +152,7 @@
         bindEvent: function (obj, setting) {
             var o = obj;
             var c = consts.event;
+            var tag = consts.tag;
             // 传入节点
             o.on(c.CLICK, function (event) {
                 var aim = event.target;

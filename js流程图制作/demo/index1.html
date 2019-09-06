@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/d3/5.11.0/d3.js"></script>
+    <script src="https://cdn.bootcss.com/dagre-d3/0.6.3/dagre-d3.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-sm-6">
+            <svg width=960 height=400>
+                <g />
+            </svg>
+        </div>
+    </div>
+    <script>
+        let svg = d3.select("svg"),
+            inner = svg.select("g");
+
+        // Create the input graph
+        this.g = new dagreD3.graphlib.Graph({});
+        // Set an object for the graph label
+        this.g.setGraph({});
+        // Default to assigning a new object as a label for each new edge.
+        this.g.setDefaultEdgeLabel(function () {
+            return {};
+        });
+        this.g.graph().transition = function (selection) {
+            return selection.transition().duration(500);
+        };
+
+        // 缩放功能实现
+        var zoom = d3.zoom().on("zoom", function () {
+            inner.attr("transform", "translate(" + d3.event.translate + ")" +
+                "scale(" + d3.event.scale + ")");
+        });
+        svg.call(zoom);
+
+        this.g.setNode(0, { label: 'VVV' });
+        this.g.setNode(1, { label: "A" });
+        this.g.setNode(2, { label: "B" });
+        this.g.setNode(3, { labelType: "html", label: "<i class=\"fa fa-database\"></i>B" });
+
+        this.g.setEdge(0, 1);
+        this.g.setEdge(0, 2);
+        this.g.setEdge(2, 3);
+
+        // Run the renderer. This is what draws the final graph.
+        // this.render(inner, this.g);
+        let render = new dagreD3.render();
+        render(inner, this.g);
+
+        this.g.nodes().forEach((v) => {
+            let node = this.g.node(v);
+            console.log(`Node ${v}: Label:${node.label},X:${node.x},Y:${node.y}`);
+        });
+
+        //give IDs to each of the nodes so that they can be accessed
+        svg.selectAll("g.node rect")
+            .attr("id", function (d) {
+                return "node" + d;
+            });
+        svg.selectAll("g.edgePath path")
+            .attr("id", function (e) {
+                return e.v + "-" + e.w;
+            });
+        svg.selectAll("g.edgeLabel g")
+            .attr("id", function (e) {
+                return 'label_' + e.v + "-" + e.w;
+            });
+
+
+        this.g.nodes().forEach((v) => {
+            var node = this.g.node(v);
+            node.customId = "node" + v;
+        });
+        this.g.edges().forEach((e) => {
+            var edge = this.g.edge(e.v, e.w);
+            edge.customId = e.v + "-" + e.w
+        });
+
+        // code for drag
+        function dragstart(d) {
+            d3.event.sourceEvent.stopPropagation();
+        }
+
+        let dragmover = (currentThis, d) => {
+            this.dragmove(currentThis, d);
+        };
+
+        function dragmove(d) {
+            dragmover(this, d)
+        }
+
+        let nodeDrag = d3.drag()
+            .on("dragstart", dragstart)
+            .on("drag", dragmove);
+
+        let edgeDrag = d3.drag()
+            .on("dragstart", dragstart)
+            .on('drag', (d) => {
+                this.translateEdge(this.g.edge(d.v, d.w), d3.event.dx, d3.event.dy);
+                $('#' + this.g.edge(d.v, d.w).customId).attr('d', this.calcPoints(d));
+            });
+
+        nodeDrag.call(svg.selectAll("g.node"));
+        edgeDrag.call(svg.selectAll("g.edgePath"));
+    </script>
+</body>
+
+</html>

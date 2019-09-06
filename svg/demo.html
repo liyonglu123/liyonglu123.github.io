@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>svg画流程图</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <style>
+        .ball {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            /* offset-path: path('M10 80 Q 77.5 10, 145 80 T 280 80'); */
+            offset-distance: 0%;
+            animation: red-ball 2s linear alternate infinite;
+        }
+
+        @keyframes red-ball {
+            from {
+                offset-distance: 0%;
+            }
+
+            to {
+                offset-distance: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <svg width="1000" height="1000">
+
+        <g id="g1">
+            
+            <rect width="300" height="100" style="fill:red;stroke-width:1;
+                stroke:rgb(0,0,0)" />
+                <text x="150" y="50" alignment-baseline="middle" text-anchor="middle" style="fill:blue">TEXT</text>  
+        </g>
+
+        <g id="g2">
+            <rect x="500" y="300" width="300" height="100" style="fill:red;stroke-width:1;
+                    stroke:rgb(0,0,0)" />
+        </g>
+        <g id="g3">
+            <defs>
+                <marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orient="auto">
+                    <path d="M2,2 L2,11 L10,6 L2,2" style="fill: red;" />
+                </marker>
+            </defs>
+            <!-- <line x1="200" y1="300" x2="100" y2="200" style="stroke:red;marker-end: url(#markerArrow);"></line> -->
+            <!-- <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle">TEXT</text>   -->
+
+        </g>
+
+    </svg>
+    <script>
+        var g1 = document.getElementById("g1");
+        var g2 = document.getElementById("g2");
+        var g3 = document.getElementById("g3");
+
+        console.log(g1.getBBox()); // 相对于视口
+        console.log(g1.getBoundingClientRect()); // 相对于浏览器
+        var g1Box = g1.getBBox();
+        var g2Box = g2.getBBox();
+        var path = createSVGPath(g1Box.width / 2, g1Box.height, g2Box.width / 2, 0, g2Box.x, g2Box.y, 2, "red");
+        path.setAttribute('marker-end', 'url(#markerArrow)');
+        g3.appendChild(path);
+        // 创建两个矩形的连线
+        function createSVGPath(startX, startY, endX, endY, x, y, width, color) {
+            var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            
+            var realEndX = endX + x;
+            var realEndY = endY + y - 13;
+            var dArr = ["M" + startX, startY, "L" + realEndX, realEndY];
+            // var cx = startX,
+            //     cy = startY + R;
+
+            // var theta2 = theta % 360;
+            // // 避免360度与0度一样的情况
+            // theta = theta > 0 && theta2 == 0 ? 359.9 : theta2;
+
+            // var alpha = (theta + 90) / 180 * Math.PI;
+            // var dx = realR * Math.cos(alpha);
+            // var dy = realR * Math.sin(alpha);
+            // var x = cx + dx,
+            //     y = cy - dy;
+
+            // dArr.push(x.toFixed(2));
+            // dArr.push(y.toFixed(2));
+            var d = dArr.join(" ");
+            console.log(d, path);
+            path.setAttribute('d', d);
+            path.setAttribute('stroke', color);
+            path.setAttribute('stroke-width', width);
+            path.setAttribute('fill', 'none');
+            path.setAttribute('class', 'path');
+            cratedBall(path);
+            return path;
+        }
+        // 創建運動的小球
+        function cratedBall(path) {
+            var ball = $("<div class='ball'></div>");
+            ball.css('offset-path', path);
+            $('body').append(ball);
+        }
+    </script>
+</body>
+
+</html>

@@ -19,6 +19,7 @@
             return arguments[0];
         },
         allowMultiple: true,
+        // transitionend 执行完毕
         endEvent: function () {
             var el = document.createElement("div");
             var transEndEventNames = {
@@ -33,20 +34,21 @@
             el = null;
             return false
         }(),
+        // 初始化
         init: function (element, options) {
             var _self = this;
             var options = options || {};
             var defaults = {
                 distance: 80, //滑动距离
                 units: 'px', //默认单位
-                touchStart: function () {}, //触摸开始毁掉
+                touchStart: function () {}, //触摸开始回调
                 opened: function () {}, //展开后回调
                 closed: function () {}, //关闭后回调
                 duration: 100, //毫秒
                 deleteBtn: '.swipe-delete-btn', //删除元素
                 direction: 'left', //滑动方向
                 deleteClose: true, //点击删除是否 关闭
-                deleteFn: function () {} //删除事件   retuan false 不关闭  //   retuan true 关闭
+                deleteFn: function () {} //删除事件回调   retuan false 不关闭  //   retuan true 关闭
             };
 
             _self.options = _self.extend({}, defaults, options);

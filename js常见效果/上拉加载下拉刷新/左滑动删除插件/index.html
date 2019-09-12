@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>滑动删除</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <header>
+        <h2>suface 滑动删除 列表</h2>
+    </header>
+    <div style="height: 50px;; text-align: center; line-height: 50px;">suface 滑动删除 例子</div>
+    <section class="list">
+        <ul class="list-ul">
+            <li id="li" class="swipe-delete-element list-li">
+                <!-- //该节点 位移 transform: translateX-->
+                <div class="con ">
+                    向左侧 滑动删除 一起过来
+                </div>
+                <div class="swipe-delete-btn btn">删除0</div>
+            </li>
+            <li id="li" class=" list-li">
+                <div class="con swipe-delete-element ">
+                    <!-- //该节点 位移 transform: translateX-->
+                    向左侧 滑动删除 藏在后面
+                </div>
+                <div class="swipe-delete-btn btn" style="right:0px;">删除1</div>
+            </li>
+            <li id="li" class=" list-li swipe-delete-element">
+                <div class="con ">
+                    向 you 侧 滑动删除
+                </div>
+                <div class="swipe-delete-btn btn" style="right:auto; left: -80px;">删除2</div>
+            </li>
+            <li id="li" class=" list-li ">
+                <div class="con swipe-delete-element">
+                    向you 侧 滑动删除 藏在后面
+                </div>
+                <div class="swipe-delete-btn btn" style="right:auto; left: 0px;">删除3</div>
+            </li>
+            <li id="li" class=" list-li swipe-delete-element">
+                <div class="con  ">
+                    向左侧 滑动删除 多个 点击
+                </div>
+                <div class="swipe-delete-btn btn " style="right: -160px;width:160px">
+                    <div style="width: 80px;" class="on1">4删除111 多个</div>
+                    <div style="width: 80px;" class="on2">4删除222 多个</div>
+                </div>
+            </li>
+            <li id="li" class=" list-li  swipe5">
+                <div class="con  swipe-delete-element ">
+                    向左侧 滑动删除 藏在后面 swipe5
+                </div>
+                <div class="swipe-delete-btn2 btn" style="right: 0px;width:160px">
+                    <div style="width: 80px;" class="on1">5删除111 多个</div>
+                    <div style="width: 80px;" class="on2">5删除222 多个</div>
+                </div>
+            </li>
+            <li id="li" class=" list-li ">
+                <div class="con  swipe-delete-element66">
+                    swipe-delete-element66 参数传入
+                </div>
+                <div class="swipe-delete-btn2 btn" style="right: 0px;width:160px">
+                    <div style="width: 80px;" class="on1">6删除111 多个</div>
+                    <div style="width: 80px;" class="on2">6删除222 多个</div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <div style="height: 400px;">
+        <div id="j_opend" style="padding: 20px; text-align: center; background:#999; margin: 20px auto;">点击swipe5 关闭 </div>
+    </div>
+    <script src="swiper.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,148 @@
+html,
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+span,
+img,
+button,
+em,
+i,
+b {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  min-width: 320px;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "微软雅黑", 'Helvetica Neue', Helvetica, tahoma, arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+  font-size: 14px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}
+
+article,
+aside,
+dialog,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block
+}
+
+dl,
+li,
+menu,
+ol,
+ul {
+  list-style: none
+}
+
+address,
+em,
+i,
+th {
+  font-weight: 400;
+  font-style: normal
+}
+
+a {
+  color: #999;
+  display: block;
+}
+
+a:link,
+a:visited {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer
+}
+
+a:hover {
+  cursor: pointer
+}
+
+a:active,
+a:focus {
+  outline: 0;
+}
+
+img {
+  width: 100%;
+  border: 0;
+  vertical-align: middle;
+  -webkit-user-select: none;
+}
+
+input,
+select {
+  outline: 0
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+button,
+input[type=button],
+input[type=tel],
+input[type=reset],
+input[type=submit] {
+  line-height: normal !important;
+  -webkit-appearance: none
+}
+
+::-webkit-input-placeholder {
+  color: #777;
+}
+
+::input-placeholder {
+  color: #777;
+}
+
+input:focus::-webkit-input-placeholder {
+  -webkit-transition: .1s;
+  opacity: 0;
+}
+
+input:focus::input-placeholder {
+  transition: .1s;
+  opacity: 0;
+}

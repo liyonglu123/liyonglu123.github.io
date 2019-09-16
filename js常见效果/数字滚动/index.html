@@ -116,8 +116,17 @@
 
         NumberRoll.prototype.makeThreeNum = function (num) {
             return num + "";
-            var num = (num || "").toString();
-            return num.match(/\d{1,3}/g).join(',');
+            // var num = (num || "").toString();
+            // return num.match(/\d{1,3}/g).join(',');
+            // var num = (num || 0).toString(),
+            //     result = '';
+            // while (num.length > 3) {
+            //     result = ',' + num.slice(-3) + result;
+            //     num = num.slice(0, num.length - 3);
+            // }
+            // if (num) { result = num + result; }
+            // return result;
+
         };
 
         NumberRoll.prototype.getRand = function (min, max) {

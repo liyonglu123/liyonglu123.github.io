@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>pixijs</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.2/pixi.min.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        let type = "WebGL"
+        if (!PIXI.utils.isWebGLSupported()) {
+            type = "canvas"
+        }
+        PIXI.utils.sayHello(type)
+        // 创建一个Pixi 应用
+        let app = new PIXI.Application({ width: 256, height: 256 });
+
+        // 把 Pixi 应用中创建出来的 canvas 添加到页面上
+        document.body.appendChild(app.view);
+        // 容器, 精灵, 纹理
+        
+    </script>
+</body>
+
+</html>

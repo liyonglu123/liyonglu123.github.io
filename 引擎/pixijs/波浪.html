@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>波浪</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.2/pixi.min.js"></script>
+    <style>
+        .start-btn,
+        .stop-btn {
+            display: inline-block;
+            color: #fff;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            padding: 10px 20px;
+            margin-bottom: 30px;
+        }
+
+        .start-btn {
+            background-color: #ff0081;
+            box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
+        }
+
+        .stop-btn {
+            background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+            margin-left: 20px;
+            box-shadow: 0 2px 25px rgba(22, 217, 227, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button class="start-btn">开始</button>
+        <button class="stop-btn">停止</button>
+    </div>
+    <div id="px-render"></div>
+    <script>
+        // 创建一个 Pixi应用 需要的一些参数
+        var option = {
+            width: 400,
+            height: 300,
+            transparent: true,
+        }
+
+        // 创建一个 Pixi应用
+        var app = new PIXI.Application(option);
+        // 获取渲染器
+        var renderer = app.renderer;
+        // 图片精灵
+        var preview;
+        // 置换图精灵
+        var displacementSprite;
+        // 滤镜
+        var displacementFilter;
+        // 舞台（一个容器），这里面包括了图片精灵、置换图精灵
+        var stage;
+        var playground = document.getElementById('px-render');
+
+        function setScene(url) {
+            // renderer.view 是 Pixi 创建的一个canvas
+            // 把 Pixi 创建的 canvas 添加到页面上
+            playground.appendChild(renderer.view);
+
+            // 创建一个容器 
+            stage = new PIXI.Container();
+
+            // 根据图片的 url，创建图片精灵
+            preview = PIXI.Sprite.fromImage(url);
+
+            // 创建置换图精灵，在创建置换滤镜时会用到这个精灵 
+            displacementSprite = PIXI.Sprite.fromImage('https://www.kkkk1000.com/images/learnPixiJS/sprite.png');
+
+            // 设置置换图精灵为平铺模式
+            displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+
+            // 创建一个置换滤镜
+            displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
+
+            // 添加 图片精灵 到舞台
+            stage.addChild(preview);
+
+            // 添加 置换图精灵 到舞台 
+            stage.addChild(displacementSprite);
+
+            // 把 stage 添加到根容器上
+            app.stage.addChild(stage);
+        }
+
+
+        // 置换图精灵的移动速度
+        var velocity = 1;
+        // raf 是调用 requestAnimationFrame方法的返回值，停止动画效果时需要用到
+        var raf;
+
+        function animate() {
+            raf = requestAnimationFrame(animate);
+            // 改变置换图精灵的位置
+            displacementSprite.x += velocity;
+            displacementSprite.y += velocity;
+        }
+        setScene('https://www.kkkk1000.com/images/learnPixiJS/view.jpg');
+
+
+        var start = document.querySelector('.start-btn');
+        var stop = document.querySelector('.stop-btn');
+        start.onclick = function () {
+            // 设置舞台的滤镜
+            stage.filters = [displacementFilter];
+            // 开始动画
+            animate();
+        }
+
+        stop.onclick = function () {
+            // 取消滤镜
+            stage.filters = [];
+            // 停止动画
+            cancelAnimationFrame(raf);
+        }
+    </script>
+</body>
+
+</html>

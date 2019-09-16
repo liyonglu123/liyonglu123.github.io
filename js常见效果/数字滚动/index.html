@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        .number {
+            font-size: 30px;
+            color: red;
+        }
+
+        .number li {
+            /*width: 16px;*/
+            height: 30px;
+            line-height: 30px;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .number li span {
+            display: block;
+            transform: translateY(0%);
+        }
+
+        .number li.active-up span {
+            animation: move-up 1s;
+            animation-fill-mode: forwards;
+        }
+
+        .number li.active-down span {
+            animation: move-down 1s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes move-up {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(-100%);
+            }
+        }
+
+        @keyframes move-down {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(100%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="number">1123654</div>
+    <script>
+        //定义类
+        var NumberRoll = function ($el) {
+            this.$el = $el;
+            this._width = 30;
+            this._wold = 0;
+        };
+
+        NumberRoll.prototype.update = function (newNum) {
+            var oldNum = this.makeThreeNum(this._wold),
+                newNum = this.makeThreeNum(newNum),
+                numberHTML = [],
+                maxLen = Math.max(oldNum.length, newNum.length),
+                isDown = this._wold < newNum;
+
+            this._wold = newNum;
+
+            for (var i = 0; i < maxLen; i++) {
+                var on = oldNum[i] || '&nbsp;',
+                    nn = newNum[i] || '&nbsp;',
+                    active = "active-up";
+                var li = document.createElement("li");
+                var spanNew = document.createElement("span");
+                var spanOld = document.createElement("span");
+                spanNew.className = "new";
+                spanOld.className = "old";
+                li.appendChild(spanNew);
+                li.appendChild(spanOld);
+                if (!isDown) {
+                    spanNew.style.marginTop = '-' + this._width + 'px';
+                    active = "active-down";
+                    spanNew.innerHTML = nn;
+                    spanOld.innerHTML = on;
+                } else {
+                    spanNew.innerHTML = on;
+                    spanOld.innerHTML = nn;
+                }
+                if (on !== nn) {
+                    li.className = "group " + active;
+                } else {
+                    li.className = "group";
+                }
+                numberHTML.push(li);
+            }
+            if (this.$el) {
+                this.$el.empty();
+                this.$el.append(numberHTML);
+            }
+        };
+
+        NumberRoll.prototype.addStep = function (base) {
+            return (parseInt(this.getRand(1, 10)) + parseInt(base));
+        };
+
+        NumberRoll.prototype.makeThreeNum = function (num) {
+            return num + "";
+            var num = (num || "").toString();
+            return num.match(/\d{1,3}/g).join(',');
+        };
+
+        NumberRoll.prototype.getRand = function (min, max) {
+            return parseInt(Math.random() * (max - min) + min);
+        };
+        $(function () {
+            //使用方法
+            var nr = new NumberRoll($(".number"));
+            var n = 1231;
+            setInterval(function () {
+                nr.update(nr.addStep(n) || 0);
+            }, 1500)
+
+        })
+    </script>
+</body>
+
+</html>

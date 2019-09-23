@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>长连接</title>
+    <script type="text/javascript" src='http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js'></script>
+
+</head>
+
+<body>
+    <script>
+        // $.ajax({
+        //     url: "/api",
+        //     success: function (data) {
+        //         $('body').append('<div>' + data + '</div>');
+        //     }
+        // })
+        // var lastIndex = 0;
+        // var query = new XMLHttpRequest();
+        // query.onreadystatechange = function () {
+        //     if (query.readyState === 3) {
+        //         //每次返回的数据responseText会包含上次的数据，所以需要手动substring一下
+        //         var info = query.responseText.substring(lastIndex);
+        //         $('body').append('<div>' + info + '</div>');
+        //         lastIndex = query.responseText.length;
+        //     }
+        // }
+        // query.open("GET", "/api", true);
+        // query.send(null);
+
+        // ***************iframe的实现*********
+        window.read = function (info) {
+            $('body').append('<div>' + info + '</div>');
+        }
+        $('body').append('<iframe style="display:none" src="/api"></iframe>');
+    </script>
+    我就是个打酱油的。。
+    <button onclick="_start(this)">点菜</button>
+</body>
+
+</html>

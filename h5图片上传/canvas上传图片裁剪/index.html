@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>上传裁剪图片</title>
+    <style>
+        #canvas1, #images{
+            position: absolute;
+            height: 300px;
+            width: 300px;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <input class="file" type="file">
+    <div id="images"></div>
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <canvas id="canvas1" width="300" height="300"></canvas>
+    <button class="clip">clip</button>
+    <script src="index.js"></script>
+</body>
+
+</html>

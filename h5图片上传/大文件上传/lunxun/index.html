@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮询</title>
+    <script type="text/javascript" src='http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js'></script>
+
+</head>
+
+<body>
+    <script>
+        var interId = null;
+        // //先调用耗时接口，就是你开始点菜
+        // $.ajax({
+        //     url: "/api",
+        //     success: function (data) {
+        //         //成功后，就可以取消轮询了。
+        //         clearInterval(interId);
+        //         $('body').append('<div>' + data + '</div>');
+        //     }
+        // })
+
+        // //使用轮询去查状态，开始叫服务员去问菜烧到几分熟了
+        // function queryPercent() {
+        //     $.ajax({
+        //         url: "/pencent",
+        //         success: function (pencent) {
+        //             $('body').append('<div>当前进度' + pencent + '</div>');
+        //         }
+        //     })
+        // }
+        // interId = setInterval(queryPercent, 500)
+
+        // 长轮询
+        //先调用耗时接口，就是你开始点菜
+        $.ajax({
+            url: "/api",
+            success: function (data) {
+                $('body').append('<div>' + data + '</div>');
+            }
+        })
+        //叫服务员去问菜烧到几分熟了,状态更新了再回来告诉我，没到100%就立即再去问。
+        function queryPercent() {
+            $.ajax({
+                url: "/pencent",
+                success: function (pencent) {
+                    $('body').append('<div>当前进度' + pencent + '</div>');
+
+                    if (pencent != '100%') {
+                        queryPercent();
+                    }
+
+                }
+            })
+        }
+        queryPercent();
+    </script>
+    我就是个打酱油的。。
+    <button onclick="_start(this)">点菜</button>
+</body>
+
+</html>

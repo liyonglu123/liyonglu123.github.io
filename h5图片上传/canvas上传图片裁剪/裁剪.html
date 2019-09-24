@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>裁剪</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <button id="clip">裁剪</button>
+    <script>
+        var canvas = document.querySelector("#canvas");
+        var clip = document.querySelector("#clip");
+        
+        var context = canvas.getContext('2d');
+        context.fillStyle = 'rgba(0,0,0,0.6)';
+        context.fillRect(0, 0, 400, 400);
+        
+        canvas.style.background = 'url(https://www.kkkk1000.com/images/bg.jpg)';
+        canvas.style.backgroundSize = "100% 100%";
+        context.globalCompositeOperation = "destination-out";
+        context.rect(20,20,150,100);
+        context.fill();
+        var img = new Image();
+        img.src = 'https://www.kkkk1000.com/images/bg.jpg';
+        clip.addEventListener('click', function() {
+            context.drawImage(img, 20,20,150,100);
+        },false);
+    </script>
+</body>
+</html>

@@ -5,7 +5,10 @@ import store from './store'
 import './registerServiceWorker'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
+// ????
+import directives from '@/directives'
 Vue.use(iView);
+Vue.use(directives);
 // ????????????????
 // import Navigation from 'vue-navigation'
 // Vue.use(Navigation, {router, store})

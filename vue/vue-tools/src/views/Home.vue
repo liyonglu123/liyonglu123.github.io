@@ -18,18 +18,39 @@ export default {
                   type: 'input',
                   label: '姓名',
                   key: 'name',
-                  placeholder: '請輸入姓名'
+                  placeholder: '请输入姓名'
+              },
+                {
+                  type: 'input',
+                  label: '性别',
+                  key: 'sex',
+                  placeholder: '请输入姓名'
+              },
+                {
+                  type: 'input',
+                  label: '地址',
+                  key: 'adderss',
+                  placeholder: '请输入姓名'
               },
               {
                   type: 'select',
                   label: '城市',
                   key: 'city',
-                  options: [],
-                  placeholder: '請選擇城市'
+                  options: [{
+                      title: "北京",
+                      value: 'beijing'
+                  },
+                  {
+                      title: "上海",
+                      value: 'shanghai'
+                  }],
+                  placeholder: '请选择城市'
               }
           ],
           formData: {
               name: '',
+              adderss: '',
+              sex: '',
               city: ''
           }
       }

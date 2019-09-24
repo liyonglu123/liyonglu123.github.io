@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>刮刮乐</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="400px" height="250px"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+        // canvas的宽度
+        var width = 400;
+        // canvas的高度
+        var height = 250;
+
+        init()
+
+        function init() {
+            // 先在canvas上画一个灰色的矩形
+            context.fillStyle = '#ddd';
+            context.fillRect(0, 0, width, height);
+            // 设置canvas的背景为一张图片
+            canvas.style.background = 'url("https://www.kkkk1000.com/images/bg3.jpg") no-repeat center';
+            canvas.style.backgroundSize = "100% 100%";
+
+            // 设置画的线的宽度			
+            context.lineWidth = 35;
+            // 设置线交汇时，是圆角的
+            context.lineJoin = "round";
+        }
+
+
+
+        canvas.addEventListener('mousedown', mouseDown, false);
+        canvas.addEventListener('mousemove', mouseMove, false);
+        canvas.addEventListener('mouseup', mouseUp, false);
+
+        /* 如果需要移动端也可以生效，
+        需要绑定touchstart、touchmove、touchend 事件，并且获取触摸点的坐标
+        */
+        //canvas.addEventListener('touchstart', mouseDown, false);
+        //canvas.addEventListener('touchmove', mouseMove, false);
+        //canvas.addEventListener('touchend', mouseUp, false);
+
+
+        // 判断是否可以画线
+        var isDrawing;
+        // 保存开始画线时，线的起点的X坐标
+        var startX = 0;
+        // 保存开始画线时，线的起点的Y坐标
+        var startY = 0;
+
+        // 按下鼠标按钮时，调用mouseDown
+        function mouseDown(e) {
+            isDrawing = true;
+            // 保存鼠标点击时 X坐标为，画线时，线的起点的X坐标
+            startX = e.layerX;
+            // 保存鼠标点击时 Y坐标为，画线时，线的起点的Y坐标
+            startY = e.layerY;
+
+            /* 移动端使用下面的方法 获取 startX 和 startY
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+            */
+        }
+
+        // 鼠标移动时，调用mouseDown
+        function mouseMove(e) {
+            if (isDrawing) {
+                // 获取鼠标相对于 canvas 的坐标
+                var x = e.layerX;
+                var y = e.layerY;
+
+                /* 移动端使用下面的方法 获取 x 和 y
+                var x = e.touches[0].clientX;
+                var y = e.touches[0].clientY;
+                */
+                context.globalCompositeOperation = "destination-out";
+
+                // 开始画线
+                context.beginPath();
+                // 起点坐标为 startX 和 startY
+                context.moveTo(startX, startY);
+                // 结束的坐标为这次移动时的坐标
+                context.lineTo(x, y);
+                context.closePath();
+                context.stroke();
+
+                // 设置这次移动结束时的坐标，为下次开始画线时的坐标
+                startX = x;
+                startY = y;
+            }
+        }
+
+        // 松开鼠标按钮时，调用的事件
+        function mouseUp(e) {
+            // isDrawing 为false时，不可以画线
+            isDrawing = false;
+            // 获取图片像素信息
+            var data = context.getImageData(0, 0, width, height).data;
+            console.log("图片像素信息", data);
+            var length = data.length;
+            var k = 0;
+
+            // 如果一个像素是透明的（值都是0），k就+1
+            for (var i = 0; i < length - 3; i += 4) {
+                if (data[i] == 0 && data[i + 1] == 0 && data[i + 2] == 0 && data[i + 3] == 0) {
+                    k++;
+                }
+            }
+
+            // 当k > width*height*0.2 时，
+            // 也就是说有20%的面积是透明的时，就把整个canvas的背景显示出来
+            if (k > width * height * 0.2) {
+                context.fillStyle = "blue";
+                context.fillRect(0, 0, width, height);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片裁剪上传</title>
+</head>
+
+<body>
+    <input type="file" class="input">
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <canvas id="newCanvas" width="400" height="400"></canvas>
+
+    <script>
+        window.onload = function () {
+            var input = document.querySelector('.input');
+            // 方便提供canvas使用
+            var img = new Image();
+            input.addEventListener('change', function (e) {
+                var file = e.target.files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    img.src = e.target.result;
+                    // canvas图片处理
+                    var dragging = false;
+                    var startX, startY;
+                    var canvas = document.querySelector('#canvas');
+                    var newCanvas = document.querySelector('#newCanvas');
+                    var ctx = canvas.getContext('2d');
+                    var resultCtx = canvas.getContext('2d');
+
+                    ctx.drawImage(img, 0, 0, 400,400)
+                    // 实现拖拽时触发事件
+                    canvas.addEventListener('mousedown', function (e) {
+                        dragging = true;
+                        // canvas内部的鼠标位置
+                        startX = e.offsetX;
+                        startY = e.offsetY;
+                    });
+                    canvas.addEventListener('mousemove', function (e) {
+                        if (!dragging) return
+                        // ... 裁剪逻辑
+                        // 每帧都要清理画布，这里400是canvas的内部像素长宽，不是css的长宽
+                        ctx.clearRect(0, 0, 400, 400)
+                        // 绘制蒙版
+                        ctx.save()
+                        ctx.fillStyle = 'rgba(0,0,0,0.5)'
+                        ctx.fillRect(0, 0, 400, 400)
+                        // 开启镂空合并
+                        ctx.globalCompositeOperation = 'desination-out'
+                        var currentX = e.offsetX
+                        var currentY = e.offsetY
+                        ctx.fillStyle = 'white' // 什么颜色没所谓
+                        ctx.fillRect(startX, startY, currentX - startX, currentY - startY)
+                        ctx.restore()
+
+                        // 绘制底图
+                        ctx.save()
+                        // 将图片绘制到蒙版下方
+                        ctx.globalCompositeOperation = 'destination-over'
+                        // 参数是：图片；读取图片的起点，长宽；画在canvas上的起点，长宽；
+                        ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, 400, 400)
+                        ctx.restore()
+                        // ... 立即截图
+                        var data = ctx.getImageData(startX, startY, currentX - startX, currentY - startY)
+                        // 输出在另一个canvas上
+                        resultCtx.clearRect(0, 0, 400, 400)
+                        resultCtx.putImageData(data, 0, 0)
+                        // 鼠标移出canvas也要使dragging = false
+                    });
+                    canvas.addEventListener('mouseup', function (e) {
+                        dragging = false;
+                        var mime = 'image/jpeg' // image/png
+                        // 转化成为二进制数据
+                        newCanvas.toBlob(blob => {
+                            // 注意是`[blob]`
+                            const file = new File([blob], '图片.jpg', { type: blob.type })
+                            // uploadFile(file)
+                        }, mime, 0.9)
+                    });
+                }
+            }, false);
+        }
+    </script>
+</body>
+
+</html>

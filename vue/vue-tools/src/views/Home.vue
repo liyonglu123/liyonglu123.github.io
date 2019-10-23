@@ -1,13 +1,16 @@
 <template>
   <div class="home">
-    <auto-form :formList="formList" :formData="formData"></auto-form>
-     <i-button type="primary" @click="submit">提交</i-button>
+    <!-- <auto-form :formList="formList" :formData="formData"></auto-form> -->
+     <!-- <i-button type="primary" @click="submit">提交</i-button> -->
+     <slide-tab></slide-tab>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import autoForm from '@/components/autoForm/form.vue'
+// import autoForm from '@/components/autoForm/form.vue'
+import slideTab from '@/components/slideTab/index.vue'
+
 
 export default {
   name: 'home',
@@ -56,7 +59,8 @@ export default {
       }
   },
   components: {
-    autoForm
+    // autoForm,
+    slideTab
   },
   methods: {
       submit() {

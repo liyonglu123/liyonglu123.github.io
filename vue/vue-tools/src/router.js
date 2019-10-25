@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import store from './store'
 import Home from './views/Home.vue'
+import Form from './views/form.vue'
 import List from './views/keep-alive/list.vue'
 import Detail from './views/keep-alive/detail.vue'
 
@@ -14,7 +15,12 @@ var router = new Router({
     routes: [
     {
         path: '/',
-        name: 'home',
+        name: 'Form',
+        component: Form
+    },
+    {
+        path: '/home',
+        name: 'Home',
         component: Home
     },
     {

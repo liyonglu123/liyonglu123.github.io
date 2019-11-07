@@ -20,14 +20,93 @@
         execExp(context, exp, false);
         var obj = {
             a: {
-                b: {
-                    c: 110
-                }
+                b: [{
+                    c: 1
+                }]
             }
         }
-        getObjectValue(obj, 'a.b.c');
-        setObjectValue(obj, 'a.b.c', 666);
-        console.log(obj.a.b.c);
+        getObjectValue(obj, 'a.b[0].c');
+        setObjectValue(obj, 'a.b[0].c', 666);
+        console.log(obj.a.b[0].c);
+
+        var obj1 = {
+            a: {
+                b: [
+                {
+                    c: {
+                        d: [1, 6]
+                    }
+                }]
+            }
+        }
+
+        function setVal(obj, key, val) {
+            if (!obj || !key) {
+                return false;
+            }
+            var a = key.split(".");
+            var o = obj;
+            for (var i = 0, n = a.length; i < n - 1; i++) {
+                // var m = a[i];o = o[m]
+                var m = a[i].match(/(\w+)(\[(\d+)?\])?$/);
+                // match ???????
+                if (!m) {
+                    return false;
+                }
+                var k = m[1];
+                var isArray = m[2] != undefined; //  ???????
+                var index = m[3];
+                if (!o[k]) {
+                    if (isArray) {
+                        o[k] = [];
+                    } else {
+                        o[k] = {};
+                    }
+                }
+                o = o[k];
+                if (isArray && index >= 0) {
+                    if (!o[index]) {
+                        var tmp = {};
+                        o.push(tmp);
+                    }
+                    o = o[index];
+                }
+            }
+            var k = a[a.length - 1];
+            o[k] = val;
+            return true;
+        }
+        setVal(obj1, "a.b[0].c.d", [999]);
+        console.log(obj1.a.b[0].c.d);
+
+        function isEmpty(s) {
+            return (s == null || s == undefined || s == "") ? true : false;
+        }
+
+        function getVal(obj, key) {
+            if (isEmpty(key) || isEmpty(obj)) {
+                return undefined;
+            }
+            var a = key.split(".");
+            var v = obj;
+            for (var i = 0; i < a.length && a[i]; i++) {
+                var m = a[i].match(/(\w+)(\[(\d+)\])?$/);
+                if (!m) {
+                    return undefined;
+                }
+                var k = m[1];
+                var index = m[3];
+                v = v[k];
+                if (v && index) {
+                    v = v[index];
+                }
+                if (isEmpty(v)) {
+                    return v;
+                }
+            }
+            return v;
+        }
+        console.log(getVal(obj1, "a.b[0].c.d"));
     </script>
 </body>
 

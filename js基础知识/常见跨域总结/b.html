@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>b</title>
+    <script src="b.js"></script>
+</head>
+<body>
+    <div class="content">
+            <h4>Lab智能机器人</h4>
+            <div class="content-inner"></div>
+    </div>
+    <script>
+        // 语料库
+        const pool = [];
+        window.addEventListener("message", receiveMessage, false);
+        let content = document.querySelector('.content-inner');
+        let initContentH = content.scrollHeight;
+        let _ = (data) => JSON.stringify(data);
+        function createChat(type, mes) {
+            let dialog = document.createElement('div');
+            dialog.className = type === 0 ? 'dialog robot' : 'dialog user';
+            let content =  type === 0 ? `
+                <span class="tx">${type === 0 ? 'lab' : 'user'}</span>
+                <span class="mes">${mes}</span>
+            ` : `
+                <span class="mes">${mes}</span>
+                <span class="tx">${type === 0 ? 'lab' : 'user'}</span> 
+            `;
+            dialog.innerHTML = content;
+            return dialog
+        }
+
+        function scrollTop(el, h) {
+            if(el.scrollHeight !== h) {
+                el.scrollTop = h + 100;
+            }
+        }
+
+        function receiveMessage(event){
+            // 兼容其他浏览器
+            let origin = event.origin || event.originalEvent.origin; 
+            if(origin === 'http://127.0.0.1:8000') {
+                let data = JSON.parse(event.data);
+                if(data && !data.text) {
+                    mes = { text: '你好，我是机器人Lab，请问有什么可以帮到您的吗？' };
+                    event.source.postMessage(_(mes), event.origin)
+                    content.appendChild(createChat(0, mes.text))
+                    
+                }else {
+                    content.appendChild(createChat(1, data.text))
+                    scrollTop(content, initContentH)
+                    
+                    setTimeout(() => {
+                        
+                        content.appendChild(createChat(0, '正在解决'))
+                        scrollTop(content, initContentH)
+                    }, 2000);
+                } 
+            }
+        }
+    </script>
+</body>
+
+</html>

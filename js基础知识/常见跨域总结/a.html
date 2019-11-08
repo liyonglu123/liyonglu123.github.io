@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>a</title>
+    <script src="a.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <iframe src="http://127.0.0.1:8001" frameborder="0" id="b"></iframe>
+        <div class="control">
+            <input type="text" placeholder="请输入内容" id="ipt">
+            <span id="send">发送</span>
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            let origin = 'http://127.0.0.1:8001';
+            let _ = (data) => JSON.stringify(data);
+            let winB = document.querySelector('#b').contentWindow;
+            let sendBtn = document.querySelector('#send');
+            sendBtn.addEventListener('click', (e) => {
+                let text = document.querySelector('#ipt');
+                winB.postMessage(_({text: text.value}), origin)
+                text.value = '';
+            }, false)
+            winB.postMessage(_({text: ''}), origin)
+        }
+    </script>
+</body>
+
+</html>

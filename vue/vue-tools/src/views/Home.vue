@@ -2,7 +2,9 @@
   <div class="home">
     <!-- <auto-form :formList="formList" :formData="formData"></auto-form> -->
      <!-- <i-button type="primary" @click="submit">提交</i-button> -->
-     <slide-tab></slide-tab>
+     <!-- <slide-tab></slide-tab> -->
+     <span>{{ ceshi }}</span>
+     <span v-html="ceshi"></span>
   </div>
 </template>
 
@@ -16,6 +18,10 @@ export default {
   name: 'home',
   data() {
       return {
+          ceshi: "",
+
+
+
           formList:[
               {
                   type: 'input',
@@ -61,6 +67,10 @@ export default {
   components: {
     // autoForm,
     slideTab
+  },
+  created () {
+    // 不识别 \n 换成<br/>, 同时 使用 v-html绑定到dom
+    this.ceshi = "ddd<br/>666"
   },
   methods: {
       submit() {

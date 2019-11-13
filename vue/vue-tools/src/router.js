@@ -14,12 +14,12 @@ var router = new Router({
     base: process.env.BASE_URL,
     routes: [
     {
-        path: '/',
+        path: '/Form',
         name: 'Form',
         component: Form
     },
     {
-        path: '/home',
+        path: '/',
         name: 'Home',
         component: Home
     },

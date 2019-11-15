@@ -11,10 +11,16 @@
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.26.7",
+    "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-less": "^4.0.1",
     "gulp-load-plugins": "^2.0.1",
     "gulp-uglify": "^3.0.2"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

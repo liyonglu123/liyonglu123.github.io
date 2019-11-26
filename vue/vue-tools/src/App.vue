@@ -6,9 +6,9 @@
     </div> -->
         <!-- 方式一 名称 -->
         <!-- <keep-alive> -->
-        <keep-alive :include="includes">
+        <!-- <keep-alive :include="includes"> -->
             <router-view />
-        </keep-alive>
+        <!-- </keep-alive> -->
 
         <!-- 方式二 -->
         <!-- <keep-alive>

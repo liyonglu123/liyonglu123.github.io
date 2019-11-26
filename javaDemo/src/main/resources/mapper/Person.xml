@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.PersonMapper">
+    <resultMap id="personMap" type="com.example.demo.entity.Person">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="userName" property="userName" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+    </resultMap>
+    <insert id="insertPerson" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.example.demo.entity.Person">
+        insert into person(userName, sex, age)
+        values(#{userName}, #{sex}, #{age})
+    </insert>
+    <!--<insert id="batchInsertUser" useGeneratedKeys="true" keyProperty="id">-->
+        <!--insert into user_t (username, password) values-->
+        <!--<foreach item="item" collection="list" separator=",">-->
+            <!--(#{item.username}, #{item.password})-->
+        <!--</foreach>-->
+    <!--</insert>-->
+
+    <delete id="deletePerson" parameterType="java.lang.Integer">
+        delete from person
+        where id = #{id}
+    </delete>
+
+    <update id="updatePerson" parameterType="com.example.demo.entity.Person">
+        update person
+        set userName = #{userName},sex = #{sex},age=#{age} where id = #{id}
+    </update>
+
+    <select id="selectPerson" parameterType="java.lang.Integer" resultMap="personMap">
+        select * from person
+        where id = #{id}
+    </select>
+
+    <select id="selectAllPerson" resultMap="personMap">
+        select * from person
+    </select>
+</mapper>

@@ -6,8 +6,10 @@
         <!-- <span>{{ ceshi }}</span>
      <span v-html="ceshi"></span> -->
         姓名: <input type="text" v-model="useInfo.userName">
-        性别: <input type="text" v-model="useInfo.sex">
-        年龄: <input type="number" v-model="useInfo.age">
+        密码: <input type="text" v-model="useInfo.password">
+
+        <!-- 性别: <input type="text" v-model="useInfo.sex">
+        年龄: <input type="number" v-model="useInfo.age"> -->
         <button @click="submit">添加</button>
         <!-- <button @click="update">修改</button> -->
         <Table border :columns="columns1" :data="list">
@@ -50,8 +52,9 @@
                 ceshi: "",
                 useInfo: {
                     userName: "",
-                    sex: "",
-                    age: ""
+                    password: "",
+                    // sex: "",
+                    // age: ""
                 },
                 formList: [
                 {
@@ -148,10 +151,10 @@
             },
             submit() {
                 var that = this;
-                axios.post('/person/add', this.useInfo)
+                axios.post('/user/register', this.useInfo)
                     .then(function (response) {
                         console.log(response);
-                        that.getAll();
+                        // that.getAll();
                     })
                     .catch(function (error) {
                         console.log(error);

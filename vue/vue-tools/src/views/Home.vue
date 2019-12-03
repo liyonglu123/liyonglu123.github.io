@@ -7,11 +7,22 @@
      <span v-html="ceshi"></span> -->
         姓名: <input type="text" v-model="useInfo.userName">
         密码: <input type="text" v-model="useInfo.password">
+        <!-- 原生实现验证码 -->
+        <img ref="imgCode" src="/getVerify" @click="getImgCode" alt="自定义验证码">
+        <!-- easy-capcha实现验证码 -->
+        <img ref="imgCaptcha" src="/captcha" @click="getCaptcha" alt="工具验证码">
 
         <!-- 性别: <input type="text" v-model="useInfo.sex">
         年龄: <input type="number" v-model="useInfo.age"> -->
         <button @click="submit">添加</button>
         <!-- <button @click="update">修改</button> -->
+
+        <!-- 滑块验证码 -->
+        <div class="slide-wrapper">
+            <img class="smallImage" :style="{'position': 'absolute',
+            'z-index': 200,'top':slideImgObj.yHeight +'px', 'left': 0}" :src="'data:image/png;base64,' + slideImgObj.smallImage" alt="抠图">
+            <img class="bigImage" :src="'data:image/png;base64,' + slideImgObj.bigImage" alt="带抠图阴影的原图">
+        </div>
         <Table border :columns="columns1" :data="list">
             <template slot-scope="{ row, index }" slot="action">
                 <Button type="primary" size="small" style="margin-right: 5px" @click="view(row, index)">查看</Button>
@@ -35,6 +46,7 @@
                 </FormItem>
             </Form>
         </Modal>
+        
 
     </div>
 </template>
@@ -56,6 +68,11 @@
                     // sex: "",
                     // age: ""
                 },
+                slideImgObj: {
+                    smallImage: "",
+                    bigImage: ""
+                },
+                imgCodeUrl: "",
                 formList: [
                 {
                     type: 'input',
@@ -135,9 +152,43 @@
             // 查询所有数据
 
             this.getAll();
+            // 获取图形验证码
+            // this.getImgCode();
+            // 获取滑块验证码图片
+            this.getSlideImg();
 
         },
         methods: {
+            getSlideImg() {
+                  var that = this;
+                axios.get('/getImageVerifyCode')
+                    .then(function (response) {
+                        console.log(response.data.data);
+                        that.slideImgObj = response.data.data;
+                        console.log("that.slideImgObj======",that.slideImgObj);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            getImgCode() {
+                //  var that = this;
+                // axios.get('/getVerify')
+                //     .then(function (response) {
+                //         console.log(response);
+                //     })
+                //     .catch(function (error) {
+                //         console.log(error);
+                //     });
+                this.$nextTick(()=> {
+                    this.$refs.imgCode.src = "/getVerify";
+                })
+            },
+            getCaptcha() {
+                 this.$nextTick(()=> {
+                    this.$refs.imgCaptcha.src = "/captcha";
+                })
+            },
             getAll() {
                 var that = this;
                 axios.get('/person/selectAll')
@@ -198,3 +249,16 @@
         }
     }
 </script>
+<style lang="less">
+    .slide-wrapper {
+        position: relative;
+        top: 200px;
+        .smallImage {
+            
+        }
+        .bigImage{
+            position: absolute;
+            z-index: 100;
+        }
+    }
+</style>

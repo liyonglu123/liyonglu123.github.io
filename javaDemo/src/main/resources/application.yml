@@ -4,7 +4,7 @@ spring:
   datasource:
       username: root
       password: 123456
-      url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+      url: jdbc:mysql://localhost:3306/ld-manager?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
       driver-class-name: com.mysql.cj.jdbc.Driver
       type: com.alibaba.druid.pool.DruidDataSource
   application:
@@ -16,7 +16,7 @@ spring:
   jackson:
       default-property-inclusion: non_null
 mybatis:
-  mapper-locations: classpath:mapper/*Person.xml
+  mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.demo.entity
 logging:
   level:

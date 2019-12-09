@@ -205,7 +205,7 @@
                 axios.post('/user/register', this.useInfo)
                     .then(function (response) {
                         console.log(response);
-                        // that.getAll();
+                        that.getAll();
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -252,7 +252,7 @@
 <style lang="less">
     .slide-wrapper {
         position: relative;
-        top: 200px;
+        top: 500px;
         .smallImage {
             
         }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+        //　
+        class MyComponent extends React.Component {
+            handleClick() {
+            // 使用原生的 DOM API 获取焦点
+                this.refs.myInput.focus();
+            }
+            // 你可以通过使用 this 来获取当前 React 组件，或使用 ref 来获取组件的引用  ,, 我们也可以使用 getDOMNode()方法获取DOM元素
+            render() {
+                //  当组件插入到 DOM 后，ref 属性添加一个组件的引用于到 this.refs
+                return (
+                    <div>
+                        <input type="text" ref="myInput" />
+                        <input
+                            type="button"
+                            value="点我输入框获取焦点"
+                            onClick={this.handleClick.bind(this)}
+                        />
+                    </div>
+                );
+            }
+        }
+ 
+        ReactDOM.render(
+            <MyComponent />,
+            document.getElementById('example')
+        );
+    </script>
+</body>
+
+</html>

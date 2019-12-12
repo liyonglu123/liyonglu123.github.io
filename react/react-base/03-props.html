@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdn.bootcss.com/prop-types/15.6.1/prop-types.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <hr>
+    <div id="app"></div>
+    <hr>
+    <div id="app1"></div>
+    <script type="text/babel">
+        function HelloMessage(props) {
+            return <h1>Hello {props.name}!</h1>;
+        }
+        // 默认props
+        HelloMessage.defaultProps = {
+            name: 'Runoob66'
+        };
+        const element = <HelloMessage />;
+ 
+        ReactDOM.render(
+            element,
+            document.getElementById('example')
+        );
+
+        // state和props 实现组件通信
+        class WebSite extends React.Component {
+            constructor() {
+                super();
+                this.state = {
+                    name: "菜鸟教程",
+                    site: "https://www.runoob.com"
+                }
+            }
+            render() {
+                return (
+                    <div>
+                        <Name name={this.state.name} />
+                        <Link site={this.state.site} />
+                    </div>
+                );
+            }
+        }
+ 
+        class Name extends React.Component {
+            render() {
+                return (
+                    <h1>{this.props.name}</h1>
+                );
+            }
+        }
+ 
+        class Link extends React.Component {
+            render() {
+                return (
+                    <a href={this.props.site}>
+                        {this.props.site}
+                    </a>
+                );
+            }
+        }
+ 
+        ReactDOM.render(
+            <WebSite />,
+            document.getElementById('app')
+        );
+
+        // props 验证  React.PropTypes 在 React v15.5 版本后已经移到了 prop-types 库。 需要单独引入
+        // var title = "菜鸟教程";
+        var title = 123;
+        class MyTitle extends React.Component {
+            render() {
+                return (
+                    <h1>Hello, {this.props.title}</h1>
+                );
+            }
+        }
+ 
+        MyTitle.propTypes = {
+            title: PropTypes.string
+        };
+        ReactDOM.render(
+            <MyTitle title={title} />,
+            document.getElementById('app1')
+        );
+        
+    </script>
+</body>
+
+</html>

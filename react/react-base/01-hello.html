@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <hr/>
+    <div id="hello"></div>
+    <hr/>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        // 样式
+        var myStyle = {
+            fontSize: 100,
+            color: '#FF0000'
+        };
+        // 数组
+        var arr = [
+            <h1>菜鸟教程</h1>,
+            <h2>学的不仅是技术，更是梦想！</h2>,
+        ];
+        ReactDOM.render(
+        <div>
+            <h1>菜鸟教程</h1>
+            <h2>欢迎学习 React</h2>
+            {/*这里是注释*/}
+            <h1 style={myStyle}>{1+1}</h1>
+            <p data-myattribute = "somevalue">这是一个很不错的 JavaScript 库!</p>
+            <input type="text"/>
+            <div>{arr}</div>
+        </div>,
+      
+        document.getElementById('example')
+        );
+        // 组件 方式一使用函数定义组件
+        function HelloMessage(props) {
+            return <h1>Hello {props.name}!</h1>;
+        }
+        const element = <HelloMessage name="Runoob"/>;
+        // 方式二: 使用es6 class定义组件 工程化项目中的使用方式
+        // class Welcome extends React.Component {
+        //     render() {
+        //         return <h1>Hello World!</h1>;
+        //     }
+        // }
+        ReactDOM.render(
+            element,
+            document.getElementById("hello")
+        );
+        
+        // 复合组件
+        function Name(props) {
+            return <h1>网站名称：{props.name}</h1>;
+        }
+        function Url(props) {
+            return <h1>网站地址：{props.url}</h1>;
+        }
+        function Nickname(props) {
+            return <h1>网站小名：{props.nickname}</h1>;
+        }
+        function App() {
+            return (
+                <div>
+                    <Name name="菜鸟教程" />
+                    <Url url="http://www.runoob.com" />
+                    <Nickname nickname="Runoob" />
+                </div>
+            );
+        }
+ 
+        ReactDOM.render(
+            <App />,
+            document.getElementById('app')
+        );
+    </script>
+</body>
+
+</html>

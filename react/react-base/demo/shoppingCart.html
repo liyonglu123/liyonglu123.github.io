@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>react-购物车</title>
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        .table {
+            width: 100%;
+        }
+        td {
+            text-align: center;
+        }
+        .img{
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    /**
+     * 1. 新增产品 form表单
+     * 2. 产品列表 数组 循环
+     * 3. 状态的变化等等  state
+     * 4. 暂时没有实现数据的共享
+    */
+    // 新增产品
+    var list = [
+        {
+            name: "手机",
+            url: "https://imgservice5.suning.cn/uimg1/b2c/image/uLP7VmJNJSPmAUI_K2-9WA.jpg_200w_200h_4e",
+            price: "1000"
+        },
+        {
+            name: "冰箱",
+            url: "https://imgservice1.suning.cn/uimg1/b2c/atmosphere/HiQSVbY_PSLAd6Md--gf-A.jpg_400w_400h_4e",
+            price: "2000"
+        }
+    ];
+    class AddForm extends React.Component {
+        constructor(props){
+            super(props);
+            this.addProd = this.addProd.bind(this);
+            this.handlerChange = this.handlerChange.bind(this);
+            this.state = {
+                name: "",
+                url: "",
+                price: ""
+            }
+        }
+        // 新增产品
+        addProd(event) {
+            event.preventDefault(); 
+            list.push(this.state);
+            console.log(list);
+        }
+        // 输入框改变事件
+        handlerChange(event) {
+            const target = event.target;
+            const value = target.type === 'checkbox' ? target.checked : target.value;
+            const name = target.name;
+            this.setState({
+                [name]: value
+            })
+        }
+        render(){
+            return (
+                <form action="">
+                    <label>产品名称: <input type="text" name="name" value={this.state.name} placeholder="请输入产品名称" onChange={this.handlerChange}/></label>
+                    <label>图片链接: <input type="text" name="url" value={this.state.url} placeholder="请输入图片链接" onChange={this.handlerChange}/></label>
+                    <label>产品价格: <input type="number" name="price" value={this.state.price} placeholder="请输入产品价格" onChange={this.handlerChange}/></label>
+                    <button type="submit" onClick={this.addProd}>添加</button>
+                </form>
+            );
+        }
+        
+    }
+    class ListItem extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+        render() {
+            const lists = this.props.list;
+            return (
+                lists.map((list, index) =>
+                <tr key={index}>
+                    <td>{list.name}</td>
+                    <td>
+                        <img className="img" src={list.url} alt="" />
+                    </td>
+                    <td>{list.price}</td>
+                </tr>)
+            )
+        }
+    }
+    // 产品列表
+    class TableList extends React.Component {
+        constructor(props) {
+            super(props)
+        }
+        render() {
+            return (
+                <table className="table">
+                    <caption>产品列表</caption>
+                    <thead>
+                        <tr>
+                            <th>产品名称</th>
+                            <th>图片</th>
+                            <th>产品价格</th>
+                        </tr>
+                    </thead>
+                    <ListItem list={list} />,
+                </table>
+            )
+        }
+    }
+    class App extends React.Component {
+        constructor(props){
+            super(props)
+        }
+        render() {
+            return (
+                <div>
+                    <AddForm />
+                    <TableList />
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <App/>,
+        document.getElementById("app")
+    );
+    </script>
+</body>
+
+</html>

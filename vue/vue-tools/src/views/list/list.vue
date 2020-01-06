@@ -5,6 +5,9 @@
             <div class="bscroll-container">
                 <!-- 刷新提示信息 -->
                 <div class="pulldown-wrapper">
+                    <!-- <transition name="pullDown">
+                        <loading class="pullDown" v-show="inPullDown" :loadingWord="refreshTime" :text="'上次刷新时间:'"></loading>
+                    </transition> -->
                     <div v-show="beforePullDown">
                         <span>Pull Down and refresh</span>
                     </div>
@@ -49,7 +52,7 @@
                     this.isPullingDown = false;
                     this.beforePullDown = true;
                     this.data = this.data.concat(this.data);
-                   
+
                 }, 2000)
             },
             clickHandler(item) {

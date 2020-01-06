@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import store from './store'
-import Home from './views/Home.vue'
+// import Home from './views/Home.vue'
 import Form from './views/form.vue'
 import List from './views/keep-alive/list.vue'
 import Detail from './views/keep-alive/detail.vue'
-import scrollList from './views/list/list.vue'
+import ScrollList from './views/list/list.vue'
+import Star from './views/star/star.vue'
+
 
 
 
@@ -30,8 +32,13 @@ var router = new Router({
     },
     {
         path: '/',
+        name: 'star',
+        component: Star
+    },
+    {
+        path: '/scrollList',
         name: 'scrollList',
-        component: scrollList
+        component: ScrollList
     },
     {
         path: '/list',

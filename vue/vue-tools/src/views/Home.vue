@@ -151,11 +151,11 @@
             this.ceshi = "ddd<br/>666"
             // 查询所有数据
 
-            this.getAll();
+            // this.getAll();
             // 获取图形验证码
             // this.getImgCode();
             // 获取滑块验证码图片
-            this.getSlideImg();
+            // this.getSlideImg();
 
         },
         methods: {

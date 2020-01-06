@@ -5,6 +5,8 @@ import Home from './views/Home.vue'
 import Form from './views/form.vue'
 import List from './views/keep-alive/list.vue'
 import Detail from './views/keep-alive/detail.vue'
+import scrollList from './views/list/list.vue'
+
 
 
 Vue.use(Router)
@@ -28,8 +30,8 @@ var router = new Router({
     },
     {
         path: '/',
-        name: 'Home',
-        component: Home
+        name: 'scrollList',
+        component: scrollList
     },
     {
         path: '/list',

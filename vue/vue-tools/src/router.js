@@ -7,6 +7,7 @@ import List from './views/keep-alive/list.vue'
 import Detail from './views/keep-alive/detail.vue'
 import ScrollList from './views/list/list.vue'
 import Star from './views/star/star.vue'
+import StickFooter from "./views/stickFooter/stickFooter"
 
 
 
@@ -26,12 +27,17 @@ var router = new Router({
         component: () => import( /* webpackChunkName: "about" */ './views/login/index.vue')
     },
     {
+        path: '/',
+        name: 'stickFooter',
+        component: StickFooter
+    },
+    {
         path: '/Form',
         name: 'Form',
         component: Form
     },
     {
-        path: '/',
+        path: '/star',
         name: 'star',
         component: Star
     },

@@ -50,10 +50,9 @@
                 this.isPullingDown = true;
                 setTimeout(() => {
                     this.isPullingDown = false;
-                    this.beforePullDown = true;
+                    this.beforePullDown = false;
                     this.data = this.data.concat(this.data);
-
-                }, 2000)
+                }, 1000)
             },
             clickHandler(item) {
                 console.log(item);

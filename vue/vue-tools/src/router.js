@@ -27,7 +27,7 @@ var router = new Router({
         component: () => import( /* webpackChunkName: "about" */ './views/login/index.vue')
     },
     {
-        path: '/',
+        path: '/stickFooter',
         name: 'stickFooter',
         component: StickFooter
     },
@@ -42,7 +42,7 @@ var router = new Router({
         component: Star
     },
     {
-        path: '/scrollList',
+        path: '/',
         name: 'scrollList',
         component: ScrollList
     },

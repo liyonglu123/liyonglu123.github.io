@@ -71,6 +71,11 @@
                 type: Boolean,
                 default: false
             },
+            // 弹性时间
+            bounceTime: {
+                type: Number,
+                default: 800
+            },
             /**
              * 当数据更新后，刷新scroll的延时 在这个期间可以  transition-group 做动画效果，。
              */
@@ -94,7 +99,13 @@
                 this.scroll = new BScroll(this.$refs.wrapper, {
                     probeType: this.probeType,
                     click: this.click,
-                    scrollX: this.scrollX
+                    scrollX: this.scrollX,
+                    scrollY: true,
+                    bounceTime: this.bounceTime,
+                    pullDownRefresh: {
+                        threshold: 50,
+                        stop: 50 //当下拉长度距离盒子顶部的高度超过10px的时候,就派发一个下拉刷新的事件
+                    },
                 });
                 // 是否派发滚动事件
                 if (this.listenScroll) {
@@ -116,14 +127,39 @@
                 }
                 // 是否派发顶部下拉事件，用于下拉刷新 touchEnd 方法的名字不要写错了啊 
                 if (this.pulldown) {
-                    this.scroll.on('touchEnd', (pos) => {
-                        console.log("touchEnd");
-                        // 下拉动作
-                        if (pos.y > 50) {
-                            this.$emit('pulldown');
-                        }
-                    })
+                    // this.scroll.on('touchEnd', (pos) => {
+                    //     console.log("touchEnd");
+                    //     // 下拉动作
+                    //     if (pos.y > 50) {
+                    //         this.$emit('pulldown');
+                    //     }
+                    // })
+                    // this.scroll.on('pullingDown', (pos) => {
+                    //     console.log("pullingDown");
+                    //     // 下拉动作
+                    //     if (pos.y > 50) {
+                    //         this.$emit('pulldown');
+                    //     }
+                    // })
                 }
+                if (this.pulldown) {
+                    this.scroll.on('pullingDown', () => {
+                        console.log("pullingDown");
+                        this.$emit('pulldown');
+                        // this.scroll.finishPullDown();
+                        setTimeout(() => {
+                            this.scroll.finishPullDown()
+                        }, 1000)
+                    })
+                    // this.scroll.on('pullingDown', (pos) => {
+                    //     console.log("pullingDown");
+                    //     // 下拉动作
+                    //     if (pos.y > 50) {
+                    //         this.$emit('pulldown');
+                    //     }
+                    // })
+                }
+
                 // 是否派发列表滚动开始的事件
                 if (this.beforeScroll) {
                     this.scroll.on('beforeScrollStart', () => {

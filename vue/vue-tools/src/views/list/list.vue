@@ -1,6 +1,6 @@
 <template>
     <div>
-        <scroll class="wrapper" :data="data" :pulldown="pulldown" @pulldown="loadData">
+        <scroll class="wrapper" :data="data" :pulldown="pulldown" @pulldown="loadData" :refreshDelay="refreshDelay">
             <!-- 这里必须用一个父元素进行包裹 否则选第一个元素 -->
             <div class="bscroll-container">
                 <!-- 刷新提示信息 -->
@@ -37,6 +37,7 @@
             return {
                 data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 pulldown: true,
+                refreshDelay: 100,
                 beforePullDown: true,
                 isPullingDown: false,
             }

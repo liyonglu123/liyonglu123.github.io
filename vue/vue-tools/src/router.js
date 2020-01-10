@@ -8,6 +8,24 @@ import Detail from './views/keep-alive/detail.vue'
 import ScrollList from './views/list/list.vue'
 import Star from './views/star/star.vue'
 import StickFooter from "./views/stickFooter/stickFooter"
+import Pulldown from './views/list/pulldown.vue'
+import Pullup from './views/list/pullup.vue'
+import DownUpList from './views/list/downup.vue'
+
+import animation from './views/animation/animation.vue'
+import transition from './views/animation/transition.vue'
+import js from './views/animation/js.vue'
+import framework from './views/animation/framework.vue'
+
+import transitionList from './views/animation/list.vue'
+import shudu from './views/animation/shudu.vue'
+// 状态过渡
+import num from './views/stateTransition/num.vue'
+import tween from './views/stateTransition/tween.vue'
+import circle from './views/stateTransition/circle.vue'
+
+
+// import svg from './views/stateTransition/svg.vue'
 
 
 
@@ -36,13 +54,78 @@ var router = new Router({
         name: 'Form',
         component: Form
     },
+    // {
+    //     path: '/svg',
+    //     name: 'svg',
+    //     component: svg
+    // },
+    {
+        path: '/circle',
+        name: 'circle',
+        component: circle
+    },
+    {
+        path: '/num',
+        name: 'num',
+        component: num
+    },
+    {
+        path: '/',
+        name: 'tween',
+        component: tween
+    },
+    {
+        path: '/transitionList',
+        name: 'transitionList',
+        component: transitionList
+    },
+    {
+        path: '/shudu',
+        name: 'shudu',
+        component: shudu
+    },
+    {
+        path: '/animation',
+        name: 'animation',
+        component: animation
+    },
+    {
+        path: '/transition',
+        name: 'transition',
+        component: transition
+    },
+    {
+        path: '/js',
+        name: 'js',
+        component: js
+    },
+    {
+        path: '/framework',
+        name: 'framework',
+        component: framework
+    },
+    {
+        path: '/downUpList',
+        name: 'downUpList',
+        component: DownUpList
+    },
+    {
+        path: '/pullup',
+        name: 'pullup',
+        component: Pullup
+    },
+    {
+        path: '/pulldown',
+        name: 'pulldown',
+        component: Pulldown
+    },
     {
         path: '/star',
         name: 'star',
         component: Star
     },
     {
-        path: '/',
+        path: '/scrollList',
         name: 'scrollList',
         component: ScrollList
     },
@@ -50,9 +133,9 @@ var router = new Router({
         path: '/list',
         name: 'list',
         component: List,
-        meta: {
-            keepAlive: true
-        }
+        // meta: {
+        //     keepAlive: true
+        // }
     },
     {
         path: '/detail',

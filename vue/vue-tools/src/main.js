@@ -7,6 +7,7 @@ import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
 // ????
 import directives from '@/directives'
+// ??velocity.js??
 // import axios from "axios"
 Vue.use(iView);
 Vue.use(directives);

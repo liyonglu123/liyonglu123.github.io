@@ -145,11 +145,11 @@
                 if (this.pulldown) {
                     this.scroll.on('pullingDown', () => {
                         console.log("pullingDown");
-                        this.$emit('pulldown');
+                        this.$emit('pulldown', this.scroll);
                         // this.scroll.finishPullDown();
-                        setTimeout(() => {
-                            this.scroll.finishPullDown()
-                        }, 1000)
+                        // setTimeout(() => {
+                        //     this.scroll.finishPullDown()
+                        // }, 1000)
                     })
                     // this.scroll.on('pullingDown', (pos) => {
                     //     console.log("pullingDown");

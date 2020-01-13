@@ -70,7 +70,7 @@ var router = new Router({
         component: num
     },
     {
-        path: '/',
+        path: '/tween',
         name: 'tween',
         component: tween
     },
@@ -105,7 +105,7 @@ var router = new Router({
         component: framework
     },
     {
-        path: '/downUpList',
+        path: '/',
         name: 'downUpList',
         component: DownUpList
     },

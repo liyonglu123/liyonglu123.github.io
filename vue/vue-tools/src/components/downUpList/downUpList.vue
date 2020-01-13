@@ -42,13 +42,12 @@
                 isPullingDown: false,
                 isPullUpLoad: false,
                 bscroll: null,
-                // dataList: [1, 2, 3,4,5,6,7,8,9,10],
-                dataList: [1, 2, 3]
+                dataList: [1, 2, 3,4,5,6,7,8,9,10],
+                // dataList: [1, 2, 3]
 
             }
         },
-        created() {
-        },
+        created() {},
         mounted() {
             this.initBscroll();
         },
@@ -58,7 +57,7 @@
                     return;
                 }
                 this.bscroll = new BScroll(this.$refs.listWrapper, {
-                    probeType: 3,
+                    probeType: 1,
                     // scrollbar: true, // 滚动条显示与否
                     click: true,
                     // scrollY: true,
@@ -69,9 +68,18 @@
                     },
                     pullUpLoad: true
                 });
+                // this._verticalScroll();
                 console.log(this.bscroll);
+                console.log(this.bscroll.wrapper.firstChild);
                 this.bscroll.on('pullingDown', this.pullingDownHandler);
                 this.bscroll.on('pullingUp', this.pullingUpHandler);
+            },
+            // 当数据量少的时候如何出现滚动
+            //判断当content高度小于wrapper高度时设置可以下拉 手动进行设置的问题
+            _verticalScroll() {
+                if (this.bscroll.scrollerHeight >= this.bscroll.wrapper.firstChild.clientHeight) {
+                    this.bscroll.hasVerticalScroll = true;
+                }
             },
             // 下拉刷新
             pullingDownHandler() {
@@ -95,14 +103,18 @@
             },
             // 上拉加载
             pullingUpHandler() {
-                this.isPullUpLoad = true
-                // 异步获取数据
-                setTimeout(() => {
-                    this.dataList = this.dataList.concat(this.dataList);
-                    this.bscroll.finishPullUp()
-                    this.bscroll.refresh()
-                    this.isPullUpLoad = false
-                }, 1000)
+                // 当内容超过一屏的时候出现滚动
+                // if (this.bscroll.wrapper.firstChild.clientHeight >= this.bscroll.scrollerHeight + 50) {
+                    this.isPullUpLoad = true;
+                    // 异步获取数据
+                    setTimeout(() => {
+                        this.dataList = this.dataList.concat(this.dataList);
+                        this.bscroll.finishPullUp()
+                        this.bscroll.refresh()
+                        this.isPullUpLoad = false
+                    }, 1000)
+                // }
+
             }
 
         }
@@ -119,10 +131,13 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 50vh;
+        height: 100vh;
         overflow: hidden;
+
         .list {
+            height: 100%;
             padding: 0;
+
             .list-item {
                 height: 80px;
                 padding: 10px 0;
@@ -130,6 +145,7 @@
                 border-bottom: 1px solid #ccc;
             }
         }
+
         .pulldown-wrapper {
             position: absolute;
             width: 100%;
@@ -139,6 +155,7 @@
             text-align: center;
             color: #999;
         }
+
         .pullup-wrapper {
             padding: 20px;
             text-align: center;

@@ -13,6 +13,7 @@
         data() {
             return {
                 list: [],
+                
                 rules: {}
             }
         },

@@ -50,6 +50,9 @@
         created() {},
         mounted() {
             this.initBscroll();
+            // window.addEventListener("transitionend", function() {
+            //     console.log("transitionend");
+            // })
         },
         methods: {
             initBscroll() {

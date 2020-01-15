@@ -18,7 +18,9 @@ Vue.use(directives);
 // Vue.use(Navigation, {router, store})
 Vue.config.productionTip = false;
 // Vue.$axios = axios;
-
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 new Vue({
   router,
   store,

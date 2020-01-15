@@ -24,6 +24,11 @@ import num from './views/stateTransition/num.vue'
 import tween from './views/stateTransition/tween.vue'
 import circle from './views/stateTransition/circle.vue'
 
+// 自定义的下拉刷新和上拉加载
+import pullDown from './views/pullDown'
+
+// 大文件上传
+import BigFileUpload from "./views/bigFileUpload/index"
 
 // import svg from './views/stateTransition/svg.vue'
 
@@ -48,6 +53,11 @@ var router = new Router({
         path: '/stickFooter',
         name: 'stickFooter',
         component: StickFooter
+    },
+    {
+        path: '/',
+        name: 'BigFileUpload',
+        component: BigFileUpload
     },
     {
         path: '/Form',
@@ -105,9 +115,14 @@ var router = new Router({
         component: framework
     },
     {
-        path: '/',
+        path: '/downUpList',
         name: 'downUpList',
         component: DownUpList
+    },
+    {
+        path: '/pullDown',
+        name: 'pullDown',
+        component: pullDown
     },
     {
         path: '/pullup',

@@ -32,6 +32,8 @@ import BigFileUpload from "./views/bigFileUpload/index"
 
 // import svg from './views/stateTransition/svg.vue'
 
+// canvas烟花效果
+import fireworks from "./views/fireworks/fireworks"
 
 
 
@@ -55,9 +57,14 @@ var router = new Router({
         component: StickFooter
     },
     {
-        path: '/',
+        path: '/BigFileUpload',
         name: 'BigFileUpload',
         component: BigFileUpload
+    },
+    {
+        path: '/',
+        name: 'fireworks',
+        component: fireworks
     },
     {
         path: '/Form',

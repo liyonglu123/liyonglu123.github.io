@@ -19,13 +19,17 @@
         methods: {
             shotClick() {
                 
-                let fireworks = new Fireworks({
-                    opacity: 0.9,
-                    width: '100%',
-                    height: '100%'
-                });
-                console.log(fireworks, fireworks.clear());
+                // let fireworks = new Fireworks({
+                //     opacity: 0.9,
+                //     width: '100%',
+                //     height: '100%'
+                // });
+                // console.log(fireworks, fireworks.clear());
                 // setTimeout(fireworks.clear.call(fireworks), 5000)
+                let opt = {
+                    color: "red"
+                }
+                console.log(new Fireworks(opt));
             }
         }
     }

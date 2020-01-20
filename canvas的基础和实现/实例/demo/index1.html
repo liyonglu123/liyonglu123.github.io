@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #canvas {
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas">
+
+</canvas>
+<script>
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+    var cx = canvas.width = 400;
+    var cy = canvas.height = 400;
+
+    var grd = context.createLinearGradient(0,0,0,400);
+    grd.addColorStop(0,'rgb(255, 0, 0)');
+    grd.addColorStop(0.2,'rgb(255, 165, 0)');
+    grd.addColorStop(0.3,'rgb(255, 255, 0)');
+    grd.addColorStop(0.5,'rgb(0, 255, 0)');
+    grd.addColorStop(0.7,'rgb(0, 127, 255)');
+    grd.addColorStop(0.9,'rgb(0, 0, 255)');
+    grd.addColorStop(1,'rgb(139, 0, 255)');
+
+    context.fillStyle = grd;
+    context.fillRect(0,0,400,400);
+</script>
+</body>
+</html>

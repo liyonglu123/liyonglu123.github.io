@@ -21,7 +21,7 @@ public class SendMessageController {
     @ApiOperation(value = "短信验证码", httpMethod = "GET", notes = "短信验证码")
     @RequestMapping(value = "/getMsgCode", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseResult getMsgCode() {
-        Integer code = SendMessage.send("liyonglu", "d41d8cd9866f00b204e9808", "13020305798", "验证码:"+ SendMessage.getRandomCode(6));
+        Integer code = SendMessage.send("liyonglu", "d41d8cd9866f00b204e9808", "18610844924", "验证码:"+ SendMessage.getRandomCode(6));
         if(code < 0) {
             ResponseResult ret = ResponseResult.getFailResponse();
             ret.setMsg(SendMessage.getMessage(code));

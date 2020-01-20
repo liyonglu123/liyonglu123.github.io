@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import javax.validation.constraints.Digits;
 
 /**
  * Created by xiaozhu on 2019/11/29.

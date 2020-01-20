@@ -1,14 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Person;
-import com.example.demo.mapper.PersonMapper;
 import com.example.demo.service.PersonService;
+import com.example.demo.utils.PageRequest;
 import com.example.demo.utils.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,6 +74,16 @@ public class PersonController {
         List<Person> personList = personService.selectAllPerson();
         ResponseResult ret = ResponseResult.getSuccessResponse();
         ret.setData(personList);
+        return ret;
+    }
+
+    @ApiOperation(value = "分页查询人物列表", httpMethod = "POST", notes = "分页查询人物列表")
+    @RequestMapping(value = "/selectPage", method = RequestMethod.POST)
+//   这种方式根据具体的情况进行选择
+    public ResponseResult selectPage(@RequestBody PageRequest pageRequest) {
+        Object obj = personService.findPage(pageRequest);
+        ResponseResult ret = ResponseResult.getSuccessResponse();
+        ret.setData(obj);
         return ret;
     }
     @ApiOperation(value = "查询单个人物", httpMethod = "GET", notes = "查询单个人物")

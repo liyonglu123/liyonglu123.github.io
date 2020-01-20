@@ -17,4 +17,9 @@ public interface PersonMapper {
     Integer updatePerson(Person person);
     Person selectPerson(Integer id);
     List<Person> selectAllPerson();
+    /**
+     * 分页查询用户
+     * @return
+     */
+    List<Person> selectPage();
 }

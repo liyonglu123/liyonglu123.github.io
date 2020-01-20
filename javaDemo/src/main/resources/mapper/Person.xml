@@ -36,4 +36,8 @@
     <select id="selectAllPerson" resultMap="personMap">
         select * from person
     </select>
+    <select id="selectPage" resultMap="personMap">
+        select * from person
+    </select>
+
 </mapper>

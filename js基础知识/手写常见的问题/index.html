@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手写常见的问题</title>
+</head>
+
+<body>
+    <script>
+        // call
+        Function.prototype.myCall = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+            context = context || window
+            context.fn = this
+            const args = [...arguments].slice(1)
+            const result = context.fn(...args)
+            delete context.fn
+            return result
+        }
+
+        function test(a) {
+            console.log(a);
+            console.log(this)
+        }
+        var obj1 = {
+            a: 2
+        }
+        // console.log(test.myCall(obj1, 2));
+        // apply 
+        Function.prototype.myApply = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+            context = context || window;
+            context.fn = this;
+            let result
+            if (arguments[1]) {
+                result = context.fn(...arguments[1]);
+            } else {
+                result = context.fn();
+            }
+            delete context.fn
+            return result
+        }
+        console.log(test.myApply(obj1, [12]));
+        // bind 返回一个函数
+        Function.prototype.myBind = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+            const _this = this
+            const args = [...arguments].slice(1)
+            // 返回一个函数
+            return function F() {
+                // 因为返回了一个函数，我们可以 new F()，所以需要判断
+                if (this instanceof F) {
+                    return new _this(...args, ...arguments)
+                }
+                return _this.apply(context, args.concat(...arguments))
+            }
+        }
+
+        // 函数节流
+
+        function throttle(fun, delay) {
+            let last, deferTimer
+            return function (args) {
+                let that = this
+                let _args = arguments
+                let now = +new Date()
+                if (last && now < last + delay) {
+                    clearTimeout(deferTimer)
+                    deferTimer = setTimeout(function () {
+                        last = now
+                        fun.apply(that, _args)
+                    }, delay)
+                } else {
+                    last = now
+                    fun.apply(that, _args)
+                }
+            }
+        }
+        // 函数防抖
+
+        function debounce(fun, delay) {
+            return function (args) {
+                let that = this
+                let _args = args
+                clearTimeout(fun.id)
+                fun.id = setTimeout(function () {
+                    fun.call(that, _args)
+                }, delay)
+            }
+        }
+    </script>
+</body>
+
+</html>

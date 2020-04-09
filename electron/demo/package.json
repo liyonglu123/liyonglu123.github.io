@@ -1,0 +1,33 @@
+{
+  "name": "electron-base",
+  "version": "1.0.0",
+  "description": "electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon --watch main.js --exec electron .",
+    "dist": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "musicElectron",
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "build/icon.ico"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^8.2.1",
+    "electron-builder": "^22.4.1",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "electron-store": "^5.1.1",
+    "nodemon": "^2.0.2",
+    "uuid": "^7.0.3"
+  }
+}

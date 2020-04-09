@@ -1,0 +1,10 @@
+directories:
+  output: dist
+  buildResources: build
+appId: musicElectron
+win:
+  target:
+    - nsis
+    - zip
+  icon: build/icon.ico
+electronVersion: 8.2.1

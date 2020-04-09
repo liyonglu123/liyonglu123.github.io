@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />    
+    <title>本地播放</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"></head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">我的音乐播放器</h1>
+        <button type="button" id="add-button" class="btn btn-primary btn-lg btn-block mt-4">添加歌曲到我的曲库</button>
+        <div id="tracksList" class="mt-4"></div>
+    </div>
+    <div class="container fixed-bottom bg-white pb-4">
+        <hr/>
+        <div class="row my-2" id="player-status"></div>
+        <div class="progress">
+            <div class="progress-bar bg-success" id="player-progress" role="progressbar" style="width: 0%;">0%</div>
+        </div>
+    </div>
+    <script>
+        require("./index.js")
+    </script>
+</body>
+
+</html>

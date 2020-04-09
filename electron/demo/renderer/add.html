@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />    
+    <title>添加曲库</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-4">添加曲库</h1>
+        <div id="musicList" class="mt-2">暂未选择任何文件</div>
+        <button type="button" id="select-music" class="btn btn-outline-primary btn-lg btn-block mt-4">添加音乐</button>
+        <button type="button" id="add-music" class="btn btn-primary btn-lg btn-block mt-4">导入音乐</button>        
+    </div>
+    <script>
+        require("./add.js")
+    </script>
+</body>
+
+</html>

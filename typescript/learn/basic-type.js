@@ -1,0 +1,9 @@
+var isDone = false;
+var num = 20;
+var binaryNumber = 15; // 八进制
+var firstName = "zhangsan";
+var message = "hello " + firstName + ", age is " + num;
+var u = undefined;
+var n = null;
+var a = undefined; //  Type 'undefined' is not assignable to type 'number'.
+var b = null; // Type 'null' is not assignable to type 'number'.

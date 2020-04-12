@@ -9,9 +9,19 @@ module.exports = {
     publicPath: "/dist/",
     filename: 'js/app.js'
   },
+  resolve: {
+    alias: {
+      pages: path.resolve(__dirname, 'src/pages'),
+      components: path.resolve(__dirname, 'src/components'),
+    }
+  },
   devServer: {
     //  contentBase: './dist'
-    port: 9000
+    port: 9000,
+    inline: true,
+    historyApiFallback: {
+      index: "/dist/index.html"
+    }
   },
   module: {
     rules: [
@@ -77,7 +87,8 @@ module.exports = {
   plugins: [
       // 处理html文件
       new HtmlWebpackPlugin({
-          template: "./src/index.html"
+          template: "./src/index.html",
+          favicon: "./favicon.ico"
       }),
       // 独立css文件
       new ExtractTextPlugin("css/[name].css"),

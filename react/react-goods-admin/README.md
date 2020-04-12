@@ -12,4 +12,12 @@
     10. 路径的优化以及   图片的name: 'resource/[name].[ext]' 的配置
     11. webpack-dev-server  自动刷新  Cannot find module 'webpack-cli/bin/config-yargs  和webpack的版本问题
     12. package.json 中script脚本的配置
+
+    13. react-router-dom 路由的添加
+    14. 数据管理  redux 
+    15.  bootstrap
+    16.  免费的皮肤文件 webthemez
+    17. 框架的搭建
+    18. favicon.ico的添加
+    19. 通用工具的添加
 ```

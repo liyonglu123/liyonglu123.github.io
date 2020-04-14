@@ -1,10 +1,10 @@
-import * as React from "react"
+import React from "react"
 interface IProps {
     message: string
 }
 console.log(React)
 
-const Hello: React.FunctionComponent<IProps> = (props) => {
+const Hello: React.FC<IProps> = (props) => {
     return (
         <h2>{ props.message }</h2>
     )

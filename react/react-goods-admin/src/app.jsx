@@ -14,6 +14,7 @@ import Layout from "components/layout/index.jsx"
 //页面
 import Home from "pages/home/index.jsx"
 
+import Login from "pages/login/index.jsx"
 
 
 class App extends React.Component {
@@ -24,13 +25,18 @@ class App extends React.Component {
         return (
             // exact  完全匹配
             <Router>
-                <Layout>
+               <Switch>
+                <Route path="/login" component={ Login }/>
+                <Route path="/" render={ props => (
+                  <Layout>
                     <Switch>
                         <Route exact path="/" component={ Home }/>
                         <Route exact path="/product" component={ Home }/>
                         {/* <Redirect from="*" to="/"/> */}
                     </Switch>
-                </Layout>
+                 </Layout>
+                )}/>
+                </Switch>
             </Router>
             // <Home/>
         )

@@ -13,6 +13,8 @@ module.exports = {
     alias: {
       pages: path.resolve(__dirname, 'src/pages'),
       components: path.resolve(__dirname, 'src/components'),
+      utils: path.resolve(__dirname, 'src/utils'),
+      service: path.resolve(__dirname, 'src/service'),
     }
   },
   devServer: {
@@ -21,6 +23,14 @@ module.exports = {
     inline: true,
     historyApiFallback: {
       index: "/dist/index.html"
+    },
+    // http://admintest.happymmall.com
+    // 处理跨域请求的问题
+    proxy: {
+      "/manage" : {
+        target: "http://admintest.happymmall.com",
+        changeOrigin: true
+      }
     }
   },
   module: {

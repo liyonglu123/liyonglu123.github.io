@@ -9,6 +9,13 @@ class User {
                 data: loginInfo
             });
     }
+    // 退出登录
+    logout() {
+        return  _mm.request({
+            type: "post",
+            url: "/user/logout.do",
+        });
+    }
     // 检查用户登录的信息
     checkLoginInfo(loginInfo) {
         let username = $.trim(loginInfo.username)
@@ -31,6 +38,16 @@ class User {
             status: true,
             msg: "验证通过"
         }
+    }
+    // 获取用户列表
+    getUserList(pageNum) {
+        return _mm.request({
+            type: "post",
+            url: "/manage/user/list.do",
+            data: {
+                pageNum: pageNum
+            }
+        })
     }
 }
 export default User

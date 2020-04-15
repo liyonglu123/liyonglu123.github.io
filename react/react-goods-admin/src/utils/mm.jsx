@@ -7,7 +7,7 @@ class MUtil {
                 url: param.url || "",
                 dataType: param.dataType || "json",
                 data: param.data || null,
-                success(res) {
+                success: (res) =>{
                     // 请求成功
                     if(0 === res.status) {
                         typeof resolve == "function" && resolve(res.data, res.msg)
@@ -20,7 +20,7 @@ class MUtil {
                         typeof reject == "function" && reject(res.msg || res.data)
                     }
                 },
-                error(err) {
+                error: (err) =>{
                     typeof reject == "function" && reject(err.statusText)
                 }
             })
@@ -45,6 +45,30 @@ class MUtil {
     // 错误提示
     errorTips(errMsg) {
         alert(errMsg || "66")
+    }
+    // 本地存储  如何添过期时间的处理  ？
+    setStorage(name, data) {
+        let dataType = typeof data;
+        if (dataType === "object") {
+            window.localStorage.setItem(name, JSON.stringify(data))
+        }else if(["number", "string", "boolean"].indexOf(dataType) >=0) {
+            window.localStorage.setItem(name, data)
+        }else {
+            alert("该类型不能用于存储！")
+        }
+    }
+    // 读取本地存储
+    getStorage(name) {
+        let data = window.localStorage.getItem(name)
+        if(data) {
+            return JSON.parse(data)
+        }else {
+            return ""
+        }
+    }
+    // 删除本地存储
+    removeStorage(name) {
+        window.localStorage.removeItem(name)
     }
 }
 

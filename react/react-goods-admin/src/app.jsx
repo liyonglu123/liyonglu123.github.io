@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 
 // import "font-awesome/css/font-awesome.min.css"
+// 引入其他的路由模块实现
+import ProductRouter from "pages/product/router.jsx"
 // 布局
 import Layout from "components/layout/index.jsx"
 //页面
@@ -28,7 +30,7 @@ class App extends React.Component {
             <Layout>
                 <Switch>
                     <Route exact path="/" component={ Home }/>
-                    <Route  path="/product" component={ Home }/>
+                    <Route  path="/product" component={ ProductRouter }/>
                     <Route  path="/product-category" component={ Home }/>
                     <Route  path="/user/index" component={ UserList }/>
                     <Redirect exact from="/user" to="/user/index"/>

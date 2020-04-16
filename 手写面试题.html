@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>原型继承</title>
+</head>
+
+<body>
+    <script>
+        function People(name) {
+            this.name = name
+        }
+        People.prototype.say = function () {
+            console.log("say")
+        }
+
+        function Child() {
+            People.call(this)
+        }
+        Child.prototype = Object.create(People.prototype)
+        var child = new Child()
+
+        // js 实现Object.create(), Object.assign()  https://blog.csdn.net/qq_42535651/article/details/104366420
+
+        function mycreate(proto) {
+            let obj = {}
+            if (arguments.length == 0) {
+                return obj
+            } else {
+                obj.__proto__ = proto
+                //传入参数中的对象会进行覆盖obj内的属性
+                if (arguments.length > 1) {
+                    let args = [...arguments].slice(1)
+                    args.forEach(element => {
+                        for (let i in element) {
+                            if (Object.prototype.hasOwnProperty.call(element, i)) {
+                                obj[i] = element[i]
+                            }
+                        }
+                    })
+                }
+            }
+            return obj
+        }
+        // assign的实现
+        function myassign(target, source) {
+            if (arguments.length < 2) {
+                return target
+            }
+            let sources = [...arguments].slice(1)
+            sources.forEach(element => {
+                for (let i in element) {
+                    if (Object.prototype.hasOwnProperty.call(element, i)) {
+                        target[i] = element[i]
+                    }
+                }
+            })
+            return target
+        }
+
+
+        // foreach（item, index,array）
+        Array.prototype.MyForEach = function (fn, ctx) {
+            if (typeof fn !== "function") {
+                throw new TypeError(fn + "is not a function");
+            }
+            // var ctx = arguments[1];
+            var ctx = Array.prototype.slice.call(arguments)[1]
+
+            for (var i = 0; i < this.length; i++) {
+                fn.call(ctx, this[i], i, this);
+            }
+        }
+        var arr = [1, 2, 3]
+        arr.MyForEach(function (item, index, array) {
+            console.log(item, index, array)
+        }, this)
+
+        // 数组扁平化
+        var arr1 = [1, 2, 3, [4, 5, 6]]
+
+        function isArray(obj) {
+            return Object.prototype.toString.call(obj) === '[object Array]'
+        }
+
+        function flat(arr) {
+            var arr = arr || [],
+                result = [];
+            for (var i = 0, len = arr.length; i < len; i++) {
+                if (isArray(arr[i])) {
+                    result = result.concat(flat(arr[i]))
+                } else {
+                    result.push(arr[i])
+                }
+            }
+            return result
+        }
+        console.log(flat(arr1))
+    </script>
+</body>
+
+</html>

@@ -44,7 +44,11 @@ class MUtil {
     }
     // 错误提示
     errorTips(errMsg) {
-        alert(errMsg || "66")
+        alert(errMsg || "好像哪里不对了~")
+    }
+    // 成功提示
+    successTips(successMsg) {
+        alert(successMsg || "操所成功!")
     }
     // 本地存储  如何添过期时间的处理  ？
     setStorage(name, data) {

@@ -20,12 +20,84 @@ class Product {
             data: data
         })
     }
+    // 获取商品详情
+    getProduct(id) {
+        return _mm.request({
+            type: "post",
+            url: "/manage/product/detail.do",
+            data: {
+                productId: id || 0
+            }
+        })
+    }
     // 上下架
     setProductStatus(data) {
         return _mm.request({
             type: "post",
             url: "/manage/product/set_sale_status.do",
             data: data
+        })
+    }
+    // 品类接口
+    getCategoryList(categoryId) {
+        return _mm.request({
+            type: "post",
+            url: "/manage/category/get_category.do",
+            data: {
+                categoryId: categoryId || 0
+            }
+        })
+    }
+    // 验证表单信息
+    checkResult(product) {
+        let result = {
+            status: true,
+            msg: "验证通过"
+        }
+        // 判断商品名称不能为空
+        if(typeof product.name !== "string" ||  product.name.length === 0) {
+            return {
+                status: false,
+                msg: "商品名称不能为空"
+            }
+        }
+         // 判断商品描述不能为空
+         if(typeof product.subtitle !== "string" ||  product.subtitle.length === 0) {
+            return {
+                status: false,
+                msg: "商品描述不能为空"
+            }
+        }
+         // 品类Id
+         if(typeof product.categoryId !== "number" ||  !(product.categoryId > 0)) {
+            return {
+                status: false,
+                msg: "请选择商品品类"
+            }
+        }
+         // 判断价格
+         if(typeof product.price !== "number" ||  !(product.price >= 0)) {
+            return {
+                status: false,
+                msg: "请输入正确的商品价格"
+            }
+        }
+         // 判断库存
+         if(typeof product.stock !== "number" ||  !(product.stock >= 0)) {
+            return {
+                status: false,
+                msg: "请输入正确的商品库存"
+            }
+        }
+        
+        return result
+    }
+    // 保存表单信息
+    saveProduct(product) {
+        return _mm.request({
+            type: "post",
+            url: "/manage/product/save.do",
+            data: product
         })
     }
 }

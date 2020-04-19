@@ -48,6 +48,22 @@ class Product {
             }
         })
     }
+     // 保存品类
+     saveCategory(category) {
+        return _mm.request({
+            type: "post",
+            url: "/manage/category/add_category.do",
+            data: category
+        })
+    }
+    // 修改品类名称
+    updateCategoryName(category) {
+        return _mm.request({
+            type: "post",
+            url: "/manage/category/set_category_name.do",
+            data: category
+        })
+    }
     // 验证表单信息
     checkResult(product) {
         let result = {

@@ -11,6 +11,8 @@ import {
 import ProductList from "pages/product/index/index.jsx"
 import ProductSave from "pages/product/index/save.jsx"
 import ProductDetail from "pages/product/index/detail.jsx"
+import CategoryList from "pages/product/category/index.jsx"
+import CategoryAdd from "pages/product/category/add.jsx"
 
 
 class ProductRouter extends React.Component {
@@ -21,7 +23,11 @@ class ProductRouter extends React.Component {
                 {/* ？ 表示可选 */}
                 <Route path="/product/save/:pid?" component={ ProductSave }/>  
                 <Route path="/product/detail/:pid" component={ ProductDetail }/>   
+                <Route path="/product-category/index/:categoryId?" component={ CategoryList }/>  
+                <Route path="/product-category/add/" component={ CategoryAdd }/>   
                 <Redirect from="/product" to="/product/index"/>
+                <Redirect from="/product-category" to="/product-category/index"/>
+                
             </Switch>
         )
     }

@@ -39,3 +39,7 @@
     cursor: pointer;
     z-index: 10;
 }
+.q-progress-text {
+    font-size: 20px;
+    color: red;
+}

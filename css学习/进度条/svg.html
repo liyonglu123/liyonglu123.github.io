@@ -23,11 +23,16 @@
             -o-transform: rotate(-90deg);
             transform: rotate(-90deg)
         }
+        #circle1 {
+            stroke: red;
+            stroke-dashoffset: 0;
+        }
     </style>
 </head>
 
 <body>
     <svg id="circleProcess" xmlns="http://www.w3.org/2000/svg">
+        <circle id="circle1" cx="50%" cy="50%" r="40%" stroke-width="10%"></circle>
         <circle id="circle" cx="50%" cy="50%" r="40%" stroke-width="10%"></circle>
     </svg>
     <input id="range" type="range" min="0" max="255" step="1" value="0">

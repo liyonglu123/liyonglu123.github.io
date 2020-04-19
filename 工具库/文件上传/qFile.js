@@ -60,16 +60,19 @@
     qFile.prototype.render = function() {
         var fragment = document.createDocumentFragment(),
             file = document.createElement("input"),
-            imgBox = document.createElement("div");
-            img = document.createElement("img")
+            imgBox = document.createElement("div"),
+            img = document.createElement("img"),
+            spanText = document.createElement("span");
         file.type = "file"
         file.accept = this.opt.accept || "*"
         file.className = "q-file"
         imgBox.className = "q-pre-container"
         img.className = "img"
+        spanText.className = "q-progress-text"
         fragment.appendChild(file)
         imgBox.appendChild(img)
         fragment.appendChild(imgBox)
+        fragment.appendChild(spanText)
         this.opt.el.className = this.opt.cName
         this.opt.el.appendChild(fragment)
     }
@@ -109,6 +112,8 @@
             }
             // 读取中
             fileReader.onprogress = function(e) {
+                var progress = doc.querySelector(".q-progress-text")
+                progress.innerHTML = parseInt(e.loaded / e.total * 100) + "%"
                 // 显示进度条
                 that.opt.onProgress(e)
             }

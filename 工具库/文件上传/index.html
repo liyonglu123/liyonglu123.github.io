@@ -6,13 +6,41 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>图片上传预览</title>
     <link rel="stylesheet" href="./qFile.css">
+    <style>
+            #circleProcess {
+                position: relative;
+                top: 0;
+                left: 0;
+                width: 200px;
+                height: 200px;
+                stroke-dasharray: 255%;
+                stroke-dashoffset: 255%;
+                stroke: #6FEC6F;
+                fill: none;
+                -webkit-transform: rotate(-90deg);
+                -moz-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                transform: rotate(-90deg)
+            }
+            #circle1 {
+                stroke: red;
+                stroke-dashoffset: 0;
+            }
+        </style>
 </head>
 <body>
     <!-- <input id="fileInput" type="file">
     <img class="img" src="" alt="a"> -->
     <!-- <script src="index.js"></script> -->
+    <!-- <svg id="circleProcess" xmlns="http://www.w3.org/2000/svg">
+        <circle id="circle1" cx="50%" cy="50%" r="40%" stroke-width="10%"></circle>
+        <circle id="circle" cx="50%" cy="50%" r="40%" stroke-width="10%"></circle>
+    </svg> -->
     <script src="qFile.js"></script>
     <script>
+        var circleProcess = document.getElementById("circleProcess");
+        var circle = document.getElementById("circle");
         new qFile({
             beforeUpload: function(file, e) {
                console.log("beforeUpload", e) 

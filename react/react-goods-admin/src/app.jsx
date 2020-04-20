@@ -11,6 +11,9 @@ import {
 // import "font-awesome/css/font-awesome.min.css"
 // 引入其他的路由模块实现
 import ProductRouter from "pages/product/router.jsx"
+import OrderRouter from "pages/order/router.jsx"
+
+
 // 布局
 import Layout from "components/layout/index.jsx"
 //页面
@@ -31,6 +34,7 @@ class App extends React.Component {
                     <Route exact path="/" component={ Home }/>
                     <Route  path="/product" component={ ProductRouter }/>
                     <Route  path="/product-category" component={ ProductRouter }/>
+                    <Route  path="/order" component={ OrderRouter }/>
                     <Route  path="/user/index" component={ UserList }/>
                     <Redirect exact from="/user" to="/user/index"/>
                     {/* 从上到一个一个进行匹配 */}

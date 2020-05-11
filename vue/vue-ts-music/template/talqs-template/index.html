@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>talqs-template</title>
+    <link
+      rel="stylesheet"
+      href="https://static.speiyou.com/qsTemplate/talqsTemplate.min.css"
+    />
+    <script src="https://static.speiyou.com/qsTemplate/talqsTemplate.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- 添加自定义模版 -->
+    <script id="questionLabel" type="text/html">
+      <div class="talqs_keyword clearfix">
+        <label class="talqs_label">标签</label>
+        <div class="talqs_panel">
+            {{data.keyWord.split(';').join(' ')}}
+        </div>
+      </div>
+    </script>
+    <script src="./index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>art-template</title>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script src="./lib/art-template.js"></script>
+    <script id="test" type="text/html">
+      {{if user}}
+          <h2>{{ user.name }}</h2>
+      {{/if}}
+    </script>
+    <script>
+      var data = {
+        user: {
+          name: '张三'
+        }
+      }
+      var html = template('test', data)
+      document.getElementById('content').innerHTML = html
+    </script>
+  </body>
+</html>

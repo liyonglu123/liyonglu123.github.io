@@ -4,20 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>tinymce富文本编辑器</title>
+    <!-- 存在domain的问题 -->
+    <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5.2.2-80/tinymce.min.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/tinymce/5.2.2/tinymce.min.js"></script>
   </head>
   <body>
     <div id="container"></div>
-    <script src="./tinymce/tinymce.js"></script>
+    <!-- <script src="./tinymce/tinymce.js"></script> -->
     <script>
       console.log(tinymce);
       tinymce.init({
         selector: "#container",
-        // inline: true,
-        plugins: "table",
-        toolbar:
-          "code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
-    styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
-    table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs",
+        toolbar: [], // 这里就可以使用自定义的toolbar了
+        menubar: [],
+        contextmenu: false,
+        inline: true,
+        // plugins: "table",
+    //     toolbar:
+    //       "code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
+    // styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
+    // table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs",
       });
     </script>
   </body>

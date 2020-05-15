@@ -24,14 +24,23 @@ interface PostResInterface {
   type: 'POST'
   url: string
 }
+Mock.mock(/\/api\/user\/login/, loginRes)
 function loginRes(req: PostResInterface) {
   // eslint-disable-next-line @typescript-eslint/camelcase
   const { user_name, password } = JSON.parse(req.body)
   // eslint-disable-next-line @typescript-eslint/camelcase
   if (user_name === 'zhangsan' && String(password) === '123') {
-    return success('登录成功')
+    return success('登录成功', { user_id: 100 })
   } else {
     return error(1001, '用户名或密码错误')
   }
 }
-Mock.mock(/\/api\/user\/login/, loginRes)
+// 返回用户信息
+Mock.mock(/\/api\/user\/get_info/, getInfoRes)
+function getInfoRes(req: PostResInterface) {
+  return success('获取用户信息成功', {
+    user_name: 'Lison',
+    avatar: '',
+    email: 'xxx@xx.com'
+  })
+}

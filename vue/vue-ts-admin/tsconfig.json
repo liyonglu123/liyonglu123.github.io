@@ -5,6 +5,7 @@
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
+    "noImplicitAny": false, // 是否在表达式上隐藏any
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,

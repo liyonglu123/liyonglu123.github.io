@@ -7,7 +7,7 @@ import CountUp from 'countup'
 export default class CountTo extends Vue {
   @Prop({ type: Number, default: 0 }) public readonly start!: number
   @Prop(Number) public readonly end!: number
-  public counter
+  public counter: CountUp = null
   public get eleId() {
     return `count_to_${(this as any)._uid}`
   }

@@ -11,6 +11,8 @@ import '@/styles/index.scss'
 // 引入ant-design-vue
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
+// 加载全局注册的指令
+import './directives'
 Vue.config.productionTip = false
 Vue.use(Antd)
 new Vue({

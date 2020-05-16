@@ -25,6 +25,20 @@ const routes: Array<RouteConfig> = [
         name: 'About',
         component: () =>
           import(/* webpackChunkName: "about" */ '../views/About.vue')
+      },
+      {
+        path: '/chart',
+        name: 'Chart',
+        component: () =>
+          import(/* webpackChunkName: "chart" */ '@/views/chart/index.vue')
+      },
+      {
+        path: '/editor',
+        name: 'Editor',
+        component: () =>
+          import(
+            /* webpackChunkName: "editor" */ '@/views/richEditor/index.vue'
+          )
       }
     ]
   },

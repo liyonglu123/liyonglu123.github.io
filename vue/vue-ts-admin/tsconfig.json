@@ -14,8 +14,8 @@
     "baseUrl": ".",
     "types": ["webpack-env"],
     "paths": {
-      "@/*": ["src/*"],
-      "countup": ["./types/countup/index.d.ts"] // 这里采用还是node_modules中的文件
+      "@/*": ["src/*"]
+      // "types/*": ["types/*.d.ts"] // 这里采用还是node_modules中的
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },

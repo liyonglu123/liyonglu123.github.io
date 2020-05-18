@@ -15,7 +15,6 @@ export default class Login extends Vue {
       this.$router.push('/home')
     })
   }
-
   protected render() {
     return (
       <div class="login-page">

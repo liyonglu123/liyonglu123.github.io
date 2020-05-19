@@ -1,14 +1,17 @@
 <template>
-  <div class="rich-editor-container" v-editor></div>
+  <div class="editor-container">
+    <toolbar></toolbar>
+    <div class="rich-editor-wrapper" v-editor></div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-// import EChart from '@/components/EChart/index.vue'
+import Toolbar from './toolbar.vue'
 @Component({
   name: 'Chart',
   components: {
-    // EChart
+    Toolbar
   }
 })
 export default class RichEditor extends Vue {
@@ -30,7 +33,7 @@ export default class RichEditor extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.rich-editor-container {
+.rich-editor-wrapper {
   min-height: 100px;
 }
 </style>

@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 Vue.use(VueRouter)
-
+// 点击同一个路由出现 NavigationDuplicated 的问题是因为没有对应的回调函数了
+const originalPush: Function = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 const routes: Array<RouteConfig> = [
   {
     path: '/',

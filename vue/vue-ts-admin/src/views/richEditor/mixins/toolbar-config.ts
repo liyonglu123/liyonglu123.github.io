@@ -3,6 +3,7 @@ export interface ItoolbarItem {
   name: string
   cnName: string
   icon: string
+  element: string
   show: boolean
 }
 export const toolbarList: ItoolbarItem[] = [
@@ -11,6 +12,7 @@ export const toolbarList: ItoolbarItem[] = [
     name: 'ForeColor',
     cnName: '字体颜色',
     icon: 'font',
+    element: 'ColorItem',
     show: true
   }
 ]

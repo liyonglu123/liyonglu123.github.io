@@ -1,25 +1,31 @@
 <template>
-  <div class="tool-bar-container">
+  <!-- 如果使用tabindex=-1值时，onfocus与onblur事件仍被启动 -->
+  <div class="tool-bar-container" tabindex="-1">
     <div
       class="tool-bar-item mce-tool-bar"
+      tabindex="-1"
       v-for="(item, index) in toolbarList"
       :key="index"
-      @click="toolsBarClick(item)"
-    >
-      <span>{{ item.cnName }}</span>
-    </div>
+      :item="item"
+      :is="item.element"
+    ></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Mixins } from 'vue-property-decorator'
-import ToolbarMixins from './mixins/toolbar'
-@Component({ name: 'Toolbar' })
-export default class Toolbar extends Mixins(ToolbarMixins) {
-  toolsBarClick(item) {
-    if (window.tinymce && window.tinymce.activeEditor) {
-      window.tinymce.activeEditor.execCommand(item.name, false, 'red')
-    }
+import { Component, Vue } from 'vue-property-decorator'
+import ColorItem from './toolbar-items/color-item.vue'
+import { toolbarList } from './mixins/toolbar-config'
+@Component({
+  name: 'Toolbar',
+  components: {
+    ColorItem
+  }
+})
+export default class Toolbar extends Vue {
+  // TODO： 之后会进行特殊处理
+  get toolbarList() {
+    return toolbarList
   }
 }
 </script>
@@ -29,7 +35,7 @@ export default class Toolbar extends Mixins(ToolbarMixins) {
   height: 36px;
   line-height: 36px;
   padding: 0 20px;
-  background: #bec8c8;
+  background: #ddd;
   display: flex;
   justify-content: center;
   .tool-bar-item {

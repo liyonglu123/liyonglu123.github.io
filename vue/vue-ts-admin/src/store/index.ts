@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user_name: '',
-    email: ''
+    email: '',
+    isEdit: false
   },
   mutations: {
     // 设置存储在store里的用户信息
@@ -16,6 +17,10 @@ export default new Vuex.Store({
       const { user_name, email } = info
       state.user_name = user_name
       state.email = email
+    },
+    // 更新富文本的编辑状态
+    updateElementStatus(state, flag) {
+      state.isEdit = flag
     }
   },
   actions: {

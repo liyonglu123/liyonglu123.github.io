@@ -41,6 +41,12 @@ const routes: Array<RouteConfig> = [
           import(
             /* webpackChunkName: "editor" */ '@/views/richEditor/index.vue'
           )
+      },
+      {
+        path: '/drag',
+        name: 'Drag',
+        component: () =>
+          import(/* webpackChunkName: "drag" */ '@/views/drag/index.vue')
       }
     ]
   },

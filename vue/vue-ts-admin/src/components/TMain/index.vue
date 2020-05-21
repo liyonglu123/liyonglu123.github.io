@@ -14,6 +14,7 @@
           <a-menu-item key="/about">关于</a-menu-item>
           <a-menu-item key="/chart">图表</a-menu-item>
           <a-menu-item key="/editor">富文本编辑器</a-menu-item>
+          <a-menu-item key="/drag">拖拽</a-menu-item>
         </a-menu>
       </a-layout-sider>
       <a-layout>

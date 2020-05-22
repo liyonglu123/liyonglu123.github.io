@@ -58,9 +58,9 @@ export default class DragList extends Vue {
   }
   drop(event: DragEvent, item: IdragItem, index: number) {
     console.log('drop', item, index)
-    if (this.dragItemIndex) {
-      this.swapItem(this.dragItemIndex, index)
-    }
+    // if (this.dragItemIndex) {
+    this.swapItem(this.dragItemIndex as number, index)
+    // }
   }
 }
 </script>

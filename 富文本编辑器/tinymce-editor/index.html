@@ -6,24 +6,46 @@
     <title>tinymce富文本编辑器</title>
     <!-- 存在domain的问题 -->
     <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5.2.2-80/tinymce.min.js"></script> -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/tinymce/5.2.2/tinymce.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/tinymce/5.3.1/tinymce.min.js"></script>
   </head>
   <body>
-    <div id="container"></div>
+    <div id="container">
+      hello tinymce!
+      <svg
+        width="10"
+        height="10"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          width="10"
+          height="10"
+          style="fill: rgb(0, 0, 255); stroke-width: 1; stroke: rgb(0, 0, 0);"
+        ></rect>
+      </svg>
+    </div>
     <!-- <script src="./tinymce/tinymce.js"></script> -->
     <script>
       console.log(tinymce);
       tinymce.init({
         selector: "#container",
-        toolbar: [], // 这里就可以使用自定义的toolbar了
-        menubar: [],
+        // toolbar: [], // 这里就可以使用自定义的toolbar了
+        // menubar: [],
         contextmenu: false,
         inline: true,
+        extended_valid_elements: "svg[*],rect[*]",
         // plugins: "table",
-    //     toolbar:
-    //       "code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
-    // styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
-    // table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs",
+        //     toolbar:
+        //       "code undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough link anchor | alignleft aligncenter alignright alignjustify outdent indent | \
+        // styleselect formatselect fontselect fontsizeselect | bullist numlist | blockquote subscript superscript removeformat | \
+        // table image media charmap emoticons hr pagebreak insertdatetime print preview | fullscreen | bdmap indent2em lineheight formatpainter axupimgs",
+        setup: (editor) => {
+          editor.on("click", function (e) {
+            console.log(editor.getBody());
+            editor.selection.select(editor.getBody(), true);
+            editor.selection.collapse(false);
+          });
+        },
       });
     </script>
   </body>

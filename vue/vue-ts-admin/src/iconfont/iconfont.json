@@ -1,0 +1,37 @@
+{
+  "id": "1861055",
+  "name": "vue-ts-admin",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "ts, tinymce,vue",
+  "glyphs": [
+    {
+      "icon_id": "924506",
+      "name": "redo",
+      "font_class": "redo",
+      "unicode": "e937",
+      "unicode_decimal": 59703
+    },
+    {
+      "icon_id": "2389741",
+      "name": "撤销",
+      "font_class": "chexiao",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "11215444",
+      "name": "redo",
+      "font_class": "redo1",
+      "unicode": "e723",
+      "unicode_decimal": 59171
+    },
+    {
+      "icon_id": "11215466",
+      "name": "undo",
+      "font_class": "undo",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    }
+  ]
+}

@@ -14,18 +14,23 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import ColorItem from './toolbar-items/color-item.vue'
+import { ClickItem, ColorItem, FontNameItem } from './toolbar-items'
 import { toolbarList } from './mixins/toolbar-config'
 @Component({
   name: 'Toolbar',
   components: {
-    ColorItem
+    ClickItem,
+    ColorItem,
+    FontNameItem
   }
 })
 export default class Toolbar extends Vue {
   // TODO： 之后会进行特殊处理
   get toolbarList() {
     return toolbarList
+  }
+  created() {
+    document.addEventListener('editorNodeChange', () => {})
   }
 }
 </script>

@@ -3,12 +3,38 @@ export interface ItoolbarItem {
   name: string
   cnName: string
   icon: string
+  note?: string
   element: string
   show: boolean
 }
 export const toolbarList: ItoolbarItem[] = [
   {
     id: 1,
+    name: 'undo',
+    cnName: '撤销',
+    note: '⌘+Z',
+    icon: 'iconundo',
+    element: 'clickItem',
+    show: true
+  },
+  {
+    id: 2,
+    name: 'redo',
+    cnName: '还原',
+    icon: 'iconredo1',
+    element: 'ClickItem',
+    show: true
+  },
+  {
+    id: 3,
+    name: 'fontName',
+    cnName: '字体',
+    icon: 'iconredo1',
+    element: 'FontNameItem',
+    show: true
+  },
+  {
+    id: 4,
     name: 'ForeColor',
     cnName: '字体颜色',
     icon: 'font',

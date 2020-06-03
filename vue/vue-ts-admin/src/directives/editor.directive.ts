@@ -3,7 +3,7 @@
  */
 // 自定义事件 通知工具栏
 const editorBlur = new Event('editorBlur')
-
+const editorNodeChange = new Event('editorNodeChange')
 export default {
   name: 'editor',
   async bind(el: any, binding: any, vnode: any) {
@@ -26,12 +26,14 @@ export default {
         menubar: [],
         contextmenu: false,
         setup: editor => {
-          console.log(editor)
           // 失去焦点的时候
           editor.on('blur', () => {
             vnode.context.isEdit = false
             vnode.context.$store.commit('updateElementStatus', false)
             document.dispatchEvent(editorBlur)
+          })
+          editor.on('nodechange', () => {
+            document.dispatchEvent(editorNodeChange)
           })
         }
       })

@@ -5,13 +5,16 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
+import ToolbarMixins from '../mixins/toolbar'
+
 @Component({ name: 'FontSizeItem' })
-export default class FontSizeItem extends Vue {
+export default class FontSizeItem extends Mixins(ToolbarMixins) {
   @Prop(Object) item!: any
   changeFontSize(item) {
     console.log('item', item, item.name)
-    window.tinymce.activeEditor.execCommand(this.item.name, false, '20pt')
+    // window.tinymce.activeEditor.execCommand(this.item.name, false, '20pt')
+    this.toolsBar[this.item.name] = '20px'
   }
 }
 </script>

@@ -22,10 +22,12 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
 import { ItoolbarItem } from '../mixins/toolbar-config'
+import ToolbarMixins from '../mixins/toolbar'
+
 @Component({ name: 'FontNameItem' })
-export default class FontNameItem extends Vue {
+export default class FontNameItem extends Mixins(ToolbarMixins) {
   @Prop(Object) item!: any
   // 字体列表
   fontNameList = [
@@ -35,15 +37,18 @@ export default class FontNameItem extends Vue {
     '仿宋',
     '楷体',
     'Arail',
-    'Times New Roman'
+    'Times New Roman',
+    'courier new'
   ]
-  defaultValue: string = '微软雅黑' // 默认值
-
+  get defaultValue() {
+    console.log('value==', this.currentToolsData.value)
+    return this.currentToolsData.value || '微软雅黑'
+  }
   handleChange(fontName: string) {
-    this.defaultValue = fontName
     const { name } = this.item
     console.log(`selected ${fontName}`, this.item, name)
-    window.tinymce.activeEditor.execCommand(name, false, fontName)
+    // window.tinymce.activeEditor.execCommand(name, false, fontName)
+    this.toolsBar[this.item.name] = fontName
   }
 }
 </script>

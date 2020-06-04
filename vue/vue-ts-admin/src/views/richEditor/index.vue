@@ -36,7 +36,10 @@ export default class RichEditor extends Vue {
       // language_url: 'langs/zh_CN.js', 无效问题
       // language: 'zh_CN',
       toolbar:
-        'fontname |code link | lists bullist numlist | image | spellchecker | customInsertButton',
+        'fontselect |code link | lists bullist numlist | image | spellchecker | customInsertButton',
+
+      font_formats:
+        'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n',
       plugins: 'code advlist lists image spellchecker',
       menubar: false, // 菜单栏
       contextmenu: false,

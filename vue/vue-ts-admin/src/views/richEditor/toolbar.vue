@@ -21,6 +21,10 @@ import {
   FontSizeItem
 } from './toolbar-items'
 import { toolbarList } from './mixins/toolbar-config'
+import { toolsBar } from '@/utils/toolsbar'
+import { ToolsBarData, UndoManagerStatus } from '@/types/tools-bar'
+
+import { findIndex } from 'lodash'
 @Component({
   name: 'Toolbar',
   components: {
@@ -31,6 +35,7 @@ import { toolbarList } from './mixins/toolbar-config'
   }
 })
 export default class Toolbar extends Vue {
+  toolsBarData: ToolsBarData[] = []
   // TODO： 之后会进行特殊处理
   get toolbarList() {
     return toolbarList
@@ -42,7 +47,20 @@ export default class Toolbar extends Vue {
   }
   // 获取选区的样式
   querySelectionStyle() {
-    console.log('yangshi')
+    this.toolbarList.forEach(item => {
+      const data: ToolsBarData = Object.assign(toolsBar[item.name], {
+        id: item.id
+      })
+      const index = findIndex(
+        this.toolsBarData,
+        toolsBarItem => toolsBarItem.id === item.id
+      )
+      if (index !== -1) {
+        this.toolsBarData.splice(index, 1, data)
+      } else {
+        this.toolsBarData.push(data)
+      }
+    })
   }
 }
 </script>

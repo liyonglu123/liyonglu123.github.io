@@ -16,7 +16,8 @@ export default class ColorItem extends Mixins(ToolbarMixins) {
   toolsBarClick() {
     console.log(this.disabled)
     if (!this.disabled && window.tinymce && window.tinymce.activeEditor) {
-      window.tinymce.activeEditor.execCommand(this.item.name, false, 'red')
+      // window.tinymce.activeEditor.execCommand(this.item.name, false, 'red')
+      this.toolsBar[this.item.name] = 'blue'
     }
   }
 }

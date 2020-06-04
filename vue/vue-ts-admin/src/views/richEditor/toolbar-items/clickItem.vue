@@ -12,14 +12,17 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Mixins } from 'vue-property-decorator'
 import { ItoolbarItem } from '../mixins/toolbar-config'
+import ToolbarMixins from '../mixins/toolbar'
+
 @Component({ name: 'ClickItem' })
-export default class ClickItem extends Vue {
+export default class ClickItem extends Mixins(ToolbarMixins) {
   @Prop(Object) item!: any
   clickItemHandler(item) {
     console.log('item', item, item.name)
-    window.tinymce.activeEditor.execCommand(this.item.name, false)
+    // window.tinymce.activeEditor.execCommand(this.item.name, false)
+    this.toolsBar[this.item.name] = this.item.name
   }
 }
 </script>

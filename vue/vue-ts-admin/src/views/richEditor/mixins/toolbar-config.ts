@@ -27,7 +27,7 @@ export const toolbarList: ItoolbarItem[] = [
   },
   {
     id: 3,
-    name: 'fontName',
+    name: 'FontName',
     cnName: '字体',
     icon: 'iconredo1',
     element: 'FontNameItem',
@@ -35,6 +35,14 @@ export const toolbarList: ItoolbarItem[] = [
   },
   {
     id: 4,
+    name: 'FontSize',
+    cnName: '字体大小',
+    icon: 'iconredo1',
+    element: 'FontSizeItem',
+    show: true
+  },
+  {
+    id: 5,
     name: 'ForeColor',
     cnName: '字体颜色',
     icon: 'font',

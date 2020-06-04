@@ -12,6 +12,8 @@ import '@/iconfont/iconfont.css'
 // 引入ant-design-vue
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
+// 修改字体
+import '@/styles/font.scss'
 // 加载全局注册的指令
 import './directives'
 import './permission'

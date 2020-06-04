@@ -3,6 +3,7 @@
  */
 // 自定义事件 通知工具栏
 const editorBlur = new Event('editorBlur')
+// 获取选取样式问题等等
 const editorNodeChange = new Event('editorNodeChange')
 export default {
   name: 'editor',

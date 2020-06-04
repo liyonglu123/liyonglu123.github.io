@@ -2,7 +2,7 @@
   <div class="font-name-item-wrapper" tabindex="-1">
     <a-tooltip placement="bottom">
       <template slot="title">
-        <span>{{ defaultValue }}</span>
+        <span>{{ item.cnName }}</span>
       </template>
       <a-select
         :default-value="defaultValue"
@@ -40,9 +40,9 @@ export default class FontNameItem extends Vue {
   defaultValue: string = '微软雅黑' // 默认值
 
   handleChange(fontName: string) {
-    console.log(`selected ${fontName}`, this.item)
     this.defaultValue = fontName
     const { name } = this.item
+    console.log(`selected ${fontName}`, this.item, name)
     window.tinymce.activeEditor.execCommand(name, false, fontName)
   }
 }

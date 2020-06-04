@@ -14,14 +14,20 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { ClickItem, ColorItem, FontNameItem } from './toolbar-items'
+import {
+  ClickItem,
+  ColorItem,
+  FontNameItem,
+  FontSizeItem
+} from './toolbar-items'
 import { toolbarList } from './mixins/toolbar-config'
 @Component({
   name: 'Toolbar',
   components: {
     ClickItem,
     ColorItem,
-    FontNameItem
+    FontNameItem,
+    FontSizeItem
   }
 })
 export default class Toolbar extends Vue {
@@ -30,7 +36,13 @@ export default class Toolbar extends Vue {
     return toolbarList
   }
   created() {
-    document.addEventListener('editorNodeChange', () => {})
+    document.addEventListener('editorNodeChange', () => {
+      this.querySelectionStyle()
+    })
+  }
+  // 获取选区的样式
+  querySelectionStyle() {
+    console.log('yangshi')
   }
 }
 </script>

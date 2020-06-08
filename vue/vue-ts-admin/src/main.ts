@@ -22,5 +22,9 @@ Vue.use(Antd)
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  mounted() {
+    // 触发renderAfterDocumentEvent 预渲染
+    document.dispatchEvent(new Event('render-event'))
+  }
 }).$mount('#app')

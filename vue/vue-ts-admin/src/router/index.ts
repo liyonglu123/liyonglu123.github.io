@@ -47,6 +47,14 @@ const routes: Array<RouteConfig> = [
         name: 'Drag',
         component: () =>
           import(/* webpackChunkName: "drag" */ '@/views/drag/index.vue')
+      },
+      {
+        path: '/guidance',
+        name: 'Guidance',
+        component: () =>
+          import(
+            /* webpackChunkName: "guidance" */ '@/views/guidance/index.vue'
+          )
       }
     ]
   },

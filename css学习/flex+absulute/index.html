@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>flex+absolute</title>
+    <style>
+      .container {
+        position: fixed;
+        width: 100%;
+        height: 96px;
+        top: 0;
+        left: 0;
+      }
+      .system {
+        display: flex;
+        align-items: center;
+        height: 60px;
+        background-color: red;
+        position: relative;
+      }
+      .head-item {
+        display: inline-block;
+        position: absolute;
+      }
+      .logo {
+        left: 34px;
+        background: grey;
+      }
+      .status {
+        left: 120px;
+        background: hotpink;
+      }
+      .title {
+        display: flex;
+        left: 50%;
+        width: 400px;
+        margin-left: -200px;
+        background-color: blue;
+      }
+      .right {
+        display: flex;
+        position: absolute;
+        right: 60px;
+        background: lightblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="system">
+        <div class="head-item logo">
+          logo
+        </div>
+        <div class="head-item status">
+          status
+        </div>
+        <div class="head-item title">
+          标题
+        </div>
+        <div class="right">
+          保存
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

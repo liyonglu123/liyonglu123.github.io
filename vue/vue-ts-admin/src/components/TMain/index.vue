@@ -16,6 +16,7 @@
           <a-menu-item key="/editor">富文本编辑器</a-menu-item>
           <a-menu-item key="/drag">拖拽</a-menu-item>
           <a-menu-item key="/guidance">引导</a-menu-item>
+          <a-menu-item key="/virtualList">虚拟列表</a-menu-item>
         </a-menu>
       </a-layout-sider>
       <a-layout>

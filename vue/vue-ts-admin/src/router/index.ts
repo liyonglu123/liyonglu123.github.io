@@ -55,6 +55,14 @@ const routes: Array<RouteConfig> = [
           import(
             /* webpackChunkName: "guidance" */ '@/views/guidance/index.vue'
           )
+      },
+      {
+        path: '/virtualList',
+        name: 'virtualList',
+        component: () =>
+          import(
+            /* webpackChunkName: "virtualList" */ '@/views/virtualList/index.vue'
+          )
       }
     ]
   },

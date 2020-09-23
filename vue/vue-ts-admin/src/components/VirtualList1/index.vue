@@ -5,6 +5,7 @@
     }}
     <div
       class="virtual-scroller"
+      ref="virtualScroller"
       @scroll="onScroll"
       :style="{ height: 600 + 'px' }"
     >
@@ -16,6 +17,7 @@
             :index="item.index"
             :key="item.brandId"
             @update-height="updateItemHeight"
+            :class="'item-' + (item.index + 1)"
           />
         </ul>
       </div>
@@ -25,6 +27,7 @@
 
 <script lang='ts'>
 import { Vue, Component, Watch } from 'vue-property-decorator'
+import { State } from 'vuex-class'
 import Item from './Item.vue'
 @Component({
   name: 'VirtualList',
@@ -35,7 +38,7 @@ import Item from './Item.vue'
 export default class VirtualList extends Vue {
   public estimatedItemHeight: number = 30
   public visibleCount: number = 10
-  public dataLength: number = 200
+  public dataLength: number = 1000
   public startIndex: number = 0
   public endIndex: number = 10
   public scrollTop: number = 0
@@ -45,12 +48,27 @@ export default class VirtualList extends Vue {
   public dataList: any[] = []
   public itemHeightCache: any[] = []
   public itemTopCache: any[] = []
-
+  // 当前点击的试题ID
+  @State currentIndex!: number
   get visibleList() {
     return this.dataList.slice(
       this.startIndex,
       this.endIndex + this.bufferItemCount
     )
+  }
+
+  @Watch('currentIndex')
+  currentIndexChanged(val: number) {
+    // console.log('currentIndexChanged-->>', val)
+    // this.startIndex = val - 5
+    // this.endIndex = this.startIndex + this.visibleCount // this.getStartIndex(1000)
+    this.scrollTop = this.itemTopCache[val]
+    this.startIndex = this.getStartIndex(this.scrollTop)
+    ;(this.$refs.virtualScroller as HTMLDivElement).scrollTo(0, this.scrollTop)
+    // this.updateItemHeight({
+    //   index: val,
+    //   height: 100
+    // })
   }
 
   @Watch('dataList')
@@ -101,6 +119,7 @@ export default class VirtualList extends Vue {
       newItemTopCache[i] =
         this.itemTopCache[i - 1] + this.itemHeightCache[i - 1]
     }
+    console.log('newItemTopCache-->', newItemTopCache)
     this.itemTopCache = newItemTopCache
   }
   // 获取startIndex 二分法进行查找

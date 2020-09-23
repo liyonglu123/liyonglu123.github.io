@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     user_name: '',
     email: '',
-    isEdit: false
+    isEdit: false,
+    currentIndex: -1
   },
   mutations: {
     // 设置存储在store里的用户信息
@@ -21,6 +22,11 @@ export default new Vuex.Store({
     // 更新富文本的编辑状态
     updateElementStatus(state, flag) {
       state.isEdit = flag
+    },
+
+    // 虚拟列表中----监听当前点击的是那个元素
+    setCurrentIndex(state, index) {
+      state.currentIndex = index
     }
   },
   actions: {

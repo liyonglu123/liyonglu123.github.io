@@ -1,0 +1,9 @@
+body {
+  /* background-color: red; */
+  background-image: url("../img/1.png");
+  background-repeat: no-repeat;
+}
+p {
+  font-size: 50px;
+  transform: rotate(-30deg);
+}

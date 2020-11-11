@@ -7,6 +7,9 @@ const TerserJSPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const HappyPack = require("happypack");
 const ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
+const LodashModuleReplacementPlugin = require("lodash-webpack-plugin");
 const webpackCommonConf = require("./webpack.base.conf.js");
 const { srcPath, distPath } = require("./paths");
 
@@ -109,6 +112,12 @@ module.exports = smart(webpackCommonConf, {
         },
       },
     }),
+
+    // 分析
+    new BundleAnalyzerPlugin(),
+
+    // 优化lodash
+    new LodashModuleReplacementPlugin(),
   ],
 
   optimization: {

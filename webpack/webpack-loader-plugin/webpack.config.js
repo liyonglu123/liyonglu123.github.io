@@ -1,4 +1,7 @@
 const path = require("path");
+const FileListPlugin = require("./plugins/index.js");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
 module.exports = {
   mode: "development",
   entry: "./src/index.md",
@@ -15,4 +18,5 @@ module.exports = {
       },
     ],
   },
+  plugins: [new CleanWebpackPlugin(), new FileListPlugin()],
 };

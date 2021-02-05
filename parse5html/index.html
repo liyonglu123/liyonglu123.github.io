@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>parse html</title>
+  </head>
+  <body>
+    <script>
+      // require 出现了问题，不能直接进行引入
+      const parse5 = require("parse5");
+      const htmlparser2Adapter = require("parse5-htmlparser2-tree-adapter");
+      const doc = parse5.parse("<div></div>", {
+        treeAdapter: htmlparser2Adapter,
+      });
+      console.error(doc);
+    </script>
+  </body>
+</html>

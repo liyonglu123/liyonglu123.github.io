@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vue2.0的响应式核心原理</title>
+  </head>
+  <body>
+    <div id="app">hello</div>
+  </body>
+  <script>
+    // 模拟 Vue 中的data选项
+    let data = {
+      msg: "hello",
+      count: 1,
+    };
+    // 模拟Vue实例
+    let vm = {};
+
+    proxyData(data);
+
+    function proxyData(data) {
+      // 遍历data对象所有属性
+      Object.keys(data).forEach((key) => {
+        // 数据劫持：当访问vm或者设置vm中的成员的时候，做一些干预
+        Object.defineProperty(vm, key, {
+          // 可枚举（可遍历）
+          enumerable: true,
+          // 可配置（可以使用delete删除，可以通过defineProperty重新定义）
+          configurable: true,
+          // 当获取值得时候执行
+          get() {
+            console.log("get:", data.key);
+            return data.key;
+          },
+          // 当设置值的时候执行
+          set(newValue) {
+            console.log("set:", newValue);
+            if (newValue === data.key) {
+              return;
+            }
+            data.key = newValue;
+            // 数据更新， 更新DOM的值
+            document.getElementById("app").textContent = data.key;
+          },
+        });
+      });
+    }
+
+    // 测试
+    vm.msg = "hello world";
+    console.log(vm.msg);
+  </script>
+</html>

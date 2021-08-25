@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue3.0 响应式原理</title>
+  </head>
+  <body>
+    <div id="app">hello</div>
+    <script>
+      // 模拟data
+      let data = {
+        msg: "hello world",
+        count: 0,
+      };
+
+      // 模拟Vue实例,使用proxy进行数据劫持
+      let vm = new Proxy(data, {
+        // 执行代理行为的函数
+        // 当访问vm 成员的时候
+        get(target, key) {
+          console.log("get ,key:", key, target[key]);
+          return target[key];
+        },
+        // 当设置vm成员的时候
+        set(target, key, newValue) {
+          console.log("set ,key:", key, newValue);
+          if (newValue === target[key]) {
+            return;
+          }
+          target[key] = newValue;
+          document.querySelector("#app").textContent = target[key];
+        },
+      });
+      // 测试
+      vm.msg = "hello 123";
+      console.log(vm.msg);
+    </script>
+  </body>
+</html>

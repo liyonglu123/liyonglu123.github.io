@@ -31,14 +31,6 @@ function foundA(c) {
   }
 }
 function foundB(c) {
-  if (c === "c") {
-    return foundC;
-  } else {
-    return start(c);
-  }
-}
-
-function foundC(c) {
   if (c === "a") {
     return foundA2;
   } else {
@@ -55,11 +47,19 @@ function foundA2(c) {
 }
 
 function foundB2(c) {
+  if (c === "a") {
+    return foundA3;
+  } else {
+    return start(c);
+  }
+}
+
+function foundA2(c) {
   if (c === "x") {
     return end(c);
   }
-  return foundB(c);
+  return foundA(c);
 }
 
 // reConsume 处理
-console.log(match("abcabcabx"));
+console.log(match("ababax"));

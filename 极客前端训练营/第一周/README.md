@@ -40,3 +40,16 @@ while (input) {
 5. 使用状态机，在一个字符串中，找到字符串“abcabx”
 6. 使用状态机，在一个字符串中，找到字符串“abababx” (作业)
 7. 拓展: 如何使用状态机处理完全未知的 pattern？可以参考：[字符串 KMP 算法](http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)
+
+---
+
+# HTTP 请求 | HTTP 的协议解析
+
+1. ISO-OSI 七层网络模型
+2. TCP 和 IP 的基础知识
+3. HTTP
+   - Request
+   - Response
+4. 搭建服务端环境 node.js
+5. 了解 HTTP 的协议
+6. 实现一个 HTTP 请求

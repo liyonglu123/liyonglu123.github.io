@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Node.js",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/极客前端训练营/第一周/match4.js"
+      "program": "${workspaceFolder}/极客前端训练营/第一周/http/client.js"
     }
   ]
 }

@@ -42,7 +42,7 @@ var moveZeroes2 = function (nums) {
 };
 
 // 最优解
-var moveZeroes = function (nums) {
+var moveZeroes3 = function (nums) {
   var j = 0;
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] !== 0) {
@@ -54,6 +54,40 @@ var moveZeroes = function (nums) {
     }
   }
   return nums;
+};
+
+var moveZeroes4 = function (nums) {
+  var pos = 0;
+  for (var i = 0; i < nums.length; i++) {
+    if (nums[i] !== 0) {
+      nums[pos++] = nums[i];
+    }
+  }
+  for (i = pos; i < nums.length; i++) {
+    nums[i] = 0;
+  }
+  return nums;
+};
+
+var moveZeroes5 = function (nums) {
+  var idx = 0;
+  for (var i = 0; i < nums.length; i++) {
+    if (nums[i] !== 0) {
+      nums[idx] = nums[i];
+      nums[i] = idx === i ? nums[i] : 0;
+      idx++;
+    }
+  }
+  return nums;
+};
+
+var moveZeroes = function (nums) {
+  for (var i = nums.length; i--; ) {
+    if (nums[i] === 0) {
+      nums.splice(i, 1);
+      nums.push(0);
+    }
+  }
 };
 
 console.log(moveZeroes([0, 1, 0, 3, 12]));

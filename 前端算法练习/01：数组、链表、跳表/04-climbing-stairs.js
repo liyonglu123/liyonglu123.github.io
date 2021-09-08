@@ -19,6 +19,19 @@ var climbStairs = function (n) {
   }
 };
 
+// TODO: 如何进行记忆搜索存储
+var climbStairs = function (n, menu = []) {
+  if (n <= 2) {
+    return n;
+  }
+  if (!menu[n]) {
+    menu[n] = climbStairs(n - 1) + climbStairs(n - 2);
+  }
+  if (n > 2) {
+    return menu[n - 1] + menu[n - 2];
+  }
+};
+
 // 有效的只是相邻的三个元素
 var climbStairs = function (n) {
   var prev = 0;

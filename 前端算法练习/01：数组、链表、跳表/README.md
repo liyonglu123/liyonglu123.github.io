@@ -21,6 +21,4 @@ Redis 中的跳表， 跳表：升维思想+空间换时间
    - https://leetcode-cn.com/problems/rotate-array/
    - https://leetcode-cn.com/problems/merge-two-sorted-lists/
    - https://leetcode-cn.com/problems/merge-sorted-array/
-   - https://leetcode-cn.com/problems/two-sum/
-   - https://leetcode-cn.com/problems/move-zeroes/
    - https://leetcode-cn.com/problems/plus-one/

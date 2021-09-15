@@ -20,3 +20,21 @@
 3. 了解 Flow, ts, 静态类型检查
 
 4. 执行打包 Rollup 过程，以及调试
+5. Vue 的不同构建版本 npm run build
+
+|                          |        UMD         |       CommonJS        |     ES Module      |
+| :----------------------: | :----------------: | :-------------------: | :----------------: |
+|           Full           |       vue.js       |     vue.common.js     |     vue.esm.js     |
+|       Runtime-only       |   vue.runtime.js   | vue.runtime.common.js | vue.runtime.esm.js |
+|     Full(production)     |     vue.min.js     |                       |                    |
+| Runtime-only(production) | vue.runtime.min.js |                       |                    |
+
+- 完整版：同时包含编译器和运行时的版本
+- 编译器：用来将模板字符串编译成为 JavaScript 渲染函数的代码，体积大，效率低
+- 运行时：用来创建 Vue 实例、渲染并处理虚拟 DOM 等的代码，体积小、效率高。基本上就是除去编译器的代码
+- UMD： UMD 版本通用的模块版本，支持多种模块方式。vue.js 默认文件就是运行时+编译器的 UMD 版本
+- CommonJS(cjs): CommonJS 版本用来配合老的打包工具比如 Browserify 或者 wepack1
+- ES Module: 从 2.6 开始 Vue 会提供两个 ES Module（ESM）构建文件，为现代打包工具提供的版本。 vue-cli 默认使用的
+  - ESM 格式被设计为可以被静态分析，所以打包工具可以利用这一点来进行“tree-shaking”并将用不到的代码排除出
+    最终的包。
+  - ES6 模块和 CommonJS 模块的差异

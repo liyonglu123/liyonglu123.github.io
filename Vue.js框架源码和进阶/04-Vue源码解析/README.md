@@ -35,6 +35,13 @@
 - UMD： UMD 版本通用的模块版本，支持多种模块方式。vue.js 默认文件就是运行时+编译器的 UMD 版本
 - CommonJS(cjs): CommonJS 版本用来配合老的打包工具比如 Browserify 或者 wepack1
 - ES Module: 从 2.6 开始 Vue 会提供两个 ES Module（ESM）构建文件，为现代打包工具提供的版本。 vue-cli 默认使用的
+
   - ESM 格式被设计为可以被静态分析，所以打包工具可以利用这一点来进行“tree-shaking”并将用不到的代码排除出
     最终的包。
   - ES6 模块和 CommonJS 模块的差异
+
+6. 寻找入口文件
+
+- el 不能是 body 或者 HTML 标签
+- 如果没有 render，把 template 转换成 render 函数
+- 如果有 render 方法，直接调用 mount 挂载 DOM

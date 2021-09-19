@@ -9,7 +9,15 @@
       "request": "launch",
       "name": "Node.js",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/极客前端训练营/week02/02-computedCSS/7-getSpecificity/client.js"
+      "program": "${workspaceFolder}/极客前端训练营/week03/6-renderDom/client.js",
+      "protocol": "auto"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach to Process",
+      "address": "localhost",
+      "port": 5858
     }
   ]
 }

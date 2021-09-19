@@ -70,11 +70,11 @@ function layout(element) {
     crossSign,
     crossBase;
   if (style.flexDirection === "row") {
-    // mainSize,mainsign, mainBase 用于后续的计算
+    // mainSize,mainSign, mainBase 用于后续的计算
     mainSize = "width";
     mainStart = "left";
     mainEnd = "right";
-    mainsign = +1;
+    mainSign = +1;
     mainBase = 0;
 
     crossSize = "height";
@@ -85,7 +85,7 @@ function layout(element) {
     mainSize = "width";
     mainStart = "right";
     mainEnd = "left";
-    mainsign = -1;
+    mainSign = -1;
     mainBase = style.width;
 
     crossSize = "height";
@@ -96,7 +96,7 @@ function layout(element) {
     mainSize = "height";
     mainStart = "top";
     mainEnd = "bottom";
-    mainsign = +1;
+    mainSign = +1;
     mainBase = 0;
 
     crossSize = "width";
@@ -107,7 +107,7 @@ function layout(element) {
     mainSize = "height";
     mainStart = "bottom";
     mainEnd = "top";
-    mainsign = -1;
+    mainSign = -1;
     mainBase = style.height;
 
     crossSize = "width";
@@ -133,7 +133,7 @@ function layout(element) {
       var item = items[i];
       // 计算子元素的样式
       var itemStyle = getStyle(item);
-      if (itemStyle[mainSize] !== null || itemStyle[mainSize]) {
+      if (itemStyle[mainSize] !== null || itemStyle[mainSize] !== void 0) {
         elementStyle[mainSize] = elementStyle[mainSize] + itemStyle[mainSize];
       }
     }

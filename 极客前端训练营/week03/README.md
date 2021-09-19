@@ -60,3 +60,5 @@
 2.  [Problems loading reference 'http://json.schemastore.org/package': Unable to load schema from 'http://json.schemastore.org/package': Not Found. The requested location could not be found. 404 page not found.](https://stackoverflow.com/questions/49056000/all-of-my-json-files-have-problems-loading-reference-schema-from-schemastore-az)
 
 3.  [images 图片没有 save 上](https://stackoverflow.com/questions/43056946/how-take-out-warning-this-is-an-experimental-feature-and-could-change-at-any-t）
+
+4.  注意 server.js 中的字符串拼接问题和正则一一对应

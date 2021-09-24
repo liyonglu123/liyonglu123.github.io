@@ -45,3 +45,5 @@
 - el 不能是 body 或者 HTML 标签
 - 如果没有 render，把 template 转换成 render 函数
 - 如果有 render 方法，直接调用 mount 挂载 DOM
+
+7. vue 初始化过程分析

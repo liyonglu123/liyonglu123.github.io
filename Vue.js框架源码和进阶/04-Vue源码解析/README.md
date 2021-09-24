@@ -47,3 +47,12 @@
 - 如果有 render 方法，直接调用 mount 挂载 DOM
 
 7. vue 初始化过程分析
+
+8. 数据响应式原理
+
+- 处理入口
+- Observer
+- defineReactive
+- 依赖收集
+- 数组
+- Watcher 类， 分为三种： Computed Watcher, 用户 Watcher（侦听器），渲染 Watcher， 以及各自的执行时机

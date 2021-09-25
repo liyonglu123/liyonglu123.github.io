@@ -56,3 +56,17 @@
 - 依赖收集
 - 数组
 - Watcher 类， 分为三种： Computed Watcher, 用户 Watcher（侦听器），渲染 Watcher， 以及各自的执行时机
+
+9. 动态添加一个响应式属性（不能是 Vue 实例以及\$data）
+10. Vue 静态方法，set,delete,nextTick, 以及实例上的属性和方法
+11. 三种类型的 Watcher 对象
+
+    - 没有静态方法，因为\$watch 方法中要使用 Vue 的实例
+    - Watcher 分为三种： 计算属性 Watcher， 用户 Watcher（监听器），渲染 Watcher
+      - 创建和执行顺序为 计算属性 Watcher， 用户 Watcher（监听器），渲染 Watcher
+    - vm.\$watch()
+
+12. 异步更新队列-nextTick()
+    - Vue 更新 DOM 是异步执行的，批量的
+    - 在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后立即使用这个方法，获取更新后的 DOM
+    - vm.\$nextTick(function(){/_操作 DOM_/) / Vue.nextTick(function(){})

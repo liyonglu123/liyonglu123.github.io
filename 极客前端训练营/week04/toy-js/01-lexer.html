@@ -1,0 +1,57 @@
+<pre>
+<script>
+  let xreg = {
+    InputElement: "<Whitespace>|<LineTerminator>|<Comments>|<Token>",
+    Whitespace: / /,
+    LineTerminator: /\n/,
+    Comments: /\/\*(?:[^*]|\*[^\/])*\*\/|\/\/[^\n]*/,
+    Token: "<Literal>|<Keywords>|<Identifer>|<Punctuator>",
+    Literal: "<NumberLiteral>|<BooleanLiteral>|<StringLiteral>|<NullLiteral>",
+    NumberLiteral: /(?:[1-9][0-9]*|0)(?:\.[0-9]*)?|\.[0-9]+/,
+    BooleanLiteral: /true|false/,
+    StringLiteral: /\"([^"\n]|\\[\s\S])*\"|\'([^'\n]|\\[\s\S])*\'/,
+    NullLiteral: /null/,
+    Keywords: /if|else|for|function|let/,
+    Identifer: /[a-zA-Z_$][a-zA-Z0-9_$]*/,
+    Punctuator: /\(|\=|\<|\+\+|\=\=|\=\>|\>|\*|\.|\)|\[|\]|;|\{|\}|\,|\?|\+/,
+  };
+
+  function compileRegExp(xreg, name) {
+    if (xreg[name] instanceof RegExp) {
+      return xreg[name].source;
+    }
+    let reg = xreg[name].replace(/\<([^>]+)\>/g, function (str, $1) {
+      return compileRegExp(xreg, $1);
+    });
+    return reg;
+  }
+
+  let regexp = compileRegExp(xreg, "InputElement");
+
+  function scan(str) {
+    let reg = new RegExp(regexp, "g");
+    while (reg.lastIndex < str.length) {
+      let r = reg.exec(str);
+      console.log(JSON.stringify(r[0]));
+      document.write(r[0]);
+      if (!r[0].length) {
+        break;
+      }
+    }
+  }
+
+  scan(`
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            let cell = document.createElement("div");
+            cell.classList.add("cell");
+            cell.innerText =
+                 pattern[i * 3 + j] === 2 ? "❎" : pattern[i * 3 + j] === 1 ? "✅" : "";
+            cell.addEventListener("click", () => userMove(j, i));
+            board.appendChild(cell);
+        }
+        board.appendChild(document.createElement("br"));
+    }
+  `);
+</script>
+</pre>

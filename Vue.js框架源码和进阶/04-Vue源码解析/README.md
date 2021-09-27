@@ -95,9 +95,64 @@ vm.$createElement(tag, data, children, normalizeChildren);
 ```
 
 4. VNode 的核心属性
+
    - tag
    - data
    - children
    - text
    - elm
    - key
+
+5. diff 算法
+
+---
+
+## 模板编译
+
+1. 模板编译作用和渲染函数
+
+   - Vue2.x 使用 VNode 描述视图以及各种交互，用户自己编写 VNode 比较复杂
+   - 用户只需要编写类似 HTML 的代码- Vue.js 模板，通过编译器将模板转化为返回 VNode 的 render 函数
+   - .vue 文件会被 webpack 在构建的过程中转化为 render 函数， vue-loader
+   - 体验模板编译
+
+2. Vue Template Explorer 工具把模板转化成 render 函数
+
+3. 编译函数的入口，过程
+
+4. 什么抽象语法树
+
+   - 抽象语法树简称 AST
+   - 使用对象的形式描述树形的代码结构
+   - 此处的抽象语法树是用来描述树形结构的 HTML 字符串
+
+5. 为什么要使用抽象语法树
+   - 模板字符串转化成 AST 后，可以通过 AST 对模板做优化处理
+   - 标记模块中的静态内容，在 patch 的时候直接跳过静态内容
+   - 在 patch 的过程中静态内容不需要对比和重新渲染
+
+---
+
+## 组件化
+
+1. 定义
+   - 一个 Vue 组件就是一个拥有预定义选项的一个 Vue 实例
+   - 一个组件可以组成页面上一个功能完备的区域，组件可以包含脚本，样式，模板
+2. 组件的注册方式
+   - 全局组件
+   - 局部组件
+3. 页面首次渲染的过程
+
+```
+  Vue 构造函数
+  this._init()
+  this.$mount()
+  mountComponent()
+  new Watcher()渲染Watcher
+  updateComponent()
+  vm._render() -> createElement()
+  vm._update
+
+```
+
+4. 组件的注册，创建和 patch

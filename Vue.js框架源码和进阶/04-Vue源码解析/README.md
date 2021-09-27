@@ -70,3 +70,34 @@
     - Vue 更新 DOM 是异步执行的，批量的
     - 在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后立即使用这个方法，获取更新后的 DOM
     - vm.\$nextTick(function(){/_操作 DOM_/) / Vue.nextTick(function(){})
+
+---
+
+## 虚拟 DOM
+
+1. 定义
+   - 虚拟 DOM 是使用 JavaScript 对象描述真实的 DOM
+   - Vue.js 中的虚拟 DOM 借鉴了 Snabbdom, 并添加了 Vue.js 的特性
+     - 例如： 指令和组件机制
+2. 为什么使用虚拟 DOM
+   - 避免直接操作 DOM， 提高开发效率
+   - 作为一个中间层可以跨平台
+   - 虚拟 DOM 不一定可以提高性能
+     - 首次渲染的时候会增加开销
+     - 复杂视图情况下提升渲染性能
+3. h 函数
+
+```javascript
+vm.$createElement(tag, data, children, normalizeChildren);
+// tag 标签名称或者组件对象
+// data 描述tag，可以设置DOM的属性或者标签的属性
+// children tag中文本内容或者子节点
+```
+
+4. VNode 的核心属性
+   - tag
+   - data
+   - children
+   - text
+   - elm
+   - key

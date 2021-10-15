@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>createApp</title>
+  </head>
+  <body>
+    <div id="app">
+      x: {{ x }} <br />
+      y: {{ y }}
+    </div>
+    <script type="module">
+      import {
+        createApp,
+        reactive,
+        onMounted,
+        onUnmounted,
+        toRefs,
+      } from "./node_modules/vue/dist/vue.esm-browser.js";
+      // 封装成一个单独的函数，方便复用
+      const useMousePosition = () => {
+        // 第一个参数 props,响应式数据
+        // 第二个参数 context attrs, emit, slots
+        console.log(this);
+        // 此时position不是响应式的对象
+        const position = reactive({
+          x: 0,
+          y: 0,
+        });
+
+        const update = (e) => {
+          position.x = e.pageX;
+          position.y = e.pageY;
+        };
+
+        onMounted(() => {
+          window.addEventListener("mousemove", update);
+        });
+
+        onUnmounted(() => {
+          window.removeEventListener("mousemove", update);
+        });
+        // toRefs 把代理对象中的所有属性变为响应式，并且返回， value ，getter, setter
+        return toRefs(position);
+      };
+      // createApp 创建Vue对象，reactive 创建响应式对象
+      const app = createApp({
+        // data() {
+        //   return {
+        //     position: {
+        //       x: 0,
+        //       y: 0,
+        //     },
+        //   };
+        // },
+        setup() {
+          // const position = useMousePosition();
+          // 对象解构之后复制了新的基本类型，此时不是响应式了
+          const { x, y } = useMousePosition();
+          // 返回方便后续使用
+          return {
+            x,
+            y,
+          };
+        },
+        // mounted() {
+        //   //   console.log(this);
+        //   this.position.x = 100;
+        // },
+      });
+      console.log(app);
+      app.mount("#app");
+    </script>
+  </body>
+</html>

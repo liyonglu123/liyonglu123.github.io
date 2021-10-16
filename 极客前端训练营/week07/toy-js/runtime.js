@@ -110,11 +110,25 @@ export class JSObject extends JSValue {
     this.properties = new Map();
     this.prototype = proto || null; // 就是[[prototype]]
   }
+  set(name, value) {
+    // TODO: writeable etc.
+    this.setProperty(name, {
+      value: value,
+      enumrable: true,
+      configurable: true,
+      writeable: true,
+    });
+  }
+  get(name) {
+    // TODO: 原型链和getter
+    return this.getProperty(name).value;
+  }
   setProperty(name, attributes) {
     this.properties.set(name, attributes);
   }
-  getProperty() {
+  getProperty(name) {
     // TODO:
+    return this.properties.get(name);
   }
   setPrototype(proto) {
     this.prototype = proto;
@@ -175,18 +189,58 @@ export class Reference {
     this.property = property;
   }
   set(value) {
-    this.object[this.property] = value;
+    this.object.set(this.property, value);
   }
   get() {
-    return this.object[this.property];
+    return this.object.get(this.property);
   }
 }
 
+// 作用域
 export class EnvironmentRecord {
-  constructor() {
-    this.thisValue;
+  constructor(outer) {
     this.variables = new Map();
-    this.outer = null;
+    this.outer = outer;
+  }
+  add(name) {
+    this.variables.set(name, new JSUndefined());
+  }
+  get(name) {
+    if (this.variables.has(name)) {
+      console.log("EnvironmentRecord", this.variables.get(name));
+      return this.variables.get(name);
+    } else if (this.outer) {
+      return this.outer.get(name);
+    } else {
+      return new JSUndefined();
+    }
+  }
+  set(name, value = new JSUndefined()) {
+    if (this.variables.has(name)) {
+      return this.variables.set(name, value);
+    } else if (this.outer) {
+      return this.outer.set(name, value);
+    } else {
+      return this.variables.set(name, value);
+    }
+  }
+}
+
+export class ObjectEnvironmentRecord {
+  constructor(object, outer) {
+    this.object = object;
+    this.outer = outer;
+  }
+  add(name) {
+    this.object.set(name, new JSUndefined());
+  }
+  get(name) {
+    // TODO: with statement need outer
+    console.log("ObjectEnvironmentRecord", this.object.get(name));
+    return this.object.get(name);
+  }
+  set(name, value = new JSUndefined()) {
+    this.object.set(name, value);
   }
 }
 

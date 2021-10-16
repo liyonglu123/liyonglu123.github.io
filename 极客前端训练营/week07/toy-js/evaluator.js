@@ -10,13 +10,22 @@ import {
   JSUndefined,
   JSSymbol,
   CompletionRecord,
+  EnvironmentRecord,
+  ObjectEnvironmentRecord,
 } from "./runtime.js";
 // 运行时
 export class Evaluator {
   constructor() {
     this.realm = new Realm();
-    this.globalObject = {};
-    this.ecs = [new ExecutionContext(this.realm, this.globalObject)];
+    this.globalObject = new JSObject();
+    this.ecs = [
+      new ExecutionContext(
+        this.realm,
+        // 最开始的时候一致的
+        new ObjectEnvironmentRecord(this.globalObject),
+        new ObjectEnvironmentRecord(this.globalObject)
+      ),
+    ];
   }
   // 执行语法树
   evaluate(node) {
@@ -84,13 +93,16 @@ export class Evaluator {
     return this.evaluate(node.children[0]);
   }
   VariableDeclaration(node) {
-    // console.log("Declaration variable", node.children[1].name);
     let runningEC = this.ecs[this.ecs.length - 1];
-    runningEC.variableEnvironment[node.children[1].name] = new JSUndefined();
+    runningEC.lexicalEnvironment.add([node.children[1].name]);
     return new CompletionRecord("normal", new JSUndefined());
   }
   ExpressionStatement(node) {
-    return new CompletionRecord("normal", this.evaluate(node.children[0]));
+    let result = this.evaluate(node.children[0]);
+    if (result instanceof Reference) {
+      result = result.get();
+    }
+    return new CompletionRecord("normal", result);
   }
   Expression(node) {
     return this.evaluate(node.children[0]);
@@ -223,9 +235,9 @@ export class Evaluator {
     // descript
     object.set(name, {
       value: this.evaluate(node.children[2]),
-      writable: true,
+      writeable: true,
       enumerable: true,
-      configable: true,
+      configurable: true,
     });
   }
   BooleanLiteral(node) {
@@ -326,7 +338,17 @@ export class Evaluator {
     if (node.children.length === 2) {
       return;
     }
-    return this.evaluate(node.children[1]);
+    // TODO: 外面嵌套里面的可以使用esc进行处理, 这里块级作用域没有生效,
+    let runningEC = this.ecs[this.ecs.length - 1];
+    let newEC = new ExecutionContext(
+      runningEC.realm,
+      new EnvironmentRecord(runningEC.lexicalEnvironment),
+      runningEC.variableEnvironment
+    );
+    this.ecs.push(newEC);
+    let result = this.evaluate(node.children[1]);
+    this.ecs.pop(newEC);
+    return result;
   }
   // EOF() {
   //   return null;

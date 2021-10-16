@@ -23,7 +23,7 @@ let syntax = {
   WhileStatement: [["while", "(", "Expression", ")", "Statement"]],
   IfStatement: [["if", "(", "Expression", ")", "Statement"]],
   VariableDeclaration: [
-    ["var", "Identifier", ";"],
+    // ["var", "Identifier", ";"],
     ["let", "Identifier", ";"],
   ],
   FunctionDeclaration: [

@@ -23,3 +23,7 @@
 
 1. CompletionRecord 类型 js 引擎内容类型，使用者不会知道该类型
 2. break, continue 的实现
+
+### 六、JavaScript 语言 | 作用域一
+
+1. 作用域， 运行时

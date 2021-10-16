@@ -14,6 +14,9 @@ let syntax = {
     ["BreakStatement"],
     ["ContinueStatement"],
   ],
+  FunctionDeclaration: [
+    ["function", "Identifier", "(", ")", "{", "StatementList", "}"],
+  ],
   BreakStatement: [["break", ";"]],
   ContinueStatement: [["continue", ";"]],
   Block: [
@@ -60,6 +63,14 @@ let syntax = {
     ["MemberExpression", "Arguments"],
     ["CallExpression", "Arguments"],
   ], // new a()
+  Arguments: [
+    ["(", ")"],
+    ["(", "ArgumentList", ")"],
+  ],
+  ArgumentList: [
+    ["AssignmentExpression"],
+    ["ArgumentList", ",", "AssignmentExpression"],
+  ],
   NewExpression: [["MemberExpression"], ["new", "NewExpression"]], // new a
   MemberExpression: [
     ["PrimaryExpression"],

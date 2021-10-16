@@ -18,6 +18,10 @@ export class Evaluator {
   constructor() {
     this.realm = new Realm();
     this.globalObject = new JSObject();
+    this.globalObject.set("log", new JSObject());
+    this.globalObject.get("log").call = (args) => {
+      console.log(args);
+    };
     this.ecs = [
       new ExecutionContext(
         this.realm,
@@ -26,6 +30,18 @@ export class Evaluator {
         new ObjectEnvironmentRecord(this.globalObject)
       ),
     ];
+  }
+  evaluateModule(node) {
+    let globalEC = this.ecs[0];
+    let newEC = new ExecutionContext(
+      this.realm,
+      new EnvironmentRecord(globalEC.lexicalEnvironment),
+      new EnvironmentRecord(globalEC.lexicalEnvironment)
+    );
+    this.ecs.push(newEC);
+    let result = this.evaluate(node);
+    this.ecs.pop();
+    return result;
   }
   // 执行语法树
   evaluate(node) {
@@ -312,7 +328,11 @@ export class Evaluator {
     if (node.children.length === 2) {
       let func = this.evaluate(node.children[0]);
       let args = this.evaluate(node.children[1]);
-      return func.call();
+      // 解引用
+      if (func instanceof Reference) {
+        func = func.get();
+      }
+      return func.call(args);
     }
   }
   MemberExpression(node) {
@@ -334,6 +354,28 @@ export class Evaluator {
     let runningEC = this.ecs[this.ecs.length - 1];
     return new Reference(runningEC.lexicalEnvironment, node.name);
   }
+  Arguments(node) {
+    if (node.children.length === 2) {
+      return [];
+    } else {
+      return this.evaluate(node.children[1]);
+    }
+  }
+  ArgumentList(node) {
+    if (node.children.length === 1) {
+      let result = this.evaluate(node.children[0]);
+      if (result instanceof Reference) {
+        result = result.get();
+      }
+      return [result];
+    } else {
+      let result = this.evaluate(node.children[2]);
+      if (result instanceof Reference) {
+        result = result.get();
+      }
+      return this.evaluate(node.children[0]).concat(result);
+    }
+  }
   Block(node) {
     if (node.children.length === 2) {
       return;
@@ -349,6 +391,26 @@ export class Evaluator {
     let result = this.evaluate(node.children[1]);
     this.ecs.pop(newEC);
     return result;
+  }
+  FunctionDeclaration(node) {
+    let name = node.children[1].name;
+    let code = node.children[node.children.length - 2];
+    let func = new JSObject();
+    func.call = (args) => {
+      let newEC = new ExecutionContext(
+        this.realm,
+        new EnvironmentRecord(func.environment),
+        new EnvironmentRecord(func.environment)
+      );
+      this.ecs.push(newEC);
+      this.evaluate(code);
+      this.ecs.pop();
+    };
+    let runningEC = this.ecs[this.ecs.length - 1];
+    runningEC.lexicalEnvironment.add(name);
+    runningEC.lexicalEnvironment.set(name, func);
+    func.environment = runningEC.lexicalEnvironment;
+    return new CompletionRecord("normal");
   }
   // EOF() {
   //   return null;

@@ -17,3 +17,9 @@
 4. trigger
 
 ## 三、 Proxy 对象回顾
+
+## 四、 reactive
+
+1. 接收一个参数，判断这参数是否是对象
+2. 创建拦截器对象 handler，设置 get/set/deleteProperty
+3. 返回 Proxy 对象

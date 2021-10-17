@@ -23,3 +23,10 @@
 1. 接收一个参数，判断这参数是否是对象
 2. 创建拦截器对象 handler，设置 get/set/deleteProperty
 3. 返回 Proxy 对象
+4. effect & track & trigger
+5. ref, 对象或者是原始类型
+6. reactive vs ref
+   - ref 可以把基本数据类型，转化成响应式对象
+   - ref 返回的对象，重新赋值成对象也是响应式的
+   - reactive 返回的对象，重新赋值丢失响应式
+   - reactive 返回的对象不可以解构

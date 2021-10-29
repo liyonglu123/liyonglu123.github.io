@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>requestIdelCallback</title>
+    <style>
+      #box {
+        width: 200px;
+        height: 200px;
+        background: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+    <button id="btn1">执行计算任务</button>
+    <button id="btn2">更改背景颜色</button>
+    <script>
+      var box = document.getElementById("box");
+      var btn1 = document.getElementById("btn1");
+      var btn2 = document.getElementById("btn2");
+
+      var number = 99999;
+      var value = 0;
+
+      function calc(deadline) {
+        // 获取浏览器的空余时间
+        // deadline.timeRemaining();
+        while (number > 0 && deadline.timeRemaining() > 1) {
+          value = Math.random() < 0.5 ? Math.random() : Math.random();
+          console.log(value);
+          number--;
+        }
+        // 中断后再次执行
+        requestIdleCallback(calc);
+      }
+
+      btn1.onclick = function () {
+        // 利用浏览器的空余时间去执行任务
+        requestIdleCallback(calc);
+        // calc();
+      };
+
+      btn2.onclick = function () {
+        box.style.background = "blue";
+      };
+    </script>
+  </body>
+</html>

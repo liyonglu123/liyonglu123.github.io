@@ -1,0 +1,1 @@
+{"version":3,"file":"bundle.js","mappings":";;;;;AAAAA,OAAO,CAACC,GAAR,CAAY,QAAZ,E","sources":["webpack://03-Fiber/./src/index.js"],"sourcesContent":["console.log(\"client\");\n"],"names":["console","log"],"sourceRoot":""}

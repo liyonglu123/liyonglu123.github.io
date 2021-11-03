@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+
+.drag-box {
+  user-select: none;
+  background: #f0f0f0;
+  z-index: 2147483647;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 200px;
+}
+
+#dragBoxBar {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  background: #ccc;
+  width: 100%;
+  height: 40px;
+  cursor: move;
+  user-select: none;
+}
+
+.no-select {
+  user-select: none;
+}
+
+.pointer-events {
+  pointer-events: none;
+}
+
+.no-border {
+  border: none;
+}
+
+#injectedBox {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: #eee;
+}

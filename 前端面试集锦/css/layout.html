@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>布局</title>
+    <style>
+      html * {
+        margin: 0;
+        padding: 0;
+      }
+      .layout {
+        margin-top: 30px;
+      }
+      .layout article div {
+        min-height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- float -->
+    <section class="layout float">
+      <style media="screen">
+        .layout.float .left {
+          float: left;
+          width: 300px;
+          background: red;
+        }
+        .layout.float .right {
+          float: right;
+          width: 300px;
+          background: blue;
+        }
+        .layout.float .center {
+          background: yellow;
+        }
+      </style>
+      <article class="left-right-center">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="center">
+          <h1>浮动解决方案</h1>
+          1. 这是三栏布局浮动的中间部分
+        </div>
+      </article>
+    </section>
+
+    <!-- absolute -->
+    <section class="layout absolute">
+      <style media="screen">
+        .layout.absolute .left-right-center > div {
+          position: absolute;
+        }
+        .layout.absolute .left {
+          left: 0;
+          width: 300px;
+          background: red;
+        }
+        .layout.absolute .center {
+          left: 300px;
+          right: 300px;
+          background: yellow;
+        }
+        .layout.absolute .right {
+          right: 0;
+          width: 300px;
+          background: blue;
+        }
+      </style>
+      <article class="left-right-center">
+        <div class="left"></div>
+        <div class="center">
+          <h1>绝对定位解决方案</h1>
+          1. 这是三栏布局绝对定位的中间部分
+        </div>
+        <div class="right"></div>
+      </article>
+    </section>
+
+    <!-- flex box -->
+    <section class="layout flexbox">
+      <style media="screen">
+        .layout.flexbox {
+          margin-top: 140px;
+        }
+        .layout.flexbox .left-right-center {
+          display: flex;
+        }
+        .layout.flexbox .left {
+          width: 300px;
+          background: red;
+        }
+        .layout.flexbox .center {
+          flex: 1;
+          background: yellow;
+        }
+        .layout.flexbox .right {
+          width: 300px;
+          background: blue;
+        }
+      </style>
+      <article class="left-right-center">
+        <div class="left"></div>
+        <div class="center">
+          <h1>flexbox定位解决方案</h1>
+          1. 这是三栏布局的中间部分
+        </div>
+        <div class="right"></div>
+      </article>
+    </section>
+
+    <!-- table-->
+    <section class="layout table">
+      <style media="screen">
+        .layout.table .left-right-center {
+          display: table;
+          width: 100%;
+          height: 100px;
+        }
+        .layout.table .left-right-center > div {
+          display: table-cell;
+        }
+        .layout.table .left {
+          width: 300px;
+          background: red;
+        }
+        .layout.table .center {
+          background: yellow;
+        }
+        .layout.table .right {
+          width: 300px;
+          background: blue;
+        }
+      </style>
+      <article class="left-right-center">
+        <div class="left"></div>
+        <div class="center">
+          <h1>table定位解决方案</h1>
+          1. 这是三栏布局的中间部分
+        </div>
+        <div class="right"></div>
+      </article>
+    </section>
+
+    <!-- grid-->
+    <section class="layout grid">
+      <style media="screen">
+        .layout.grid .left-right-center {
+          display: grid;
+          width: 100%;
+          grid-template-rows: 100px;
+          grid-template-columns: 300px auto 300px;
+        }
+        .layout.grid .left {
+          background: red;
+        }
+        .layout.grid .center {
+          background: yellow;
+        }
+        .layout.grid .right {
+          background: blue;
+        }
+      </style>
+      <article class="left-right-center">
+        <div class="left"></div>
+        <div class="center">
+          <h1>grid定位解决方案</h1>
+          1. 这是三栏布局的中间部分
+        </div>
+        <div class="right"></div>
+      </article>
+    </section>
+    <script>
+      /**
+       * 1. 每个方案的优缺点
+       *  浮动： 优点是兼容性好，缺点是需要清除浮动，
+       *  绝对： 优点是快捷，缺点脱离文档六
+       *  flex: good
+       *  table: 兼容性好，单一个单元格同时变化的
+       *  grid: 代码量少，兼容性差
+       * 2. 高度未知时
+       *    flex, tabel能使用
+       * 3. BFC
+       * 4. 语义化，页面布局深刻理解，css基础要扎实，思维灵活积极上进，代码书写规范
+       */
+    </script>
+  </body>
+</html>

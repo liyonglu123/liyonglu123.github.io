@@ -1,6 +1,8 @@
 // 常见的动画帧方法
 // setInterval(() => {}, 16);
 
+import { linear } from "./ease";
+
 // let tick = () => {
 //   setTimeout(tick, 16);
 // };
@@ -32,15 +34,21 @@ export class Timeline {
       for (let animation of this[ANIMATIONS]) {
         let t;
         if (this[START_TIME].get(animation) < startTime) {
-          t = now - startTime - this[PAUSE_TIME];
+          t = now - startTime - this[PAUSE_TIME] - animation.delay;
         } else {
-          t = now - this[START_TIME].get(animation) - this[PAUSE_TIME];
+          t =
+            now -
+            this[START_TIME].get(animation) -
+            this[PAUSE_TIME] -
+            animation.delay;
         }
         if (animation.duration < t) {
           this[ANIMATIONS].delete(animation);
           t = animation.duration;
         }
-        animation.receive(t);
+        if (t > 0) {
+          animation.receive(t);
+        }
       }
       this[TICK_HANDLER] = requestAnimationFrame(this[TICK]);
     };
@@ -58,7 +66,15 @@ export class Timeline {
     this[PAUSE_TIME] += Date.now() - this[PAUSE_START];
     this[TICK]();
   }
-  reset() {}
+  reset() {
+    this.pause();
+    let startTime = Date.now();
+    this[PAUSE_TIME] = 0;
+    this[ANIMATIONS] = new Set();
+    this[START_TIME] = new Map();
+    this[TICK_HANDLER] = null;
+    this[PAUSE_START] = 0;
+  }
   // 如何添加delay
   add(animation, startTime) {
     if (arguments.length < 2) {
@@ -81,20 +97,23 @@ export class Animation {
     timingFunction,
     template
   ) {
+    timingFunction = timingFunction || ((v) => v);
+    template = template || ((v) => v);
     this.object = object;
     this.property = property;
     this.startValue = startValue;
     this.endValue = endValue;
     this.duration = duration;
     this.delay = delay;
-    this.timingFunction = timingFunction;
+    this.timingFunction = timingFunction; // 0-1
     this.template = template;
   }
   receive(time) {
     // console.log(time);
     let range = this.endValue - this.startValue;
+    let progress = this.timingFunction(time / this.duration);
     this.object[this.property] = this.template(
-      this.startValue + (range * time) / this.duration
+      this.startValue + range * progress
     );
   }
 }

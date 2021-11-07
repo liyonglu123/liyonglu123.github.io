@@ -15,3 +15,5 @@
 [手势基本流程](https://www.yuque.com/zuimeideshiguang-myh9b/inaixy/elv680)
 
 ## 7. 手势和动画 | 实现鼠标操作
+
+## 8. 手势和动画 | 实现手势的逻辑

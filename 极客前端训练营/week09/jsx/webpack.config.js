@@ -5,6 +5,7 @@ module.exports = {
   entry: {
     index: "./index.js",
     animationDemo: "./animation-demo.js",
+    gesture: "./gesture.js",
   },
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -41,6 +42,11 @@ module.exports = {
       filename: "animation.html",
       template: "./animation.html",
       chunks: ["animation", "animationDemo"],
+    }),
+    new HtmlWebpackPlugin({
+      filename: "gesture.html",
+      template: "./gesture.html",
+      chunks: ["animation", "gesture"],
     }),
   ],
   mode: "development",

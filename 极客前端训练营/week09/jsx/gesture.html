@@ -6,8 +6,10 @@
     <title>gesture</title>
   </head>
   <body oncontextmenu="event.preventDefault()">
-    <script src="./gesture.js"></script>
-    <script>
+    <!-- <script src="./gesture.js"></script> -->
+    <script type="module">
+      import { enableGesture } from "./gesture.js";
+      enableGesture(document.documentElement);
       document.documentElement.addEventListener("tap", () => {
         console.log("tap evnet tirgger!!!");
       });

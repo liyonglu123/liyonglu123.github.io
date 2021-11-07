@@ -7,5 +7,10 @@
   </head>
   <body oncontextmenu="event.preventDefault()">
     <script src="./gesture.js"></script>
+    <script>
+      document.documentElement.addEventListener("tap", () => {
+        console.log("tap evnet tirgger!!!");
+      });
+    </script>
   </body>
 </html>

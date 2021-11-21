@@ -10,3 +10,5 @@
 5. 初始化与构建 Babel 基础知识
 6. 单元测试工具 | Mocha(一)
 7. 单元测试工具 | Mocha(二)
+8. 单元测试工具 | Code Coverage
+   - nyc

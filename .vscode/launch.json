@@ -8,8 +8,11 @@
       "type": "node",
       "request": "launch",
       "name": "Node.js",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/极客前端训练营/week03/6-renderDom/client.js",
+      // "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["--require", "@babel/register"], // nodejs的运行时的参数
+      "sourceMaps": true,
+      "args": [], // mocha的参数
+      "program": "${workspaceFolder}/极客前端训练营/week11/html-parser/node_modules/.bin/mocha",
       "protocol": "auto"
     },
     {

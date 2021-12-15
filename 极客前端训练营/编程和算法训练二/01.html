@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>地图编辑器</title>
+    <style>
+      /* TODO: 会出现很多空白的原因 font-size: 0; */
+      .cell {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        line-height: 7px;
+        background-color: gray;
+        border-bottom: 1px solid white;
+        border-right: 1px solid white;
+        vertical-align: top;
+      }
+
+      #container {
+        width: 701px;
+        font-size: 0;
+      }
+
+      /* .cell {
+        flex: 0 0 6px;
+        width: 6px;
+        height: 6px;
+        background-color: gray;
+        border-bottom: 1px solid white;
+        border-right: 1px solid white;
+      }
+
+      #container {
+        display: flex;
+        width: 701px;
+        flex-wrap: wrap;
+      } */
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <button onclick="localStorage['map'] = JSON.stringify(map)">save</button>
+
+    <script>
+      let map = localStorage["map"]
+        ? JSON.parse(localStorage["map"])
+        : Array(10000).fill(0);
+      let container = document.getElementById("container");
+
+      let mousedown = false;
+      let clear = false;
+
+      for (let y = 0; y < 100; y++) {
+        for (let x = 0; x < 100; x++) {
+          let cell = document.createElement("div");
+          cell.classList.add("cell");
+
+          if (map[100 * y + x] === 1) {
+            cell.style.backgroundColor = "black";
+          }
+
+          cell.addEventListener("mousemove", () => {
+            if (mousedown) {
+              if (clear) {
+                cell.style.backgroundColor = "";
+                map[100 * y + x] = 0;
+              } else {
+                cell.style.backgroundColor = "black";
+                map[100 * y + x] = 1;
+              }
+            }
+          });
+
+          container.appendChild(cell);
+        }
+      }
+
+      //   console.log(document.getElementsByClassName("cell"));
+
+      document.addEventListener("mousedown", (e) => {
+        mousedown = true;
+        // 是否按的右键
+        clear = e.which === 3;
+      });
+
+      document.addEventListener("mouseup", () => (mousedown = false));
+      //   document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+      function path(map, start, end) {}
+    </script>
+  </body>
+</html>

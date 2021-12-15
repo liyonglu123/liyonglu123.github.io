@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>红绿灯问题-async</title>
+  </head>
+  <style>
+    div {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      margin: 30px;
+      background-color: grey;
+      border-radius: 50px;
+    }
+    .green.light {
+      background-color: green;
+    }
+    .yellow.light {
+      background-color: yellow;
+    }
+    .red.light {
+      background-color: red;
+    }
+  </style>
+  <body>
+    <div class="green"></div>
+    <div class="yellow"></div>
+    <div class="red"></div>
+    <button id="next">next</button>
+    <script>
+      function green() {
+        var lights = document.getElementsByTagName("div");
+        for (var i = 0; i < 3; i++) {
+          lights[i].classList.remove("light");
+        }
+        document.getElementsByClassName("green")[0].classList.add("light");
+      }
+
+      function red() {
+        var lights = document.getElementsByTagName("div");
+        for (var i = 0; i < 3; i++) {
+          lights[i].classList.remove("light");
+        }
+        document.getElementsByClassName("red")[0].classList.add("light");
+      }
+
+      function yellow() {
+        var lights = document.getElementsByTagName("div");
+        for (var i = 0; i < 3; i++) {
+          lights[i].classList.remove("light");
+        }
+        document.getElementsByClassName("yellow")[0].classList.add("light");
+      }
+
+      function sleep(t) {
+        return new Promise((resolve, reject) => {
+          setTimeout(resolve, t);
+        });
+      }
+
+      // 可以用来处理交通堵塞问题
+      function happen(element, eventName) {
+        return new Promise((resolve, reject) => {
+          element.addEventListener(eventName, resolve, { once: true });
+        });
+      }
+
+      // async function go() {
+      //   while (true) {
+      //     green();
+      //     await sleep(1000);
+      //     yellow();
+      //     await sleep(200);
+      //     red();
+      //     await sleep(500);
+      //   }
+      // }
+
+      // 手动控制
+      async function go() {
+        while (true) {
+          green();
+          await happen(document.getElementById("next"), "click");
+          yellow();
+          await happen(document.getElementById("next"), "click");
+          red();
+          await happen(document.getElementById("next"), "click");
+        }
+      }
+    </script>
+  </body>
+</html>

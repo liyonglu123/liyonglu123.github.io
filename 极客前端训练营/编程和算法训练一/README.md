@@ -31,3 +31,6 @@
 - callback
 - Promise
 - async/await
+- generator 和异步
+  - generator 模拟 async/await
+  - async generator, for await of

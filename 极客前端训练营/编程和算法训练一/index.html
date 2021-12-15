@@ -22,12 +22,15 @@
   <body>
     <div id="board"></div>
     <script>
-      let pattern = [
-        [0, 0, 0],
-        [0, 0, 0],
-        [0, 0, 0],
-      ];
+      // 二维数组
+      //   let pattern = [
+      //     [0, 0, 0],
+      //     [0, 0, 0],
+      //     [0, 0, 0],
+      //   ];
 
+      // 一维数组
+      let pattern = [0, 0, 0, 0, 0, 0, 0, 0, 0];
       let color = 1;
 
       function show() {
@@ -38,7 +41,11 @@
             let cell = document.createElement("div");
             cell.classList.add("cell");
             cell.innerText =
-              pattern[i][j] === 2 ? "❌" : pattern[i][j] === 1 ? "⭕️" : "";
+              pattern[i * 3 + j] === 2
+                ? "❌"
+                : pattern[i * 3 + j] === 1
+                ? "⭕️"
+                : "";
             cell.addEventListener("click", () => move(j, i));
             board.appendChild(cell);
           }
@@ -47,12 +54,13 @@
       }
 
       function move(x, y) {
-        pattern[y][x] = color;
+        pattern[y * 3 + x] = color;
         // 判断输赢
         if (check(pattern, color)) {
           alert(color === 2 ? "❌ is winner!" : "⭕️ is winner!");
         }
         color = 3 - color;
+        console.log(bestChoice(pattern, color));
         show();
         // 检查是否要赢了
         if (willWin(pattern, color)) {
@@ -65,7 +73,7 @@
         for (let i = 0; i < 3; i++) {
           let win = true;
           for (let j = 0; j < 3; j++) {
-            if (pattern[i][j] !== color) {
+            if (pattern[i * 3 + j] !== color) {
               win = false;
             }
           }
@@ -78,7 +86,7 @@
         for (let i = 0; i < 3; i++) {
           let win = true;
           for (let j = 0; j < 3; j++) {
-            if (pattern[j][i] !== color) {
+            if (pattern[j * 3 + i] !== color) {
               win = false;
             }
           }
@@ -90,7 +98,7 @@
         {
           let win = true;
           for (let j = 0; j < 3; j++) {
-            if (pattern[j][2 - j] !== color) {
+            if (pattern[j * 3 + 2 - j] !== color) {
               win = false;
             }
           }
@@ -103,7 +111,7 @@
         {
           let win = true;
           for (let j = 0; j < 3; j++) {
-            if (pattern[j][j] !== color) {
+            if (pattern[j * 3 + j] !== color) {
               win = false;
             }
           }
@@ -115,23 +123,65 @@
       }
 
       function clone(pattern) {
-        return JSON.parse(JSON.stringify(pattern));
+        // return JSON.parse(JSON.stringify(pattern));
+        // 一维数组
+        return Object.create(pattern);
       }
 
       function willWin(pattern, color) {
         for (let i = 0; i < 3; i++) {
           for (let j = 0; j < 3; j++) {
-            if (pattern[i][j]) {
+            if (pattern[i * 3 + j]) {
               continue;
             }
             let tmp = clone(pattern);
-            tmp[i][j] = color;
+            tmp[i * 3 + j] = color;
             if (check(tmp, color)) {
-              return true;
+              //   return true;
+              return [j, i];
             }
           }
         }
-        return false;
+        // return false;
+        return null;
+      }
+
+      // 做最好的选择
+      function bestChoice(pattern, color) {
+        let p;
+        if ((p = willWin(pattern, color))) {
+          return {
+            point: p,
+            result: 1,
+          };
+        }
+
+        let result = -2;
+        let point = null;
+        outer: for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            if (pattern[i * 3 + j]) {
+              continue;
+            }
+            let tmp = clone(pattern);
+            tmp[i * 3 + j] = color;
+            let opp = bestChoice(tmp, 3 - color);
+
+            // 对方赢表示我们输
+            if (-opp.result >= result) {
+              result = -opp.result;
+              point = [j, i];
+            }
+            // 剪枝
+            if (result === 1) {
+              break outer;
+            }
+          }
+        }
+        return {
+          point: point,
+          result: point ? result : 0,
+        };
       }
 
       show(pattern);
